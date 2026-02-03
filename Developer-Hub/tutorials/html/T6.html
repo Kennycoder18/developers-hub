@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tables Tutorial | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488; /* Teal */
+            --secondary-color: #0ea5e9; /* Sky blue */
+            --accent-color: #10b981; /* Emerald */
+            --dark-color: #0f172a; /* Dark blue */
+            --light-color: #f0f9ff; /* Light blue background */
+            --text-color: #334155; /* Gray-blue text */
+            --code-bg: #1e293b; /* Dark blue for code */
+            --success-color: #10b981; /* Green */
+            --info-color: #3b82f6; /* Blue */
+            --card-bg: #ffffff;
+            --warning-color: #f59e0b; /* Amber */
+            --error-color: #ef4444; /* Red */
+            --table-header: #0ea5e9;
+            --table-row-even: #f8fafc;
+            --table-row-hover: #f0f9ff;
+            --table-border: #e2e8f0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-color) 0%, #e0f2fe 100%);
+            color: var(--text-color);
+            line-height: 1.7;
+            /* padding: 20px; */
+            /* max-width: 1200px; */
+            margin: 0 auto;
+        }
+
+        .tutorial-container {
+            background-color: var(--card-bg);
+            /* border-radius: 16px; */
+            box-shadow: 0 10px 25px rgba(13, 148, 136, 0.1);
+            overflow: hidden;
+            /* margin-bottom: 40px; */
+            border: 1px solid #e2e8f0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.9rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+            border-radius: 5px;
+        }
+
+        .section-title i {
+            margin-right: 12px;
+            background-color: #f0f9ff;
+            padding: 12px;
+            border-radius: 10px;
+            color: var(--primary-color);
+        }
+
+        .info-box {
+            background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+            border-left: 5px solid var(--accent-color);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .info-box strong {
+            color: var(--primary-color);
+        }
+
+        .code-container {
+            background-color: var(--code-bg);
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            border: 1px solid #334155;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-tag {
+            color: #7dd3fc; /* Light blue */
+        }
+
+        .code-attr {
+            color: #fbb6ce; /* Pink */
+        }
+
+        .code-value {
+            color: #86efac; /* Light green */
+        }
+
+        .code-comment {
+            color: #94a3b8; /* Gray-blue */
+            font-style: italic;
+        }
+
+        .example-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .example-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .example-header {
+            background: linear-gradient(to right, #e0f2fe, #f0f9ff);
+            padding: 15px 25px;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .example-header i {
+            margin-right: 10px;
+        }
+
+        .example-content {
+            padding: 25px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .practice-box {
+            background: linear-gradient(to right, #d1fae5, #a7f3d0);
+            border: 1px solid #86efac;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2386efac" opacity="0.3"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>') no-repeat;
+            background-size: contain;
+            opacity: 0.3;
+        }
+
+        .practice-box h3 {
+            color: #065f46;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .practice-box h3 i {
+            margin-right: 10px;
+        }
+
+        .highlight {
+            background-color: rgba(16, 185, 129, 0.1);
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .warning-box {
+            background: linear-gradient(to right, #fef3c7, #fde68a);
+            border-left: 5px solid var(--warning-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .warning-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-box h4 i {
+            margin-right: 10px;
+        }
+
+        .element-demo {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            border-left: 5px solid var(--accent-color);
+            overflow-x: auto;
+        }
+
+        .element-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .element-card {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .element-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+        }
+
+        .element-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(13, 148, 136, 0.15);
+        }
+
+        .element-card h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .element-card h4 i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .element-example {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 3px solid var(--primary-color);
+            overflow-x: auto;
+        }
+
+        .table-demo {
+            background-color: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .interactive-demo {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .element-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.9rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+            
+            .code-container {
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .element-demo {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Scroll animation for sections */
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Copy button for code blocks */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            border: 1px solid #475569;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .code-wrapper {
+            position: relative;
+        }
+
+        .topic-tabs {
+            display: flex;
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .topic-tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .topic-tab.active {
+            color: var(--primary-color);
+        }
+
+        .topic-tab.active::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border-radius: 3px 3px 0 0;
+        }
+
+        .topic-tab:hover {
+            color: var(--primary-color);
+        }
+
+        .topic-content {
+            display: none;
+        }
+
+        .topic-content.active {
+            display: block;
+        }
+
+        /* Table Styling */
+        .demo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .demo-table th {
+            background-color: var(--table-header);
+            color: white;
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #0ea5e9;
+        }
+
+        .demo-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--table-border);
+        }
+
+        .demo-table tr:nth-child(even) {
+            background-color: var(--table-row-even);
+        }
+
+        .demo-table tr:hover {
+            background-color: var(--table-row-hover);
+        }
+
+        .demo-table caption {
+            caption-side: top;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 15px;
+            background-color: #f0f9ff;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .complex-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .complex-table th,
+        .complex-table td {
+            border: 1px solid var(--table-border);
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .complex-table th {
+            background-color: #e0f2fe;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .complex-table .header-row {
+            background-color: var(--table-header);
+            color: white;
+        }
+
+        .complex-table .subheader-row {
+            background-color: #bae6fd;
+            font-weight: 500;
+        }
+
+        .complex-table .total-row {
+            background-color: #d1fae5;
+            font-weight: 600;
+        }
+
+        .table-reference {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .table-reference th {
+            background-color: #f1f5f9;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark-color);
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .table-reference td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .table-reference tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .table-reference td:first-child {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .demo-btn {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .demo-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .accessibility-demo {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .responsive-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+        }
+
+        .colgroup-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .colgroup-table col:nth-child(1) {
+            background-color: #f0f9ff;
+        }
+
+        .colgroup-table col:nth-child(2) {
+            background-color: #fef3c7;
+        }
+
+        .colgroup-table col:nth-child(3) {
+            background-color: #dcfce7;
+        }
+
+        .colgroup-table th,
+        .colgroup-table td {
+            border: 1px solid var(--table-border);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .colgroup-table th {
+            background-color: #e0f2fe;
+            font-weight: 600;
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .header-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- inserted -->
+    <header class="header-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </header>
+    <!-- /inserted -->
+
+    <div class="tutorial-container">
+        <div class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-table"></i> HTML Tables Tutorial</h1>
+                <p>Master HTML tables to organize and present tabular data effectively with proper semantics and accessibility.</p>
+                <div>
+                    <span class="badge"><i class="fas fa-clock"></i> 25 min read</span>
+                    <span class="badge"><i class="fas fa-tags"></i> Data Presentation</span>
+                    <span class="badge"><i class="fas fa-check-circle"></i> Accessibility Focus</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="topic-tabs">
+                <button class="topic-tab active" data-tab="basics"><i class="fas fa-th"></i> Table Basics</button>
+                <button class="topic-tab" data-tab="structure"><i class="fas fa-sitemap"></i> Table Structure</button>
+                <button class="topic-tab" data-tab="advanced"><i class="fas fa-cogs"></i> Advanced Tables</button>
+            </div>
+            
+            <!-- Table Basics Content -->
+            <section class="topic-content active" id="basics-content">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-table"></i> HTML Table Fundamentals</h2>
+                    <p>HTML tables are used to display tabular data—information that's logically arranged in rows and columns. Tables should be used for data presentation, not for page layout.</p>
+                    
+                    <div class="info-box">
+                        <p><strong><i class="fas fa-lightbulb"></i> Key Concept:</strong> Tables consist of rows (<span class="highlight">&lt;tr&gt;</span>), header cells (<span class="highlight">&lt;th&gt;</span>), and data cells (<span class="highlight">&lt;td&gt;</span>). All are contained within a <span class="highlight">&lt;table&gt;</span> element.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-code"></i> Basic Table Structure</h2>
+                    <p>The simplest table consists of rows, header cells, and data cells:</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            <span class="code-tag">&lt;table&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Header 1<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Header 2<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Header 3<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 1, Cell 1<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 1, Cell 2<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 1, Cell 3<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 2, Cell 1<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 2, Cell 2<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 2, Cell 3<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            <span class="code-tag">&lt;/table&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="element-demo">
+                        <h4>Live Table Example:</h4>
+                        <table class="demo-table">
+                            <tr>
+                                <th>Header 1</th>
+                                <th>Header 2</th>
+                                <th>Header 3</th>
+                            </tr>
+                            <tr>
+                                <td>Row 1, Cell 1</td>
+                                <td>Row 1, Cell 2</td>
+                                <td>Row 1, Cell 3</td>
+                            </tr>
+                            <tr>
+                                <td>Row 2, Cell 1</td>
+                                <td>Row 2, Cell 2</td>
+                                <td>Row 2, Cell 3</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Table Usage Warning</h4>
+                        <p><strong>Avoid using tables for page layout!</strong> Tables should only be used for tabular data. Use CSS Flexbox or Grid for page layouts. Table layouts break accessibility and are difficult to maintain.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-th-list"></i> Table Elements Reference</h2>
+                    <p>HTML provides several elements for creating structured, semantic tables:</p>
+                    
+                    <div class="element-grid">
+                        <div class="element-card">
+                            <h4><i class="fas fa-table"></i> &lt;table&gt;</h4>
+                            <p>The container element for all table content. Defines the table structure.</p>
+                            <div class="element-example">
+                                &lt;table&gt;...&lt;/table&gt;
+                            </div>
+                            <p><strong>Use:</strong> Wraps all table elements</p>
+                        </div>
+                        
+                        <div class="element-card">
+                            <h4><i class="fas fa-grip-lines"></i> &lt;tr&gt;</h4>
+                            <p>Table Row. Contains table cells (<span class="highlight">&lt;th&gt;</span> or <span class="highlight">&lt;td&gt;</span>).</p>
+                            <div class="element-example">
+                                &lt;tr&gt;<br>
+                                &nbsp;&nbsp;&lt;td&gt;Cell&lt;/td&gt;<br>
+                                &lt;/tr&gt;
+                            </div>
+                            <p><strong>Use:</strong> Each row of the table</p>
+                        </div>
+                        
+                        <div class="element-card">
+                            <h4><i class="fas fa-heading"></i> &lt;th&gt;</h4>
+                            <p>Table Header. Defines a header cell. Screen readers use these for context.</p>
+                            <div class="element-example">
+                                &lt;th&gt;Column Name&lt;/th&gt;
+                            </div>
+                            <p><strong>Use:</strong> Column or row headers</p>
+                        </div>
+                        
+                        <div class="element-card">
+                            <h4><i class="fas fa-square"></i> &lt;td&gt;</h4>
+                            <p>Table Data. Defines a standard data cell in the table.</p>
+                            <div class="element-example">
+                                &lt;td&gt;Data Value&lt;/td&gt;
+                            </div>
+                            <p><strong>Use:</strong> Regular table cells with data</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Table Structure Content -->
+            <section class="topic-content" id="structure-content">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-sitemap"></i> Structured Tables</h2>
+                    <p>For complex tables, HTML provides semantic elements to group table sections logically: <span class="highlight">&lt;thead&gt;</span>, <span class="highlight">&lt;tbody&gt;</span>, and <span class="highlight">&lt;tfoot&gt;</span>.</p>
+                    
+                    <div class="info-box">
+                        <p><strong><i class="fas fa-lightbulb"></i> Key Concept:</strong> These structural elements improve accessibility, allow for independent styling of table sections, and enable scrolling of the table body while keeping headers and footers fixed.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-layer-group"></i> Table Sections</h2>
+                    <p>Well-structured tables use these grouping elements for clarity and accessibility:</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            <span class="code-tag">&lt;table&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Table header --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;thead&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Product<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Price<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Quantity<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Total<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/thead&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Table body --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tbody&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Laptop<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>$999<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>2<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>$1,998<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Mouse<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>$25<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>5<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>$125<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tbody&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Table footer --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tfoot&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td</span> <span class="code-attr">colspan</span>=<span class="code-value">"3"</span><span class="code-tag">&gt;</span>Grand Total<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>$2,123<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tfoot&gt;</span><br>
+                            <span class="code-tag">&lt;/table&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-demo">
+                        <h4>Structured Table Example:</h4>
+                        <div class="table-container">
+                            <table class="demo-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Laptop</td>
+                                        <td>$999</td>
+                                        <td>2</td>
+                                        <td>$1,998</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mouse</td>
+                                        <td>$25</td>
+                                        <td>5</td>
+                                        <td>$125</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Keyboard</td>
+                                        <td>$75</td>
+                                        <td>3</td>
+                                        <td>$225</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Monitor</td>
+                                        <td>$350</td>
+                                        <td>1</td>
+                                        <td>$350</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" style="font-weight: 600; text-align: right;">Grand Total</td>
+                                        <td style="font-weight: 600;">$2,698</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-expand-alt"></i> Spanning Rows and Columns</h2>
+                    <p>The <span class="highlight">colspan</span> and <span class="highlight">rowspan</span> attributes allow cells to span multiple columns or rows:</p>
+                    
+                    <div class="example-container">
+                        <div class="example-box">
+                            <div class="example-header"><i class="fas fa-columns"></i> Column Spanning (colspan)</div>
+                            <div class="example-content">
+                                <p>A cell can span multiple columns using <span class="highlight">colspan</span>:</p>
+                                <div class="code-wrapper">
+                                    <div class="code-container">
+                                        <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                                        <span class="code-tag">&lt;table&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">colspan</span>=<span class="code-value">"2"</span><span class="code-tag">&gt;</span>Combined Header<span class="code-tag">&lt;/th&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Column 1<span class="code-tag">&lt;/td&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Column 2<span class="code-tag">&lt;/td&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                                        <span class="code-tag">&lt;/table&gt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-header"><i class="fas fa-grip-lines-vertical"></i> Row Spanning (rowspan)</div>
+                            <div class="example-content">
+                                <p>A cell can span multiple rows using <span class="highlight">rowspan</span>:</p>
+                                <div class="code-wrapper">
+                                    <div class="code-container">
+                                        <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                                        <span class="code-tag">&lt;table&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td</span> <span class="code-attr">rowspan</span>=<span class="code-value">"2"</span><span class="code-tag">&gt;</span>Spans 2 rows<span class="code-tag">&lt;/td&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 1, Col 2<span class="code-tag">&lt;/td&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Row 2, Col 2<span class="code-tag">&lt;/td&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                                        <span class="code-tag">&lt;/table&gt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <h4>Spanning Example:</h4>
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="showColspanExample()">
+                                <i class="fas fa-columns"></i> Show colspan Table
+                            </button>
+                            <button class="demo-btn" onclick="showRowspanExample()">
+                                <i class="fas fa-grip-lines-vertical"></i> Show rowspan Table
+                            </button>
+                            <button class="demo-btn" onclick="showComplexSpanExample()">
+                                <i class="fas fa-th-large"></i> Show Complex Span
+                            </button>
+                        </div>
+                        
+                        <div id="spanDemo" class="table-container" style="margin-top: 20px;">
+                            <!-- Dynamic table will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-captioning"></i> Captions and Column Groups</h2>
+                    <p>Tables can include captions and column groups for better structure and styling:</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            <span class="code-tag">&lt;table&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Table caption --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;caption&gt;</span>Monthly Sales Report - Q1 2023<span class="code-tag">&lt;/caption&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Column groups for styling --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;colgroup&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;col</span> <span class="code-attr">span</span>=<span class="code-value">"2"</span> <span class="code-attr">style</span>=<span class="code-value">"background-color: #f0f9ff;"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;col</span> <span class="code-attr">style</span>=<span class="code-value">"background-color: #fef3c7;"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/colgroup&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;thead&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>Product<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>January<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th&gt;</span>February<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/thead&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tbody&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Widget A<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>1,200<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>1,450<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tbody&gt;</span><br>
+                            <span class="code-tag">&lt;/table&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="table-demo">
+                        <h4>Table with Caption and Column Groups:</h4>
+                        <div class="table-container">
+                            <table class="colgroup-table">
+                                <caption>Monthly Sales Report - Q1 2023</caption>
+                                <colgroup>
+                                    <col span="1" style="background-color: #f0f9ff;">
+                                    <col span="1" style="background-color: #fef3c7;">
+                                    <col span="1" style="background-color: #dcfce7;">
+                                    <col span="1" style="background-color: #fce7f3;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>January</th>
+                                        <th>February</th>
+                                        <th>March</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Widget A</td>
+                                        <td>1,200</td>
+                                        <td>1,450</td>
+                                        <td>1,600</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Widget B</td>
+                                        <td>850</td>
+                                        <td>920</td>
+                                        <td>1,050</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Widget C</td>
+                                        <td>2,100</td>
+                                        <td>2,300</td>
+                                        <td>2,450</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Advanced Tables Content -->
+            <section class="topic-content" id="advanced-content">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-cogs"></i> Advanced Table Features</h2>
+                    <p>Modern HTML tables include features for accessibility, responsiveness, and complex data presentation.</p>
+                    
+                    <div class="info-box">
+                        <p><strong><i class="fas fa-lightbulb"></i> Key Concept:</strong> Use <span class="highlight">scope</span> attributes for accessibility, CSS for responsive tables, and semantic markup to ensure tables are usable by everyone, including screen reader users.</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-universal-access"></i> Accessible Tables</h2>
+                    <p>Accessibility is crucial for tables. Use <span class="highlight">scope</span>, <span class="highlight">headers</span>, and <span class="highlight">&lt;caption&gt;</span> to make tables usable for screen readers:</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            <span class="code-tag">&lt;table&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-comment">&lt;!-- Descriptive caption --&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;caption&gt;</span>Employee Quarterly Performance Ratings<span class="code-tag">&lt;/caption&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;thead&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Employee<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Q1 Rating<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Q2 Rating<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Q3 Rating<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/thead&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;tbody&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"row"</span><span class="code-tag">&gt;</span>Alex Johnson<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Excellent<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Good<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>Excellent<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/tbody&gt;</span><br>
+                            <span class="code-tag">&lt;/table&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="accessibility-demo">
+                        <h5><i class="fas fa-assistive-listening-systems"></i> Screen Reader Experience</h5>
+                        <p>A screen reader would announce this table as: "Employee Quarterly Performance Ratings table with 4 columns and 1 row. Employee: Alex Johnson, Q1 Rating: Excellent, Q2 Rating: Good, Q3 Rating: Excellent."</p>
+                        <p><strong>Key accessibility attributes:</strong></p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><span class="highlight">scope="col"</span>: Identifies column headers</li>
+                            <li><span class="highlight">scope="row"</span>: Identifies row headers</li>
+                            <li><span class="highlight">&lt;caption&gt;</span>: Provides table description</li>
+                            <li><span class="highlight">&lt;th&gt;</span> for headers: Semantic header cells</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-mobile-alt"></i> Responsive Tables</h2>
+                    <p>Tables can be challenging on mobile devices. Here are techniques for responsive tables:</p>
+                    
+                    <div class="example-container">
+                        <div class="example-box">
+                            <div class="example-header"><i class="fas fa-arrows-alt-h"></i> Horizontal Scroll</div>
+                            <div class="example-content">
+                                <p>Wrap tables in a container with horizontal scrolling:</p>
+                                <div class="code-wrapper">
+                                    <div class="code-container">
+                                        <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                                        <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"table-container"</span><span class="code-tag">&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;table</span> <span class="code-attr">class</span>=<span class="code-value">"responsive-table"</span><span class="code-tag">&gt;</span><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">&lt;!-- Table content --&gt;</span><br>
+                                        &nbsp;&nbsp;<span class="code-tag">&lt;/table&gt;</span><br>
+                                        <span class="code-tag">&lt;/div&gt;</span><br>
+                                        <br>
+                                        <span class="code-comment">&lt;!-- CSS --&gt;</span><br>
+                                        <span class="code-tag">&lt;style&gt;</span><br>
+                                        .table-container {<br>
+                                        &nbsp;&nbsp;overflow-x: auto;<br>
+                                        }<br>
+                                        .responsive-table {<br>
+                                        &nbsp;&nbsp;min-width: 600px;<br>
+                                        }<br>
+                                        <span class="code-tag">&lt;/style&gt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-header"><i class="fas fa-list"></i> Stack on Mobile</div>
+                            <div class="example-content">
+                                <p>Use CSS to stack table rows on mobile devices:</p>
+                                <div class="code-wrapper">
+                                    <div class="code-container">
+                                        <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                                        <span class="code-comment">&lt;!-- CSS for stacked tables --&gt;</span><br>
+                                        <span class="code-tag">&lt;style&gt;</span><br>
+                                        @media (max-width: 600px) {<br>
+                                        &nbsp;&nbsp;table, thead, tbody, th, td, tr {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;display: block;<br>
+                                        &nbsp;&nbsp;}<br>
+                                        &nbsp;&nbsp;thead tr {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;position: absolute;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;top: -9999px;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;left: -9999px;<br>
+                                        &nbsp;&nbsp;}<br>
+                                        &nbsp;&nbsp;td {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;border: none;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;position: relative;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;padding-left: 50%;<br>
+                                        &nbsp;&nbsp;}<br>
+                                        &nbsp;&nbsp;td:before {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;position: absolute;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;left: 6px;<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;content: attr(data-label);<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;font-weight: bold;<br>
+                                        &nbsp;&nbsp;}<br>
+                                        }<br>
+                                        <span class="code-tag">&lt;/style&gt;</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <h4>Responsive Table Demo:</h4>
+                        <div class="demo-controls">
+                            <button class="demo-btn" onclick="toggleResponsiveView()">
+                                <i class="fas fa-mobile-alt"></i> Toggle Mobile View
+                            </button>
+                            <button class="demo-btn" onclick="toggleHorizontalScroll()">
+                                <i class="fas fa-arrows-alt-h"></i> Toggle Horizontal Scroll
+                            </button>
+                        </div>
+                        
+                        <div id="responsiveTableContainer" class="table-container" style="margin-top: 20px;">
+                            <table id="responsiveDemoTable" class="responsive-table">
+                                <caption>Product Inventory</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Product ID</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Stock</th>
+                                        <th scope="col">Last Ordered</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td data-label="Product ID">PROD-001</td>
+                                        <td data-label="Product Name">Wireless Mouse</td>
+                                        <td data-label="Category">Electronics</td>
+                                        <td data-label="Price">$29.99</td>
+                                        <td data-label="Stock">145</td>
+                                        <td data-label="Last Ordered">2023-10-15</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Product ID">PROD-002</td>
+                                        <td data-label="Product Name">Mechanical Keyboard</td>
+                                        <td data-label="Category">Electronics</td>
+                                        <td data-label="Price">$89.99</td>
+                                        <td data-label="Stock">67</td>
+                                        <td data-label="Last Ordered">2023-10-10</td>
+                                    </tr>
+                                    <tr>
+                                        <td data-label="Product ID">PROD-003</td>
+                                        <td data-label="Product Name">Office Chair</td>
+                                        <td data-label="Category">Furniture</td>
+                                        <td data-label="Price">$249.99</td>
+                                        <td data-label="Stock">23</td>
+                                        <td data-label="Last Ordered">2023-10-05</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-laptop-code"></i> Complete Table Example</h2>
+                    <p>Here's a complete example showing a complex, accessible table with all features covered:</p>
+                    
+                    <div class="code-wrapper">
+                        <div class="code-container">
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            <span class="code-comment">&lt;!-- Complete Accessible Table Example --&gt;</span><br>
+                            <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"table-container"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;table</span> <span class="code-attr">id</span>=<span class="code-value">"employee-schedule"</span><span class="code-tag">&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;caption&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Weekly Employee Work Schedule - October 2023<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;span</span> <span class="code-attr">class</span>=<span class="code-value">"sr-only"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Table showing work shifts for employees across different days<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/span&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/caption&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;colgroup&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;col</span> <span class="code-attr">span</span>=<span class="code-value">"1"</span> <span class="code-attr">class</span>=<span class="code-value">"employee-col"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;col</span> <span class="code-attr">span</span>=<span class="code-value">"5"</span> <span class="code-attr">class</span>=<span class="code-value">"weekday-col"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/colgroup&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;thead&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Employee<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Monday<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Tuesday<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Wednesday<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span><span class="code-tag">&gt;</span>Thursday<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"col"</span<span class="code-tag">&gt;</span>Friday<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/thead&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tbody&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;th</span> <span class="code-attr">scope</span>=<span class="code-value">"row"</span><span class="code-tag">&gt;</span>Alex Johnson<span class="code-tag">&lt;/th&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>9 AM - 5 PM<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>9 AM - 5 PM<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td</span> <span class="code-attr">colspan</span>=<span class="code-value">"2"</span><span class="code-tag">&gt;</span>OFF<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td&gt;</span>10 AM - 6 PM<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tbody&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tfoot&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;td</span> <span class="code-attr">colspan</span>=<span class="code-value">"6"</span><span class="code-tag">&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schedule subject to change. Contact HR for updates.<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/td&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tr&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-tag">&lt;/tfoot&gt;</span><br>
+                            <br>
+                            &nbsp;&nbsp;<span class="code-tag">&lt;/table&gt;</span><br>
+                            <span class="code-tag">&lt;/div&gt;</span>
+                        </div>
+                    </div>
+                    
+                    <div class="practice-box">
+                        <h3><i class="fas fa-hands-helping"></i> Practice Exercise</h3>
+                        <p><strong>Challenge:</strong> Create a class schedule table with the following requirements:</p>
+                        <ol style="margin-left: 20px; margin-top: 10px;">
+                            <li>Use proper table structure with <span class="highlight">&lt;thead&gt;</span>, <span class="highlight">&lt;tbody&gt;</span>, and <span class="highlight">&lt;tfoot&gt;</span></li>
+                            <li>Include a descriptive <span class="highlight">&lt;caption&gt;</span> for the table</li>
+                            <li>Add column groups with different background colors for time slots and class names</li>
+                            <li>Use <span class="highlight">colspan</span> for time slots that span multiple periods</li>
+                            <li>Use <span class="highlight">rowspan</span> for days that have the same schedule</li>
+                            <li>Implement proper <span class="highlight">scope</span> attributes for accessibility</li>
+                            <li>Include a footer with schedule notes or disclaimers</li>
+                            <li>Make the table responsive with horizontal scrolling on small screens</li>
+                        </ol>
+                        <p style="margin-top: 15px;"><strong>Tip:</strong> Test your table with a screen reader or accessibility tool. Ensure that the table makes sense when read aloud and that all data relationships are clear.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <div class="footer">
+            <p><strong>HTML Tables Tutorial</strong> | Part of the Developers Hub Learning Resources</p>
+            <p>Master HTML tables to present tabular data effectively with proper semantics, accessibility, and responsiveness.</p>
+            
+            <div class="quick-links">
+                <a href="T5.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: HTML Media & Links</a>
+                <a href="#" class="quick-link"><i class="fas fa-book"></i> Tables Reference Guide</a>
+                <a href="T7.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: HTML Semantic Elements</a>
+                <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+            </div>
+            
+            <p style="margin-top: 25px; font-size: 0.85rem;">&copy; Developers Hub. This content is available under the Creative Commons Attribution License.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.topic-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.topic-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.topic-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+            });
+        });
+        
+        // Copy code button functionality
+        function copyCode(button) {
+            const codeContainer = button.parentElement;
+            const codeText = codeContainer.innerText.replace('Copy\n', '');
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.style.backgroundColor = 'rgba(16, 185, 129, 0.2)';
+                button.style.color = '#10b981';
+                button.style.borderColor = '#10b981';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    button.style.color = '#94a3b8';
+                    button.style.borderColor = '#475569';
+                }, 2000);
+            });
+        }
+        
+        // Scroll animation for sections
+        function checkVisibility() {
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.85) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initialize all sections as visible on load
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('visible');
+            });
+            
+            // Initialize first tab as active
+            document.querySelector('.topic-tab.active').click();
+            
+            // Initialize demo tables
+            showColspanExample();
+        });
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkVisibility);
+        
+        // Quick links functionality
+        // document.querySelectorAll('.quick-link').forEach(link => {
+        //     link.addEventListener('click', function(e) {
+        //         e.preventDefault();
+                
+        //         // Show a simple message for demo purposes
+        //         if (this.textContent.includes('Previous')) {
+        //             alert('This would navigate to the previous tutorial: HTML Media & Links');
+        //         } else if (this.textContent.includes('Next')) {
+        //             alert('This would navigate to the next tutorial: HTML Semantic Elements');
+        //         } else {
+        //             alert('This is a demonstration link. In a real implementation, this would navigate to the referenced resource.');
+        //         }
+        //     });
+        // });
+        
+        // Spanning examples functionality
+        function showColspanExample() {
+            const demoContainer = document.getElementById('spanDemo');
+            demoContainer.innerHTML = `
+                <table class="demo-table">
+                    <caption>Column Spanning Example</caption>
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color: var(--primary-color); color: white;">Combined Header</th>
+                            <th>Separate Header</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Data A1</td>
+                            <td>Data A2</td>
+                            <td>Data A3</td>
+                        </tr>
+                        <tr>
+                            <td>Data B1</td>
+                            <td>Data B2</td>
+                            <td>Data B3</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #64748b;"><strong>Note:</strong> The first header cell spans two columns using <code>colspan="2"</code>.</p>
+            `;
+        }
+        
+        function showRowspanExample() {
+            const demoContainer = document.getElementById('spanDemo');
+            demoContainer.innerHTML = `
+                <table class="demo-table">
+                    <caption>Row Spanning Example</caption>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="background-color: #f0f9ff; font-weight: 600;">Electronics</td>
+                            <td>Laptop</td>
+                            <td>$999</td>
+                        </tr>
+                        <tr>
+                            <td>Tablet</td>
+                            <td>$499</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2" style="background-color: #f0f9ff; font-weight: 600;">Books</td>
+                            <td>HTML Guide</td>
+                            <td>$29</td>
+                        </tr>
+                        <tr>
+                            <td>CSS Reference</td>
+                            <td>$35</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #64748b;"><strong>Note:</strong> The "Electronics" and "Books" cells span two rows each using <code>rowspan="2"</code>.</p>
+            `;
+        }
+        
+        function showComplexSpanExample() {
+            const demoContainer = document.getElementById('spanDemo');
+            demoContainer.innerHTML = `
+                <table class="demo-table">
+                    <caption>Complex Spanning Example</caption>
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color: var(--primary-color); color: white;">Sales Report</th>
+                            <th colspan="2" style="background-color: var(--secondary-color); color: white;">Inventory</th>
+                        </tr>
+                        <tr>
+                            <th>Product</th>
+                            <th>Units Sold</th>
+                            <th>Current Stock</th>
+                            <th>Reorder Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2" style="background-color: #f0f9ff; font-weight: 600;">Widgets</td>
+                            <td>150</td>
+                            <td>200</td>
+                            <td>50</td>
+                        </tr>
+                        <tr>
+                            <td>75</td>
+                            <td>120</td>
+                            <td>30</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Gadgets</td>
+                            <td>90</td>
+                            <td>110</td>
+                            <td>25</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" style="text-align: right; font-weight: 600;">Total Items:</td>
+                            <td style="font-weight: 600;">430</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #64748b;"><strong>Note:</strong> This table combines both <code>colspan</code> and <code>rowspan</code> for complex data presentation.</p>
+            `;
+        }
+        
+        // Responsive table functionality
+        let isMobileView = false;
+        let hasHorizontalScroll = true;
+        
+        function toggleResponsiveView() {
+            const table = document.getElementById('responsiveDemoTable');
+            const container = document.getElementById('responsiveTableContainer');
+            
+            isMobileView = !isMobileView;
+            
+            if (isMobileView) {
+                // Apply mobile styles
+                table.classList.add('mobile-view');
+                container.style.overflowX = 'visible';
+                container.style.maxWidth = '400px';
+                container.style.margin = '0 auto';
+                
+                // Add mobile view indicator
+                const existingIndicator = document.querySelector('.mobile-indicator');
+                if (!existingIndicator) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'mobile-indicator';
+                    indicator.innerHTML = '<p style="background-color: #fef3c7; padding: 10px; border-radius: 6px; margin-bottom: 10px;"><i class="fas fa-mobile-alt"></i> Mobile view: Table rows are stacked for better readability on small screens.</p>';
+                    container.parentNode.insertBefore(indicator, container);
+                }
+            } else {
+                // Remove mobile styles
+                table.classList.remove('mobile-view');
+                container.style.overflowX = 'auto';
+                container.style.maxWidth = 'none';
+                container.style.margin = '15px 0';
+                
+                // Remove mobile indicator
+                const indicator = document.querySelector('.mobile-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+        }
+        
+        function toggleHorizontalScroll() {
+            const container = document.getElementById('responsiveTableContainer');
+            
+            hasHorizontalScroll = !hasHorizontalScroll;
+            
+            if (hasHorizontalScroll) {
+                container.style.overflowX = 'auto';
+            } else {
+                container.style.overflowX = 'hidden';
+                container.style.maxWidth = '100%';
+            }
+        }
+        
+        // Add CSS for mobile table view
+        const style = document.createElement('style');
+        style.textContent = `
+            .mobile-view thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            .mobile-view tbody tr {
+                display: block;
+                margin-bottom: 15px;
+                border: 2px solid #e2e8f0;
+                border-radius: 8px;
+                background-color: white;
+            }
+            
+            .mobile-view tbody td {
+                display: block;
+                text-align: right;
+                position: relative;
+                padding: 10px 15px 10px 50%;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .mobile-view tbody td:last-child {
+                border-bottom: none;
+            }
+            
+            .mobile-view tbody td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: 600;
+                color: var(--primary-color);
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

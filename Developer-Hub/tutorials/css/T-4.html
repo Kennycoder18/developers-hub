@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animations Mastery | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --teal: #0d9488;
+            --teal-light: #5eead4;
+            --teal-dark: #0f766e;
+            --sky-blue: #0ea5e9;
+            --sky-blue-light: #7dd3fc;
+            --sky-blue-dark: #0284c7;
+            --emerald: #10b981;
+            --emerald-light: #6ee7b7;
+            --emerald-dark: #059669;
+            --seafoam: #2dd4bf;
+            --seafoam-light: #5eead4;
+            --ocean: #06b6d4;
+            --ocean-dark: #0891b2;
+            --coral: #fb7185;
+            --sunset: #f59e0b;
+            --lavender: #a78bfa;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles with Animation */
+        header {
+            background: linear-gradient(135deg, var(--teal), var(--ocean), var(--emerald));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.25);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: headerEntrance 1.2s ease-out;
+        }
+        
+        @keyframes headerEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(94, 234, 212, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.2) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulse 4s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            animation: titleGlow 3s infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            0% { text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }
+            100% { text-shadow: 0 2px 20px rgba(255, 255, 255, 0.3); }
+        }
+        
+        .header-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+            animation: statItemEntrance 0.8s ease-out backwards;
+        }
+        
+        .stat-item:nth-child(1) { animation-delay: 0.3s; }
+        .stat-item:nth-child(2) { animation-delay: 0.5s; }
+        .stat-item:nth-child(3) { animation-delay: 0.7s; }
+        
+        @keyframes statItemEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            animation: iconSpin 20s linear infinite;
+        }
+        
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Section Styles with Entrance Animation */
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--teal);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: sectionEntrance 0.8s ease-out forwards;
+        }
+        
+        .section.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @keyframes sectionEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--teal), var(--ocean));
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: var(--teal-dark);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--teal), var(--emerald));
+            border-radius: 2px;
+            animation: underlineExpand 2s infinite alternate;
+        }
+        
+        @keyframes underlineExpand {
+            0% { width: 60px; }
+            100% { width: 100px; }
+        }
+        
+        .section-title i {
+            color: var(--emerald);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+            animation: iconPulse 2s infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Animation Visualizer */
+        .animation-visualizer {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--sky-blue-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .animation-visualizer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--teal-light), transparent);
+            border-radius: 0 0 0 100%;
+            opacity: 0.3;
+            animation: gradientMove 10s infinite linear;
+        }
+        
+        @keyframes gradientMove {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, 20px) rotate(360deg); }
+        }
+        
+        .animation-preview {
+            height: 200px;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(13, 148, 136, 0.1);
+            border: 2px dashed var(--teal);
+            overflow: hidden;
+        }
+        
+        .animated-element {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--teal), var(--emerald));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+        
+        .animation-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .animation-control {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 2px solid var(--teal-light);
+            border-radius: 8px;
+            color: var(--teal);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .animation-control:hover, .animation-control.active {
+            background: var(--teal);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* Code Block Styles */
+        .code-block {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #f8f8f2;
+            padding: 1.8rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1.8rem 0;
+            position: relative;
+            border: 1px solid #333;
+            animation: codeBlockGlow 3s infinite alternate;
+        }
+        
+        @keyframes codeBlockGlow {
+            0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+            100% { box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3); }
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: #ccc;
+            font-size: 0.9rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #333;
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border: 1px solid #555;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .copy-btn:hover {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+        
+        /* CSS Code Styling */
+        .css-selector {
+            color: #f92672;
+        }
+        
+        .css-property {
+            color: #66d9ef;
+        }
+        
+        .css-value {
+            color: #a6e22e;
+        }
+        
+        .css-comment {
+            color: #75715e;
+        }
+        
+        .css-punctuation {
+            color: #f8f8f2;
+        }
+        
+        .css-function {
+            color: #c084fc;
+        }
+        
+        .css-keyword {
+            color: #fd971f;
+        }
+        
+        /* Button Styles with Animation */
+        .btn {
+            background: linear-gradient(135deg, var(--teal), var(--emerald));
+            color: white;
+            border: none;
+            padding: 1rem 2.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--ocean), var(--teal-light));
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        /* Animation Examples Grid */
+        .animation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .animation-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--seafoam);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .animation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .animation-demo {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+            border-radius: 8px;
+            background: rgba(13, 148, 136, 0.05);
+        }
+        
+        .demo-element {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--teal), var(--sky-blue));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Alert Styles with Animation */
+        .alert {
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .alert i {
+            margin-top: 2px;
+            font-size: 1.3rem;
+        }
+        
+        .alert-info {
+            background-color: rgba(14, 165, 233, 0.1);
+            border-left: 5px solid var(--ocean);
+            color: var(--gray-800);
+        }
+        
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 5px solid var(--emerald);
+            color: var(--gray-800);
+        }
+        
+        .alert-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 5px solid var(--sunset);
+            color: var(--gray-800);
+        }
+        
+        /* Footer */
+        /* footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .footer-logo {
+            font-weight: 800;
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        } */
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .footer-logo {
+            font-weight: 800;
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+       /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+        
+        /* Jump Links with Animation */
+        .jump-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            animation: jumpLinksEntrance 0.8s ease-out;
+        }
+        
+        @keyframes jumpLinksEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .jump-link {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 2px solid var(--teal-light);
+            border-radius: 8px;
+            color: var(--teal);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .jump-link::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(13, 148, 136, 0.2);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .jump-link:hover::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(40, 40);
+                opacity: 0;
+            }
+        }
+        
+        .jump-link:hover {
+            background: var(--teal);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 1.8rem;
+            }
+            
+            .animation-visualizer {
+                padding: 1.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .animation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+        
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--gray-200);
+            z-index: 1000;
+        }
+        
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--teal), var(--emerald));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 0 3px 3px 0;
+        }
+        
+        /* Animation Property Cards */
+        .property-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid var(--seafoam);
+            transition: all 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .property-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--teal-light), var(--ocean));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Timeline Visualization */
+        .timeline {
+            height: 20px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal), var(--emerald));
+            border-radius: 10px;
+            width: 0%;
+            animation: timelineFill 4s infinite linear;
+        }
+        
+        @keyframes timelineFill {
+            0% { width: 0%; }
+            25% { width: 25%; }
+            50% { width: 50%; }
+            75% { width: 75%; }
+            100% { width: 100%; }
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--gray-700);
+            border-radius: 2px;
+        }
+        
+        .marker-0 { left: 0%; }
+        .marker-25 { left: 25%; }
+        .marker-50 { left: 50%; }
+        .marker-75 { left: 75%; }
+        .marker-100 { left: 100%; }
+        
+        .timeline-label {
+            position: absolute;
+            top: -25px;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--gray-600);
+        }
+        
+        /* Loading Animations */
+        .loading-demos {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            justify-content: center;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .loader-spinner {
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--teal);
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader-dots {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .loader-dots div {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--teal);
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        
+        .loader-dots div:nth-child(1) { animation-delay: -0.32s; }
+        .loader-dots div:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        /* Hover Effect Demos */
+        .hover-demos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .hover-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .hover-card i {
+            font-size: 2rem;
+            color: var(--teal);
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .head-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- inserted -->
+    <div class="head-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+    <!-- /inserted -->
+
+    <!-- Scroll Progress -->
+    <!-- <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
+    </div> -->
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h1>CSS Animations Mastery</h1>
+                <p>Complete guide to CSS animations, transitions, and keyframes with interactive examples</p>
+                
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>50 min read</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span>30+ Examples</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Interactive Demos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Jump Links -->
+        <div class="jump-links">
+            <a href="#basics" class="jump-link">
+                <i class="fas fa-play"></i> Basics
+            </a>
+            <a href="#transitions" class="jump-link">
+                <i class="fas fa-exchange-alt"></i> Transitions
+            </a>
+            <a href="#keyframes" class="jump-link">
+                <i class="fas fa-film"></i> Keyframes
+            </a>
+            <a href="#visualizer" class="jump-link">
+                <i class="fas fa-sliders-h"></i> Visualizer
+            </a>
+            <a href="#examples" class="jump-link">
+                <i class="fas fa-code"></i> Examples
+            </a>
+        </div>
+        
+        <!-- Introduction -->
+        <section class="section" id="basics">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> CSS Animations Introduction</h2>
+            
+            <p>CSS animations allow you to create smooth, performant animations without JavaScript. They can transform, move, fade, and rotate elements to create engaging user experiences.</p>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <strong>Why CSS Animations Matter:</strong>
+                    <ul style="margin-top: 0.8rem; margin-left: 1.2rem;">
+                        <li><strong>Performance:</strong> GPU accelerated, smoother than JavaScript animations</li>
+                        <li><strong>Simplicity:</strong> Declarative syntax, easier to write and maintain</li>
+                        <li><strong>Responsive:</strong> Work seamlessly across all devices</li>
+                        <li><strong>Accessibility:</strong> Can respect user motion preferences</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="property-cards">
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Transitions</h3>
+                    <p>Simple animations between two states (like hover). Control property, duration, timing, and delay.</p>
+                </div>
+                
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Keyframes</h3>
+                    <p>Complex animations with multiple steps. Define the entire animation sequence with @keyframes.</p>
+                </div>
+                
+                <div class="property-card">
+                    <div class="property-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Properties</h3>
+                    <p>Control duration, timing, delay, iteration count, direction, fill mode, and play state.</p>
+                </div>
+            </div>
+        </section>
+        
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- CSS Transitions -->
+                <section class="section" id="transitions">
+                    <h2 class="section-title"><i class="fas fa-exchange-alt"></i> CSS Transitions</h2>
+                    
+                    <p>Transitions create smooth animations between two states. They're perfect for hover effects, state changes, and simple animations.</p>
+                    
+                    <div class="animation-visualizer">
+                        <h3 class="demo-title"><i class="fas fa-eye"></i> Transition Demo</h3>
+                        
+                        <div class="animation-preview">
+                            <div id="transitionDemo" class="demo-element">Hover Me!</div>
+                        </div>
+                        
+                        <div class="timeline">
+                            <div class="timeline-fill"></div>
+                            <div class="timeline-marker marker-0"></div>
+                            <div class="timeline-marker marker-25"></div>
+                            <div class="timeline-marker marker-50"></div>
+                            <div class="timeline-marker marker-75"></div>
+                            <div class="timeline-marker marker-100"></div>
+                            <div class="timeline-label" style="left: 0%">Start</div>
+                            <div class="timeline-label" style="left: 50%">50%</div>
+                            <div class="timeline-label" style="left: 100%">End</div>
+                        </div>
+                        
+                        <div class="animation-controls">
+                            <button class="animation-control active" onclick="changeTransition('all')">All Properties</button>
+                            <button class="animation-control" onclick="changeTransition('transform')">Transform Only</button>
+                            <button class="animation-control" onclick="changeTransition('background')">Background Only</button>
+                        </div>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Transition CSS</span>
+                                <button class="copy-btn" onclick="copyCode('transitionCSS')">
+                                    <i class="far fa-copy"></i> Copy Code
+                                </button>
+                            </div>
+                            <pre id="transitionCSS"><span class="css-selector">.transition-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transition</span><span class="css-punctuation">:</span> <span class="css-value">all 0.5s ease</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.transition-element:hover</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">scale(1.2) rotate(5deg)</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">,</span> <span class="css-value">#10b981</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+  <span class="css-property">box-shadow</span><span class="css-punctuation">:</span> <span class="css-value">0 8px 25px rgba(13, 148, 136, 0.4)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span></pre>
+                        </div>
+                    </div>
+                    
+                    <h3 style="color: var(--teal-dark); margin: 1.5rem 0 1rem;">Transition Properties</h3>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Transition Properties Syntax</span>
+                            <button class="copy-btn" onclick="copyCode('transitionProperties')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="transitionProperties"><span class="css-comment">/* Shorthand - Most common */</span>
+<span class="css-property">transition</span><span class="css-punctuation">:</span> <span class="css-value">all 0.3s ease 0.1s</span><span class="css-punctuation">;</span>
+<span class="css-comment">/* property | duration | timing-function | delay */</span>
+
+<span class="css-comment">/* Longhand - Individual properties */</span>
+<span class="css-property">transition-property</span><span class="css-punctuation">:</span> <span class="css-value">all</span><span class="css-punctuation">;</span>
+<span class="css-property">transition-duration</span><span class="css-punctuation">:</span> <span class="css-value">0.3s</span><span class="css-punctuation">;</span>
+<span class="css-property">transition-timing-function</span><span class="css-punctuation">:</span> <span class="css-value">ease</span><span class="css-punctuation">;</span>
+<span class="css-property">transition-delay</span><span class="css-punctuation">:</span> <span class="css-value">0.1s</span><span class="css-punctuation">;</span>
+
+<span class="css-comment">/* Multiple properties with different timings */</span>
+<span class="css-property">transition</span><span class="css-punctuation">:</span> 
+  <span class="css-value">transform 0.3s ease</span><span class="css-punctuation">,</span>
+  <span class="css-value">background 0.5s linear 0.1s</span><span class="css-punctuation">,</span>
+  <span class="css-value">opacity 0.2s ease-out</span><span class="css-punctuation">;</span></pre>
+                    </div>
+                    
+                    <div class="hover-demos">
+                        <div class="hover-card" id="hoverScale">
+                            <i class="fas fa-expand-alt"></i>
+                            <span>Scale</span>
+                        </div>
+                        <div class="hover-card" id="hoverRotate">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Rotate</span>
+                        </div>
+                        <div class="hover-card" id="hoverColor">
+                            <i class="fas fa-palette"></i>
+                            <span>Color</span>
+                        </div>
+                        <div class="hover-card" id="hoverShadow">
+                            <i class="fas fa-cloud"></i>
+                            <span>Shadow</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Animation Visualizer -->
+                <section class="section" id="visualizer">
+                    <h2 class="section-title"><i class="fas fa-sliders-h"></i> Animation Visualizer</h2>
+                    
+                    <p>Create and customize CSS animations in real-time. Adjust properties and see immediate results.</p>
+                    
+                    <div class="animation-visualizer">
+                        <h3 class="demo-title"><i class="fas fa-cogs"></i> Interactive Animation Builder</h3>
+                        
+                        <div class="animation-preview">
+                            <div id="animationDemo" class="demo-element">Animate!</div>
+                        </div>
+                        
+                        <div class="animation-controls">
+                            <button class="animation-control active" onclick="changeAnimation('bounce')">Bounce</button>
+                            <button class="animation-control" onclick="changeAnimation('pulse')">Pulse</button>
+                            <button class="animation-control" onclick="changeAnimation('slide')">Slide</button>
+                            <button class="animation-control" onclick="changeAnimation('rotate')">Rotate</button>
+                            <button class="animation-control" onclick="changeAnimation('colorChange')">Color Change</button>
+                        </div>
+                        
+                        <div class="animation-controls">
+                            <button class="animation-control" onclick="changeDuration('1s')">1s</button>
+                            <button class="animation-control active" onclick="changeDuration('2s')">2s</button>
+                            <button class="animation-control" onclick="changeDuration('3s')">3s</button>
+                            <button class="animation-control" onclick="changeIteration('1')">Once</button>
+                            <button class="animation-control" onclick="changeIteration('infinite')">Infinite</button>
+                            <button class="animation-control" onclick="changeIteration('3')">3 Times</button>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn" onclick="playAnimation()">
+                                <i class="fas fa-play"></i> Play Animation
+                            </button>
+                            <button class="btn btn-secondary" onclick="pauseAnimation()">
+                                <i class="fas fa-pause"></i> Pause
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetAnimation()">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                        </div>
+                        
+                        <div class="code-block" style="margin-top: 2rem;">
+                            <div class="code-header">
+                                <span>Generated CSS</span>
+                                <button class="copy-btn" onclick="copyCode('generatedCSS')">
+                                    <i class="far fa-copy"></i> Copy Code
+                                </button>
+                            </div>
+                            <pre id="generatedCSS"><span class="css-keyword">@keyframes</span> <span class="css-value">bounce</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span><span class="css-punctuation">,</span> <span class="css-value">100%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateY(0)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">50%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateY(-20px)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.animated-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">bounce 2s ease infinite</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Keyframes -->
+                <section class="section" id="keyframes">
+                    <h2 class="section-title"><i class="fas fa-film"></i> CSS Keyframes</h2>
+                    
+                    <p>Keyframes give you complete control over animation sequences. Define what happens at specific points during the animation.</p>
+                    
+                    <div class="animation-grid">
+                        <div class="animation-card" onclick="applyExample('bounceExample')">
+                            <h3>Bounce</h3>
+                            <div class="animation-demo">
+                                <div class="demo-element" id="bounceExample">↕</div>
+                            </div>
+                            <p>Element bounces up and down</p>
+                        </div>
+                        
+                        <div class="animation-card" onclick="applyExample('pulseExample')">
+                            <h3>Pulse</h3>
+                            <div class="animation-demo">
+                                <div class="demo-element" id="pulseExample">❤</div>
+                            </div>
+                            <p>Gentle scaling animation</p>
+                        </div>
+                        
+                        <div class="animation-card" onclick="applyExample('slideExample')">
+                            <h3>Slide In</h3>
+                            <div class="animation-demo">
+                                <div class="demo-element" id="slideExample">→</div>
+                            </div>
+                            <p>Element slides in from side</p>
+                        </div>
+                        
+                        <div class="animation-card" onclick="applyExample('rotateExample')">
+                            <h3>Rotate</h3>
+                            <div class="animation-demo">
+                                <div class="demo-element" id="rotateExample">⟳</div>
+                            </div>
+                            <p>Continuous rotation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Keyframes Syntax Examples</span>
+                            <button class="copy-btn" onclick="copyCode('keyframeExamples')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="keyframeExamples"><span class="css-comment">/* Basic keyframes with from/to */</span>
+<span class="css-keyword">@keyframes</span> <span class="css-value">fadeIn</span> <span class="css-punctuation">{</span>
+  <span class="css-value">from</span> <span class="css-punctuation">{</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">0</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">to</span> <span class="css-punctuation">{</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">1</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Multiple keyframes with percentages */</span>
+<span class="css-keyword">@keyframes</span> <span class="css-value">bounce</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span><span class="css-punctuation">,</span> <span class="css-value">100%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateY(0)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">50%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateY(-30px)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Complex animation with multiple properties */</span>
+<span class="css-keyword">@keyframes</span> <span class="css-value">slideAndFade</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateX(-100px)</span><span class="css-punctuation">;</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">0</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">50%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">0.5</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">100%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateX(0)</span><span class="css-punctuation">;</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">1</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Applying the animation */</span>
+<span class="css-selector">.animated-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">fadeIn 2s ease</span><span class="css-punctuation">;</span>
+  <span class="css-comment">/* name | duration | timing-function */</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Complete animation shorthand */</span>
+<span class="css-selector">.complex-animation</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">bounce 1s ease-in-out 0.5s 3 alternate both running</span><span class="css-punctuation">;</span>
+  <span class="css-comment">/* name | duration | timing-function | delay | iteration-count | direction | fill-mode | play-state */</span>
+<span class="css-punctuation">}</span></pre>
+                    </div>
+                    
+                    <h3 style="color: var(--teal-dark); margin: 1.5rem 0 1rem;">Animation Properties</h3>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Animation Properties</span>
+                            <button class="copy-btn" onclick="copyCode('animationProperties')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="animationProperties"><span class="css-comment">/* Individual animation properties */</span>
+<span class="css-property">animation-name</span><span class="css-punctuation">:</span> <span class="css-value">slideIn</span><span class="css-punctuation">;</span>
+<span class="css-property">animation-duration</span><span class="css-punctuation">:</span> <span class="css-value">2s</span><span class="css-punctuation">;</span>
+<span class="css-property">animation-timing-function</span><span class="css-punctuation">:</span> <span class="css-value">ease-in-out</span><span class="css-punctuation">;</span>
+<span class="css-property">animation-delay</span><span class="css-punctuation">:</span> <span class="css-value">0.5s</span><span class="css-punctuation">;</span>
+<span class="css-property">animation-iteration-count</span><span class="css-punctuation">:</span> <span class="css-value">3</span><span class="css-punctuation">;</span> <span class="css-comment">/* or 'infinite' */</span>
+<span class="css-property">animation-direction</span><span class="css-punctuation">:</span> <span class="css-value">alternate</span><span class="css-punctuation">;</span> <span class="css-comment">/* normal, reverse, alternate, alternate-reverse */</span>
+<span class="css-property">animation-fill-mode</span><span class="css-punctuation">:</span> <span class="css-value">both</span><span class="css-punctuation">;</span> <span class="css-comment">/* none, forwards, backwards, both */</span>
+<span class="css-property">animation-play-state</span><span class="css-punctuation">:</span> <span class="css-value">running</span><span class="css-punctuation">;</span> <span class="css-comment">/* running or paused */</span>
+
+<span class="css-comment">/* Shorthand (recommended) */</span>
+<span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">slideIn 2s ease-in-out 0.5s 3 alternate both running</span><span class="css-punctuation">;</span>
+
+<span class="css-comment">/* Multiple animations */</span>
+<span class="css-property">animation</span><span class="css-punctuation">:</span> 
+  <span class="css-value">fadeIn 1s ease</span><span class="css-punctuation">,</span>
+  <span class="css-value">slideIn 2s ease 1s</span><span class="css-punctuation">;</span></pre>
+                    </div>
+                </section>
+                
+                <!-- Practical Examples -->
+                <section class="section" id="examples">
+                    <h2 class="section-title"><i class="fas fa-code"></i> Practical Animation Examples</h2>
+                    
+                    <p>See how animations can enhance user interfaces and provide feedback:</p>
+                    
+                    <div class="animation-visualizer" style="margin-top: 1.5rem;">
+                        <h3 class="demo-title"><i class="fas fa-spinner"></i> Loading Animations</h3>
+                        
+                        <div class="loading-demos">
+                            <div class="loader">
+                                <div class="loader-spinner"></div>
+                            </div>
+                            <div class="loader-dots">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div style="width: 60px; height: 60px; position: relative;">
+                                <div style="width: 100%; height: 100%; border: 4px solid var(--gray-200); border-top: 4px solid var(--teal); border-right: 4px solid var(--sky-blue); border-bottom: 4px solid var(--emerald); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="code-block" style="margin-top: 1rem;">
+                            <div class="code-header">
+                                <span>Loading Animation CSS</span>
+                                <button class="copy-btn" onclick="copyCode('loadingCSS')">
+                                    <i class="far fa-copy"></i> Copy Code
+                                </button>
+                            </div>
+                            <pre id="loadingCSS"><span class="css-comment">/* Simple spinner */</span>
+<span class="css-keyword">@keyframes</span> <span class="css-value">spin</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span> <span class="css-punctuation">{</span> <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">rotate(0deg)</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+  <span class="css-value">100%</span> <span class="css-punctuation">{</span> <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">rotate(360deg)</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.spinner</span> <span class="css-punctuation">{</span>
+  <span class="css-property">width</span><span class="css-punctuation">:</span> <span class="css-value">40px</span><span class="css-punctuation">;</span>
+  <span class="css-property">height</span><span class="css-punctuation">:</span> <span class="css-value">40px</span><span class="css-punctuation">;</span>
+  <span class="css-property">border</span><span class="css-punctuation">:</span> <span class="css-value">4px solid #f3f4f6</span><span class="css-punctuation">;</span>
+  <span class="css-property">border-top</span><span class="css-punctuation">:</span> <span class="css-value">4px solid #0d9488</span><span class="css-punctuation">;</span>
+  <span class="css-property">border-radius</span><span class="css-punctuation">:</span> <span class="css-value">50%</span><span class="css-punctuation">;</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">spin 1s linear infinite</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Bouncing dots */</span>
+<span class="css-keyword">@keyframes</span> <span class="css-value">bounce</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span><span class="css-punctuation">,</span> <span class="css-value">100%</span> <span class="css-punctuation">{</span> <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">scale(0)</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+  <span class="css-value">50%</span> <span class="css-punctuation">{</span> <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">scale(1)</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.dot</span> <span class="css-punctuation">{</span>
+  <span class="css-property">width</span><span class="css-punctuation">:</span> <span class="css-value">12px</span><span class="css-punctuation">;</span>
+  <span class="css-property">height</span><span class="css-punctuation">:</span> <span class="css-value">12px</span><span class="css-punctuation">;</span>
+  <span class="css-property">background-color</span><span class="css-punctuation">:</span> <span class="css-value">#0d9488</span><span class="css-punctuation">;</span>
+  <span class="css-property">border-radius</span><span class="css-punctuation">:</span> <span class="css-value">50%</span><span class="css-punctuation">;</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">bounce 1.4s infinite ease-in-out both</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.dot:nth-child(1)</span> <span class="css-punctuation">{</span> <span class="css-property">animation-delay</span><span class="css-punctuation">:</span> <span class="css-value">-0.32s</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+<span class="css-selector">.dot:nth-child(2)</span> <span class="css-punctuation">{</span> <span class="css-property">animation-delay</span><span class="css-punctuation">:</span> <span class="css-value">-0.16s</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="animation-visualizer" style="margin-top: 2rem;">
+                        <h3 class="demo-title"><i class="fas fa-bell"></i> Notification Animations</h3>
+                        
+                        <div class="btn-group">
+                            <button class="btn" onclick="showNotification('success')">
+                                <i class="fas fa-check"></i> Success Notification
+                            </button>
+                            <button class="btn" style="background: linear-gradient(135deg, var(--sky-blue), var(--ocean));" onclick="showNotification('info')">
+                                <i class="fas fa-info-circle"></i> Info Notification
+                            </button>
+                            <button class="btn" style="background: linear-gradient(135deg, var(--sunset), #f97316);" onclick="showNotification('warning')">
+                                <i class="fas fa-exclamation-triangle"></i> Warning
+                            </button>
+                        </div>
+                        
+                        <div id="notificationArea" style="margin-top: 1.5rem; min-height: 100px;"></div>
+                        
+                        <div class="code-block" style="margin-top: 1rem;">
+                            <div class="code-header">
+                                <span>Notification Animation CSS</span>
+                                <button class="copy-btn" onclick="copyCode('notificationCSS')">
+                                    <i class="far fa-copy"></i> Copy Code
+                                </button>
+                            </div>
+                            <pre id="notificationCSS"><span class="css-keyword">@keyframes</span> <span class="css-value">slideInRight</span> <span class="css-punctuation">{</span>
+  <span class="css-value">from</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateX(100%)</span><span class="css-punctuation">;</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">0</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">to</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateX(0)</span><span class="css-punctuation">;</span>
+    <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">1</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-keyword">@keyframes</span> <span class="css-value">fadeOut</span> <span class="css-punctuation">{</span>
+  <span class="css-value">from</span> <span class="css-punctuation">{</span> <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">1</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+  <span class="css-value">to</span> <span class="css-punctuation">{</span> <span class="css-property">opacity</span><span class="css-punctuation">:</span> <span class="css-value">0</span><span class="css-punctuation">;</span> <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.notification</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">slideInRight 0.3s ease</span><span class="css-punctuation">;</span>
+  <span class="css-property">transform-origin</span><span class="css-punctuation">:</span> <span class="css-value">right</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.notification.fade-out</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">fadeOut 0.5s ease forwards</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-success">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Animation Best Practices:</strong>
+                            <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                                <li>Use <code>transform</code> and <code>opacity</code> for performance (GPU accelerated)</li>
+                                <li>Keep animations under 300ms for interactions, 500ms-1000ms for entrances</li>
+                                <li>Use <code>will-change</span></code> sparingly for elements you know will animate</li>
+                                <li>Respect user preferences with <code>@media (prefers-reduced-motion)</code></li>
+                                <li>Test animations on different devices and browsers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Performance & Accessibility -->
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-tachometer-alt"></i> Performance & Accessibility</h2>
+                    
+                    <p>Well-implemented animations should be both performant and accessible to all users.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Performance & Accessibility Tips</span>
+                            <button class="copy-btn" onclick="copyCode('performanceTips')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="performanceTips"><span class="css-comment">/* GPU accelerated properties (best performance) */</span>
+<span class="css-selector">.performant</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translate3d(0, 0, 0)</span><span class="css-punctuation">;</span> <span class="css-comment">/* Forces GPU acceleration */</span>
+  <span class="css-property">will-change</span><span class="css-punctuation">:</span> <span class="css-value">transform</span><span class="css-punctuation">;</span> <span class="css-comment">/* Hint browser about upcoming changes */</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Respect user motion preferences */</span>
+<span class="css-keyword">@media</span> <span class="css-punctuation">(</span><span class="css-property">prefers-reduced-motion</span><span class="css-punctuation">:</span> <span class="css-value">reduce</span><span class="css-punctuation">)</span> <span class="css-punctuation">{</span>
+  <span class="css-selector">*</span><span class="css-punctuation">,</span> <span class="css-selector">*::before</span><span class="css-punctuation">,</span> <span class="css-selector">*::after</span> <span class="css-punctuation">{</span>
+    <span class="css-property">animation-duration</span><span class="css-punctuation">:</span> <span class="css-value">0.01ms !important</span><span class="css-punctuation">;</span>
+    <span class="css-property">animation-iteration-count</span><span class="css-punctuation">:</span> <span class="css-value">1 !important</span><span class="css-punctuation">;</span>
+    <span class="css-property">transition-duration</span><span class="css-punctuation">:</span> <span class="css-value">0.01ms !important</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Optimize animations for mobile */</span>
+<span class="css-selector">.mobile-optimized</span> <span class="css-punctuation">{</span>
+  <span class="css-comment">/* Use shorter durations on mobile */</span>
+  <span class="css-property">transition-duration</span><span class="css-punctuation">:</span> <span class="css-value">0.2s</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-keyword">@media</span> <span class="css-punctuation">(</span><span class="css-property">min-width</span><span class="css-punctuation">:</span> <span class="css-value">768px</span><span class="css-punctuation">)</span> <span class="css-punctuation">{</span>
+  <span class="css-selector">.mobile-optimized</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transition-duration</span><span class="css-punctuation">:</span> <span class="css-value">0.3s</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Pause animations when not in viewport */</span>
+<span class="css-selector">.pause-out-of-view</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation-play-state</span><span class="css-punctuation">:</span> <span class="css-value">paused</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.pause-out-of-view.in-view</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation-play-state</span><span class="css-punctuation">:</span> <span class="css-value">running</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-comment">/* Hardware acceleration for complex animations */</span>
+<span class="css-selector">.complex-animation</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">translateZ(0)</span><span class="css-punctuation">;</span>
+  <span class="css-property">backface-visibility</span><span class="css-punctuation">:</span> <span class="css-value">hidden</span><span class="css-punctuation">;</span>
+  <span class="css-property">perspective</span><span class="css-punctuation">:</span> <span class="css-value">1000px</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span></pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Key Takeaways</h2>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <strong>You've mastered CSS Animations!</strong> Here's what you should remember:
+                    <ul style="margin-top: 0.8rem; margin-left: 1.2rem;">
+                        <li>Use <strong>transitions</strong> for simple state changes (hover, focus)</li>
+                        <li>Use <strong>@keyframes</strong> for complex, multi-step animations</li>
+                        <li>Animate <code>transform</code> and <code>opacity</code> for best performance</li>
+                        <li>Respect user preferences with <code>prefers-reduced-motion</code></li>
+                        <li>Keep animation durations appropriate (300ms for interactions)</li>
+                        <li>Use the animation shorthand for cleaner code</li>
+                        <li>Test animations across different devices and browsers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>Continue your learning journey:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                <li>Experiment with different timing functions (ease, linear, cubic-bezier)</li>
+                <li>Learn about CSS transforms (translate, rotate, scale, skew)</li>
+                <li>Explore JavaScript animation libraries like GSAP for complex sequences</li>
+                <li>Study the principles of motion design (anticipation, follow-through)</li>
+                <li>Practice creating micro-interactions for better UX</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer class="container">
+        <p class="footer-logo">Developers Hub</p>
+        <p>CSS Animations Tutorial &copy; <span id="currentYear"></span></p>
+
+        <div class="quick-links">
+            <a href="T-3.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: CSS Colors & Gradients</a>
+            <a href="#" class="quick-link"><i class="fas fa-book"></i> CSS Reference Guide</a>
+            <a href="T-5.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: CSS website-layout</a>
+            <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+        </div>
+
+        <p style="margin-top: 0.8rem; font-size: 0.95rem; color: var(--gray-600);">
+            Bring your websites to life with smooth, performant CSS animations.
+        </p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Scroll progress functionality
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+            
+            // Section entrance animations
+            document.querySelectorAll('.section').forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.85) {
+                    section.classList.add('in-view');
+                }
+            });
+        });
+        
+        // Smooth scrolling for jump links
+        document.querySelectorAll('.jump-link').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Copy code function
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            const copyBtn = event.target.closest('.copy-btn');
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyBtn.style.background = 'var(--teal)';
+            copyBtn.style.color = 'white';
+            copyBtn.style.borderColor = 'var(--teal)';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.style.background = '';
+                copyBtn.style.color = '';
+                copyBtn.style.borderColor = '';
+            }, 2000);
+        }
+        
+        // Transition Visualizer Functions
+        const transitionDemo = document.getElementById('transitionDemo');
+        const transitionCSS = document.getElementById('transitionCSS');
+        
+        function changeTransition(property) {
+            // Update active control
+            document.querySelectorAll('.animation-control').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update CSS display
+            if (property === 'all') {
+                transitionCSS.innerHTML = `<span class="css-selector">.transition-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transition</span><span class="css-punctuation">:</span> <span class="css-value">all 0.5s ease</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.transition-element:hover</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">scale(1.2) rotate(5deg)</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">,</span> <span class="css-value">#10b981</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+  <span class="css-property">box-shadow</span><span class="css-punctuation">:</span> <span class="css-value">0 8px 25px rgba(13, 148, 136, 0.4)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>`;
+                
+                transitionDemo.style.transition = 'all 0.5s ease';
+            } else if (property === 'transform') {
+                transitionCSS.innerHTML = `<span class="css-selector">.transition-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transition</span><span class="css-punctuation">:</span> <span class="css-value">transform 0.5s ease</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.transition-element:hover</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">scale(1.2) rotate(5deg)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>`;
+                
+                transitionDemo.style.transition = 'transform 0.5s ease';
+            } else if (property === 'background') {
+                transitionCSS.innerHTML = `<span class="css-selector">.transition-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">transition</span><span class="css-punctuation">:</span> <span class="css-value">background 0.5s ease</span><span class="css-punctuation">;</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.transition-element:hover</span> <span class="css-punctuation">{</span>
+  <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">,</span> <span class="css-value">#10b981</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>`;
+                
+                transitionDemo.style.transition = 'background 0.5s ease';
+            }
+        }
+        
+        // Hover effect demos
+        document.getElementById('hoverScale').addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.1)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        document.getElementById('hoverScale').addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+        
+        document.getElementById('hoverRotate').addEventListener('mouseenter', function() {
+            this.style.transform = 'rotate(15deg)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        document.getElementById('hoverRotate').addEventListener('mouseleave', function() {
+            this.style.transform = 'rotate(0deg)';
+        });
+        
+        document.getElementById('hoverColor').addEventListener('mouseenter', function() {
+            this.style.background = 'linear-gradient(135deg, var(--emerald), var(--seafoam))';
+            this.style.transition = 'background 0.3s ease';
+            this.querySelector('i').style.color = 'white';
+        });
+        
+        document.getElementById('hoverColor').addEventListener('mouseleave', function() {
+            this.style.background = 'white';
+            this.querySelector('i').style.color = 'var(--teal)';
+        });
+        
+        document.getElementById('hoverShadow').addEventListener('mouseenter', function() {
+            this.style.boxShadow = '0 8px 25px rgba(13, 148, 136, 0.3)';
+            this.style.transition = 'box-shadow 0.3s ease';
+        });
+        
+        document.getElementById('hoverShadow').addEventListener('mouseleave', function() {
+            this.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.08)';
+        });
+        
+        // Animation Visualizer Functions
+        const animationDemo = document.getElementById('animationDemo');
+        const generatedCSS = document.getElementById('generatedCSS');
+        let currentAnimation = 'bounce';
+        let currentDuration = '2s';
+        let currentIteration = 'infinite';
+        
+        // Define keyframes
+        const styleSheet = document.createElement('style');
+        document.head.appendChild(styleSheet);
+        
+        // Add keyframes
+        styleSheet.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+            
+            @keyframes slide {
+                0% { transform: translateX(-50px); opacity: 0; }
+                100% { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            @keyframes colorChange {
+                0% { background: linear-gradient(135deg, #0d9488, #0ea5e9); }
+                50% { background: linear-gradient(135deg, #0ea5e9, #10b981); }
+                100% { background: linear-gradient(135deg, #10b981, #0d9488); }
+            }
+            
+            @keyframes exampleBounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+            
+            @keyframes examplePulse {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+            }
+            
+            @keyframes exampleSlide {
+                0% { transform: translateX(-30px); }
+                100% { transform: translateX(30px); }
+            }
+            
+            @keyframes exampleRotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        
+        function changeAnimation(animation) {
+            currentAnimation = animation;
+            
+            // Update active control
+            document.querySelectorAll('.animation-control').forEach(btn => {
+                if (btn.textContent.toLowerCase().includes(animation.toLowerCase())) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            updateAnimation();
+        }
+        
+        function changeDuration(duration) {
+            currentDuration = duration;
+            
+            // Update active control
+            document.querySelectorAll('.animation-control').forEach(btn => {
+                if (btn.textContent.includes(duration)) {
+                    btn.classList.add('active');
+                } else if (btn.textContent.includes('1s') || btn.textContent.includes('2s') || btn.textContent.includes('3s')) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            updateAnimation();
+        }
+        
+        function changeIteration(iteration) {
+            currentIteration = iteration;
+            
+            // Update active control
+            document.querySelectorAll('.animation-control').forEach(btn => {
+                if (btn.textContent.includes(iteration) || (iteration === '1' && btn.textContent.includes('Once'))) {
+                    btn.classList.add('active');
+                } else if (btn.textContent.includes('Once') || btn.textContent.includes('Infinite') || btn.textContent.includes('3 Times')) {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            updateAnimation();
+        }
+        
+        function updateAnimation() {
+            animationDemo.style.animation = `${currentAnimation} ${currentDuration} ease ${currentIteration}`;
+            
+            // Update generated CSS
+            let animationName = currentAnimation;
+            if (animationName === 'colorChange') {
+                generatedCSS.innerHTML = `<span class="css-keyword">@keyframes</span> <span class="css-value">colorChange</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">50%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#0ea5e9</span><span class="css-punctuation">,</span> <span class="css-value">#10b981</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+  <span class="css-value">100%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">background</span><span class="css-punctuation">:</span> <span class="css-function">linear-gradient</span><span class="css-punctuation">(</span><span class="css-value">135deg</span><span class="css-punctuation">,</span> <span class="css-value">#10b981</span><span class="css-punctuation">,</span> <span class="css-value">#0d9488</span><span class="css-punctuation">)</span><span class="css-punctuation">;</span>
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.animated-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">colorChange ${currentDuration} ease ${currentIteration}</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>`;
+            } else {
+                generatedCSS.innerHTML = `<span class="css-keyword">@keyframes</span> <span class="css-value">${animationName}</span> <span class="css-punctuation">{</span>
+  <span class="css-value">0%</span><span class="css-punctuation">,</span> <span class="css-value">100%</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">${animationName === 'bounce' ? 'translateY(0)' : animationName === 'pulse' ? 'scale(1)' : animationName === 'slide' ? 'translateX(-50px)' : 'rotate(0deg)'}</span><span class="css-punctuation">;</span>
+    ${animationName === 'slide' ? 'opacity: 0;' : ''}
+  <span class="css-punctuation">}</span>
+  <span class="css-value">${animationName === 'rotate' ? '100%' : '50%'}</span> <span class="css-punctuation">{</span>
+    <span class="css-property">transform</span><span class="css-punctuation">:</span> <span class="css-value">${animationName === 'bounce' ? 'translateY(-20px)' : animationName === 'pulse' ? 'scale(1.1)' : animationName === 'slide' ? 'translateX(0)' : 'rotate(360deg)'}</span><span class="css-punctuation">;</span>
+    ${animationName === 'slide' ? 'opacity: 1;' : ''}
+  <span class="css-punctuation">}</span>
+<span class="css-punctuation">}</span>
+
+<span class="css-selector">.animated-element</span> <span class="css-punctuation">{</span>
+  <span class="css-property">animation</span><span class="css-punctuation">:</span> <span class="css-value">${animationName} ${currentDuration} ease ${currentIteration}</span><span class="css-punctuation">;</span>
+<span class="css-punctuation">}</span>`;
+            }
+        }
+        
+        function playAnimation() {
+            animationDemo.style.animationPlayState = 'running';
+        }
+        
+        function pauseAnimation() {
+            animationDemo.style.animationPlayState = 'paused';
+        }
+        
+        function resetAnimation() {
+            animationDemo.style.animation = 'none';
+            setTimeout(() => {
+                updateAnimation();
+            }, 10);
+        }
+        
+        // Example animations
+        function applyExample(exampleId) {
+            const example = document.getElementById(exampleId);
+            
+            if (exampleId === 'bounceExample') {
+                example.style.animation = 'exampleBounce 0.6s ease infinite';
+            } else if (exampleId === 'pulseExample') {
+                example.style.animation = 'examplePulse 1s ease infinite';
+            } else if (exampleId === 'slideExample') {
+                example.style.animation = 'exampleSlide 1.5s ease-in-out infinite alternate';
+            } else if (exampleId === 'rotateExample') {
+                example.style.animation = 'exampleRotate 2s linear infinite';
+            }
+            
+            // Reset after 3 seconds
+            setTimeout(() => {
+                example.style.animation = '';
+            }, 3000);
+        }
+        
+        // Notification system
+        function showNotification(type) {
+            const notificationArea = document.getElementById('notificationArea');
+            const notification = document.createElement('div');
+            
+            let bgColor, icon, text;
+            
+            if (type === 'success') {
+                bgColor = 'linear-gradient(135deg, var(--teal), var(--emerald))';
+                icon = 'fas fa-check-circle';
+                text = 'Success! Your action was completed.';
+            } else if (type === 'info') {
+                bgColor = 'linear-gradient(135deg, var(--sky-blue), var(--ocean))';
+                icon = 'fas fa-info-circle';
+                text = 'Here is some information you might need.';
+            } else if (type === 'warning') {
+                bgColor = 'linear-gradient(135deg, var(--sunset), #f97316)';
+                icon = 'fas fa-exclamation-triangle';
+                text = 'Warning! Please check your input.';
+            }
+            
+            notification.innerHTML = `
+                <div style="background: ${bgColor}; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <i class="${icon}" style="font-size: 1.2rem;"></i>
+                    <span>${text}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" style="margin-left: auto; background: transparent; border: none; color: white; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            notification.classList.add('notification');
+            notificationArea.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.classList.add('fade-out');
+                    setTimeout(() => {
+                        if (notification.parentElement) {
+                            notification.remove();
+                        }
+                    }, 500);
+                }
+            }, 5000);
+        }
+        
+        // Initialize the animation visualizer
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAnimation();
+            
+            // Trigger section animations
+            setTimeout(() => {
+                document.querySelectorAll('.section').forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (sectionTop < windowHeight * 0.85) {
+                        section.classList.add('in-view');
+                    }
+                });
+            }, 100);
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

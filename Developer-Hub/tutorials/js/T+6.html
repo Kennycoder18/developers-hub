@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Events Tutorial | Developer's Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color: #0ea5e9;
+            --accent-color: #10b981;
+            --dark-color: #0f172a;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            /* --primary-dark: #0a3d62;
+            --primary: #1e6f8c; */
+            --primary-light: #2a9d8f;
+            --secondary: #4ecdc4;
+            --secondary-light: #a7ecee;
+            --light: #f7f9f9;
+            --dark: #2d3436;
+            --warning: #e9c46a;
+            --danger: #e76f51;
+            --success: #2a9d8f;
+            --event-color: #6c5ce7;
+            --code-bg: #1e293b;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.97);
+            /* border-radius: 15px; */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            text-align: center;
+            /* border-bottom: 5px solid var(--secondary); */
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+
+        /* inserted */ 
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+        /* inserted */
+
+        /* inserted */
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        /* inserted */
+
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin: 25px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--primary);
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--secondary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .event-item {
+            background-color: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            border-top: 4px solid var(--event-color);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .event-item:hover {
+            background-color: #e8f4f8;
+            transform: translateY(-3px);
+        }
+
+        .event-name {
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .event-icon {
+            color: var(--event-color);
+            font-size: 1.2rem;
+        }
+
+        .example {
+            background-color: var(--code-bg);
+            color: #f7f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-left: 5px solid var(--warning);
+            line-height: 1.8;
+        }
+
+        .code-comment {
+            color: #7fdbca;
+        }
+
+        .keyword {
+            color: #ff9d72;
+        }
+
+        .string {
+            color: #9fdb7f;
+        }
+
+        .number {
+            color: #7f9fdb;
+        }
+
+        .function {
+            color: #7f9fdb;
+        }
+
+        .interactive-section {
+            background-color: #e8f7ff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 5px solid var(--secondary-light);
+        }
+
+        .interactive-section h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-area {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--secondary-light);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 10px;
+            font-size: 1rem;
+        }
+
+        .demo-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .demo-button:active {
+            transform: translateY(0);
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            margin: 15px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .demo-input {
+            padding: 10px;
+            border: 2px solid var(--secondary);
+            border-radius: 5px;
+            width: 300px;
+            max-width: 100%;
+            font-size: 1rem;
+            margin: 10px;
+        }
+
+        .demo-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .event-log {
+            background-color: #2d3436;
+            color: #f7f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #555;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .tip-box {
+            background-color: #fff9e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--warning);
+        }
+
+        .tip-box h4 {
+            color: #b8860b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .warning-box {
+            background-color: #ffeaea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--danger);
+        }
+
+        .warning-box h4 {
+            color: #d63031;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .success-box {
+            background-color: #e8f6f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--success);
+        }
+
+        .success-box h4 {
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-light);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .event-flow-diagram {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px dashed var(--secondary);
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px;
+            min-width: 150px;
+            border: 2px solid var(--secondary);
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+         /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+
+        .progress-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .progress-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--secondary);
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                margin-right: 0;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            .event-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .flow-step {
+                display: block;
+                margin: 10px auto;
+            }
+            
+            .flow-arrow {
+                display: block;
+                margin: 10px auto;
+                transform: rotate(90deg);
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .demo-input {
+                width: 100%;
+            }
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .head-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- inserted -->
+    <div class="head-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+    <!-- /inserted -->
+
+    <div class="container page-header">
+        <header>
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fab fa-js-square"></i>
+                </div>
+                <h1>JavaScript Events Tutorial</h1>
+                <p class="subtitle">Master event-driven programming in JavaScript. Learn how to handle user interactions, create responsive interfaces, and build interactive web applications.</p>
+                <div class="difficulty">Level: Beginner to Intermediate</div>
+            </div>
+
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>30 min read</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span>15+ Examples</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Best Practices</span>
+                    </div>
+                </div>
+            </div>    
+        </header>
+        
+        <div class="content-wrapper">
+            <!-- <aside class="sidebar">
+                <h2><i class="fas fa-bookmark"></i> Quick Navigation</h2>
+                
+                <div class="progress-section">
+                    <div class="progress-title">Tutorial Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div id="progressText" style="font-size: 0.9rem; text-align: center; margin-top: 5px;">0% Complete</div>
+                </div>
+                
+                <div class="card">
+                    <h3>What You'll Learn</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>What are JavaScript events</li>
+                        <li>Different types of events</li>
+                        <li>Event handlers and listeners</li>
+                        <li>Event object and its properties</li>
+                        <li>Event propagation: bubbling and capturing</li>
+                        <li>Event delegation pattern</li>
+                        <li>Common event examples and practice</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Event Categories</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li><a href="#mouse-events">Mouse Events</a></li>
+                        <li><a href="#keyboard-events">Keyboard Events</a></li>
+                        <li><a href="#form-events">Form Events</a></li>
+                        <li><a href="#window-events">Window Events</a></li>
+                        <li><a href="#touch-events">Touch Events</a></li>
+                        <li><a href="#custom-events">Custom Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="tip-box">
+                    <h4><i class="fas fa-lightbulb"></i> Key Concept</h4>
+                    <p>JavaScript uses an <strong>event-driven programming model</strong>. The browser produces events when users interact with the page, and JavaScript code responds to those events.</p>
+                </div>
+            </aside> -->
+            
+            <main class="main-content">
+                <section id="introduction">
+                    <h2><i class="fas fa-play-circle"></i> Introduction to JavaScript Events</h2>
+                    <div class="card">
+                        <p>In JavaScript, <strong>events</strong> are actions or occurrences that happen in the browser, which the browser tells you about so you can respond to them in some way. Events are the cornerstone of interactive web applications.</p>
+                        
+                        <div class="example">
+                            <span class="code-comment">// Example: Responding to a button click event</span><br>
+                            <span class="keyword">const</span> button = document.<span class="function">querySelector</span>(<span class="string">'button'</span>);<br><br>
+                            
+                            button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;<span class="code-comment">// This code runs when the button is clicked</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Button was clicked!'</span>);<br>
+                            });
+                        </div>
+                        
+                        <p>When an event occurs, the browser creates an <strong>event object</strong> containing details about the event, and calls any <strong>event handlers</strong> (functions) that are listening for that event.</p>
+                        
+                        <div class="event-flow-diagram">
+                            <h3>Event Flow</h3>
+                            <div class="flow-step">1. Event Occurs</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">2. Event Object Created</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">3. Event Handler Called</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">4. Response Executed</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="event-handlers">
+                    <h2><i class="fas fa-hand-point-up"></i> Event Handlers & Listeners</h2>
+                    <div class="card">
+                        <p>There are several ways to handle events in JavaScript. The modern approach is to use <code>addEventListener()</code>.</p>
+                        
+                        <h3>Three Ways to Handle Events</h3>
+                        
+                        <div class="example">
+                            <span class="code-comment">// 1. HTML attribute (not recommended for complex applications)</span><br>
+                            <span class="string">&lt;button onclick="handleClick()"&gt;Click me&lt;/button&gt;</span><br><br>
+                            
+                            <span class="code-comment">// 2. DOM property (can only assign one handler)</span><br>
+                            button.<span class="keyword">onclick</span> = <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Button clicked!'</span>);<br>
+                            };<br><br>
+                            
+                            <span class="code-comment">// 3. addEventListener() (recommended - can add multiple handlers)</span><br>
+                            button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, handleClick);<br>
+                            button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, anotherHandler); <span class="code-comment">// Multiple handlers possible</span>
+                        </div>
+                        
+                        <div class="tip-box">
+                            <h4><i class="fas fa-lightbulb"></i> Best Practice</h4>
+                            <p>Always use <code>addEventListener()</code> instead of HTML attributes or DOM properties because:</p>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li>You can add multiple event handlers</li>
+                                <li>You have more control (can use capturing phase)</li>
+                                <li>It's easier to remove event listeners when needed</li>
+                                <li>It keeps your JavaScript separate from your HTML</li>
+                            </ul>
+                        </div>
+                        
+                        <h3>Removing Event Listeners</h3>
+                        <div class="example">
+                            <span class="code-comment">// To remove an event listener, you need a named function</span><br>
+                            <span class="keyword">function</span> <span class="function">handleClick</span>() {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Button clicked!'</span>);<br>
+                            }<br><br>
+                            
+                            <span class="code-comment">// Add the event listener</span><br>
+                            button.<span class="function">addEventListener</span>(<span class="string">'click'</span>, handleClick);<br><br>
+                            
+                            <span class="code-comment">// Later, remove the event listener</span><br>
+                            button.<span class="function">removeEventListener</span>(<span class="string">'click'</span>, handleClick);
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="event-object">
+                    <h2><i class="fas fa-info-circle"></i> The Event Object</h2>
+                    <div class="card">
+                        <p>When an event occurs, the browser creates an <strong>event object</strong> and passes it as an argument to the event handler. This object contains information about the event and methods to control its behavior.</p>
+                        
+                        <div class="example">
+                            <span class="code-comment">// The event object is automatically passed to the handler</span><br>
+                            element.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(event) {<br>
+                            &nbsp;&nbsp;<span class="code-comment">// 'event' is the event object</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Event type:'</span>, event.type); <span class="code-comment">// "click"</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Target element:'</span>, event.target); <span class="code-comment">// The element that was clicked</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Current target:'</span>, event.currentTarget); <span class="code-comment">// The element with the listener</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Mouse coordinates:'</span>, event.clientX, event.clientY);<br>
+                            });
+                        </div>
+                        
+                        <h3>Common Event Object Properties</h3>
+                        
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Property</th>
+                                        <th>Description</th>
+                                        <th>Example Events</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>type</code></td>
+                                        <td>The type of event (e.g., "click", "keydown")</td>
+                                        <td>All events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>target</code></td>
+                                        <td>The element that triggered the event</td>
+                                        <td>All events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>currentTarget</code></td>
+                                        <td>The element that the event listener is attached to</td>
+                                        <td>All events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>preventDefault()</code></td>
+                                        <td>Prevents the default browser action</td>
+                                        <td>Form submit, link clicks</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>stopPropagation()</code></td>
+                                        <td>Stops the event from bubbling up</td>
+                                        <td>All events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>clientX / clientY</code></td>
+                                        <td>Mouse coordinates relative to viewport</td>
+                                        <td>Mouse events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>key</code></td>
+                                        <td>The key that was pressed</td>
+                                        <td>Keyboard events</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>shiftKey</code></td>
+                                        <td>Whether Shift key was pressed</td>
+                                        <td>Mouse, keyboard events</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="interactive-section">
+                            <h3><i class="fas fa-mouse-pointer"></i> Try It: Explore Event Object</h3>
+                            <p>Click the button or move your mouse over the box to see event object properties in action:</p>
+                            
+                            <div class="demo-area">
+                                <button id="eventDemoButton" class="demo-button">Click Me to See Event Details</button>
+                                <div id="eventDemoBox" class="demo-box">Hover Over Me</div>
+                                <div class="event-log" id="eventLog"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="mouse-events">
+                    <h2><i class="fas fa-mouse"></i> Mouse Events</h2>
+                    <div class="card">
+                        <p>Mouse events occur when the user interacts with a pointing device (mouse, touchpad, etc.) on an element.</p>
+                        
+                        <div class="event-grid">
+                            <div class="event-item" data-event="click">
+                                <div class="event-name">click <i class="fas fa-mouse-pointer event-icon"></i></div>
+                                <p>Fires when the mouse is pressed and released on the same element</p>
+                            </div>
+                            <div class="event-item" data-event="dblclick">
+                                <div class="event-name">dblclick <i class="fas fa-mouse-pointer event-icon"></i></div>
+                                <p>Fires when the mouse is double-clicked on an element</p>
+                            </div>
+                            <div class="event-item" data-event="mousedown">
+                                <div class="event-name">mousedown <i class="fas fa-hand-point-down event-icon"></i></div>
+                                <p>Fires when the mouse button is pressed down</p>
+                            </div>
+                            <div class="event-item" data-event="mouseup">
+                                <div class="event-name">mouseup <i class="fas fa-hand-point-up event-icon"></i></div>
+                                <p>Fires when the mouse button is released</p>
+                            </div>
+                            <div class="event-item" data-event="mouseover">
+                                <div class="event-name">mouseover <i class="fas fa-arrow-right-to-bracket event-icon"></i></div>
+                                <p>Fires when the mouse enters an element</p>
+                            </div>
+                            <div class="event-item" data-event="mouseout">
+                                <div class="event-name">mouseout <i class="fas fa-arrow-right-from-bracket event-icon"></i></div>
+                                <p>Fires when the mouse leaves an element</p>
+                            </div>
+                            <div class="event-item" data-event="mousemove">
+                                <div class="event-name">mousemove <i class="fas fa-arrows-up-down-left-right event-icon"></i></div>
+                                <p>Fires when the mouse moves over an element</p>
+                            </div>
+                            <div class="event-item" data-event="contextmenu">
+                                <div class="event-name">contextmenu <i class="fas fa-list event-icon"></i></div>
+                                <p>Fires when the right mouse button is clicked (context menu)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example">
+                            <span class="code-comment">// Mouse event examples</span><br>
+                            <span class="keyword">const</span> box = document.<span class="function">getElementById</span>(<span class="string">'myBox'</span>);<br><br>
+                            
+                            box.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(e) {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">`Clicked at (</span>${e.clientX}<span class="string">, </span>${e.clientY}<span class="string">)`</span>);<br>
+                            });<br><br>
+                            
+                            box.<span class="function">addEventListener</span>(<span class="string">'mouseover'</span>, <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;box.style.backgroundColor = <span class="string">'lightblue'</span>;<br>
+                            });<br><br>
+                            
+                            box.<span class="function">addEventListener</span>(<span class="string">'mouseout'</span>, <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;box.style.backgroundColor = <span class="string">''</span>;<br>
+                            });
+                        </div>
+                        
+                        <div class="interactive-section">
+                            <h3><i class="fas fa-gamepad"></i> Mouse Event Playground</h3>
+                            <p>Try different mouse interactions with the box below:</p>
+                            
+                            <div class="demo-area">
+                                <div id="mouseDemoBox" class="demo-box">
+                                    <p>Interact with me!</p>
+                                    <p id="mouseCoords">X: 0, Y: 0</p>
+                                </div>
+                                <div class="event-log" id="mouseEventLog">
+                                    <div class="log-entry">Mouse events will appear here...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="keyboard-events">
+                    <h2><i class="fas fa-keyboard"></i> Keyboard Events</h2>
+                    <div class="card">
+                        <p>Keyboard events occur when the user presses or releases keys on the keyboard. They're essential for handling user input and creating keyboard shortcuts.</p>
+                        
+                        <div class="event-grid">
+                            <div class="event-item" data-event="keydown">
+                                <div class="event-name">keydown <i class="fas fa-keyboard event-icon"></i></div>
+                                <p>Fires when a key is pressed down</p>
+                            </div>
+                            <div class="event-item" data-event="keyup">
+                                <div class="event-name">keyup <i class="fas fa-keyboard event-icon"></i></div>
+                                <p>Fires when a key is released</p>
+                            </div>
+                            <div class="event-item" data-event="keypress">
+                                <div class="event-name">keypress <i class="fas fa-keyboard event-icon"></i></div>
+                                <p>Fires when a key that produces a character is pressed (deprecated)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Note about keypress</h4>
+                            <p>The <code>keypress</code> event is deprecated and should not be used in new code. Use <code>keydown</code> instead. The main difference is that <code>keydown</code> fires for all keys, while <code>keypress</code> only fired for keys that produce a character.</p>
+                        </div>
+                        
+                        <div class="example">
+                            <span class="code-comment">// Keyboard event examples</span><br>
+                            document.<span class="function">addEventListener</span>(<span class="string">'keydown'</span>, <span class="keyword">function</span>(event) {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">`Key pressed: </span>${event.key}<span class="string">`</span>);<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">`Key code: </span>${event.code}<span class="string">`</span>);<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">`Shift pressed? </span>${event.shiftKey}<span class="string">`</span>);<br><br>
+                            
+                            &nbsp;&nbsp;<span class="code-comment">// Example: Detect Ctrl+S for save</span><br>
+                            &nbsp;&nbsp;<span class="keyword">if</span> (event.ctrlKey && event.key === <span class="string">'s'</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;event.<span class="function">preventDefault</span>(); <span class="code-comment">// Prevent browser save dialog</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">saveDocument</span>(); <span class="code-comment">// Custom save function</span><br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+                        
+                        <div class="interactive-section">
+                            <h3><i class="fas fa-keyboard"></i> Keyboard Event Tester</h3>
+                            <p>Click in the input field or anywhere on the page and press keys to see keyboard events:</p>
+                            
+                            <div class="demo-area">
+                                <input type="text" id="keyboardInput" class="demo-input" placeholder="Click here and type something...">
+                                <div class="event-log" id="keyboardEventLog">
+                                    <div class="log-entry">Keyboard events will appear here...</div>
+                                </div>
+                                <p style="margin-top: 10px; font-size: 0.9rem;">Try: Regular keys, Shift, Ctrl, Arrow keys, Enter, Escape</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="event-propagation">
+                    <h2><i class="fas fa-project-diagram"></i> Event Propagation</h2>
+                    <div class="card">
+                        <p>Event propagation describes how events travel through the DOM tree. There are three phases:</p>
+                        
+                        <ol style="padding-left: 25px; margin: 15px 0;">
+                            <li><strong>Capturing Phase</strong>: Event travels from window down to target element</li>
+                            <li><strong>Target Phase</strong>: Event reaches the target element</li>
+                            <li><strong>Bubbling Phase</strong>: Event bubbles up from target to window</li>
+                        </ol>
+                        
+                        <div class="event-flow-diagram">
+                            <h3>Event Propagation Flow</h3>
+                            <div class="flow-step" style="background-color: #e8f4f8;">Window (Capturing)</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step" style="background-color: #e8f4f8;">Document (Capturing)</div>
+                            <div class="flow-arrow">↓</div>
+                            <div class="flow-step" style="background-color: #ffeaa7;">Target Element</div>
+                            <div class="flow-arrow">↑</div>
+                            <div class="flow-step" style="background-color: #a7ecee;">Document (Bubbling)</div>
+                            <div class="flow-arrow">↑</div>
+                            <div class="flow-step" style="background-color: #a7ecee;">Window (Bubbling)</div>
+                        </div>
+                        
+                        <div class="example">
+                            <span class="code-comment">// By default, events use bubbling phase (false)</span><br>
+                            outer.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Outer element clicked (bubbling)'</span>);<br>
+                            }, <span class="keyword">false</span>);<br><br>
+                            
+                            <span class="code-comment">// To use capturing phase, set third parameter to true</span><br>
+                            outer.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>() {<br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Outer element clicked (capturing)'</span>);<br>
+                            }, <span class="keyword">true</span>);<br><br>
+                            
+                            <span class="code-comment">// Stop event propagation</span><br>
+                            inner.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(event) {<br>
+                            &nbsp;&nbsp;event.<span class="function">stopPropagation</span>(); <span class="code-comment">// Prevents event from bubbling up</span><br>
+                            &nbsp;&nbsp;console.<span class="function">log</span>(<span class="string">'Inner element clicked (propagation stopped)'</span>);<br>
+                            });
+                        </div>
+                        
+                        <div class="interactive-section">
+                            <h3><i class="fas fa-sitemap"></i> Propagation Demo</h3>
+                            <p>Click on the inner box to see event propagation in action:</p>
+                            
+                            <div class="demo-area">
+                                <div id="propagationOuter" style="padding: 40px; background-color: #a7ecee; border-radius: 10px; text-align: center; position: relative;">
+                                    <p>Outer Div (click me)</p>
+                                    <div id="propagationInner" style="padding: 30px; background-color: #4ecdc4; border-radius: 8px; margin: 20px auto; width: 80%;">
+                                        <p>Inner Div (click me)</p>
+                                        <div id="propagationDeep" style="padding: 20px; background-color: #2a9d8f; border-radius: 6px; color: white;">
+                                            <p>Deepest Div (click me)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="event-log" id="propagationLog">
+                                    <div class="log-entry">Click on any colored box above...</div>
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <button id="stopPropagationBtn" class="demo-button">Toggle Stop Propagation</button>
+                                    <span id="propagationStatus" style="margin-left: 10px; font-weight: bold; color: var(--primary);">Propagation: ON</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="event-delegation">
+                    <h2><i class="fas fa-users"></i> Event Delegation</h2>
+                    <div class="card">
+                        <p>Event delegation is a technique where you attach a single event listener to a parent element to handle events for multiple child elements. This is efficient and works for dynamically added elements.</p>
+                        
+                        <div class="example">
+                            <span class="code-comment">// Without event delegation (inefficient for many items)</span><br>
+                            <span class="keyword">const</span> items = document.<span class="function">querySelectorAll</span>(<span class="string">'.item'</span>);<br>
+                            items.<span class="function">forEach</span>(<span class="keyword">function</span>(item) {<br>
+                            &nbsp;&nbsp;item.<span class="function">addEventListener</span>(<span class="string">'click'</span>, handleClick);<br>
+                            });<br><br>
+                            
+                            <span class="code-comment">// WITH event delegation (efficient, works for dynamic content)</span><br>
+                            <span class="keyword">const</span> list = document.<span class="function">getElementById</span>(<span class="string">'itemList'</span>);<br>
+                            list.<span class="function">addEventListener</span>(<span class="string">'click'</span>, <span class="keyword">function</span>(event) {<br>
+                            &nbsp;&nbsp;<span class="code-comment">// Check if the clicked element is an item</span><br>
+                            &nbsp;&nbsp;<span class="keyword">if</span> (event.target.<span class="function">matches</span>(<span class="string">'.item'</span>)) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="function">handleClick</span>(event);<br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+                        
+                        <div class="tip-box">
+                            <h4><i class="fas fa-lightbulb"></i> Benefits of Event Delegation</h4>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li><strong>Performance</strong>: Only one event listener instead of many</li>
+                                <li><strong>Memory efficiency</strong>: Less memory usage</li>
+                                <li><strong>Dynamic content</strong>: Works for elements added after page load</li>
+                                <li><strong>Simpler code</strong>: Easier to manage event handling</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="interactive-section">
+                            <h3><i class="fas fa-list"></i> Event Delegation Demo</h3>
+                            <p>Click on items in the list. Notice that even newly added items work without adding individual event listeners:</p>
+                            
+                            <div class="demo-area">
+                                <div style="display: flex; gap: 20px; width: 100%; flex-wrap: wrap;">
+                                    <div style="flex: 1; min-width: 250px;">
+                                        <h4>Todo List</h4>
+                                        <ul id="todoList" style="list-style-type: none; padding: 0;">
+                                            <li class="todo-item" style="padding: 10px; margin: 5px 0; background-color: #e8f4f8; border-radius: 5px; cursor: pointer;">Buy groceries</li>
+                                            <li class="todo-item" style="padding: 10px; margin: 5px 0; background-color: #e8f4f8; border-radius: 5px; cursor: pointer;">Walk the dog</li>
+                                            <li class="todo-item" style="padding: 10px; margin: 5px 0; background-color: #e8f4f8; border-radius: 5px; cursor: pointer;">Finish project</li>
+                                        </ul>
+                                        <button id="addTodoBtn" class="demo-button" style="margin-top: 10px;">Add New Todo</button>
+                                    </div>
+                                    <div style="flex: 1; min-width: 250px;">
+                                        <h4>Event Log</h4>
+                                        <div class="event-log" id="delegationLog" style="height: 150px;">
+                                            <div class="log-entry">Click on todo items above...</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="summary">
+                    <h2><i class="fas fa-check-circle"></i> Summary & Key Takeaways</h2>
+                    <div class="card">
+                        <div class="success-box">
+                            <h4><i class="fas fa-graduation-cap"></i> What You've Learned</h4>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li><strong>Events</strong> are actions that occur in the browser that JavaScript can respond to</li>
+                                <li>Use <code>addEventListener()</code> to handle events (not onclick attributes)</li>
+                                <li>The <strong>event object</strong> contains details about the event and methods to control it</li>
+                                <li>Events propagate in three phases: capturing, target, and bubbling</li>
+                                <li><strong>Event delegation</strong> is an efficient pattern for handling events on multiple elements</li>
+                                <li>Common event types include mouse, keyboard, form, and window events</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tip-box">
+                            <h4><i class="fas fa-rocket"></i> Next Steps</h4>
+                            <p>Now that you understand JavaScript events, you're ready to:</p>
+                            <ul style="padding-left: 20px; margin-top: 10px;">
+                                <li>Build interactive forms with validation</li>
+                                <li>Create drag-and-drop interfaces</li>
+                                <li>Implement keyboard shortcuts in your applications</li>
+                                <li>Build games that respond to user input</li>
+                                <li>Learn about more advanced event patterns like custom events</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        
+        <footer class="footer">
+            <p><i class="fas fa-graduation-cap"></i> JavaScript Events Tutorial | Developer's Hub</p>
+            <ul class="quick-links">
+                <a href="T+5.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: JS Operators & Expressions</a>
+                <a href="#" class="quick-link"><i class="fas fa-book"></i> JS Reference Guide</a>
+                <a href="T+7.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: JS DOM Manipulation</a>
+                <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+            </ul>
+            <p style="margin-top: 15px; opacity: 0.8;">&copy; 2023 Developer's Hub. All rights reserved. Practice makes perfect!</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress tracking
+            const sections = document.querySelectorAll('section');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            function updateProgress() {
+                const scrollPosition = window.scrollY + window.innerHeight;
+                const pageHeight = document.documentElement.scrollHeight;
+                const scrollPercentage = (scrollPosition / pageHeight) * 100;
+                
+                const limitedPercentage = Math.min(Math.max(scrollPercentage, 0), 100);
+                progressFill.style.width = limitedPercentage + '%';
+                progressText.textContent = Math.round(limitedPercentage) + '% Complete';
+            }
+            
+            window.addEventListener('scroll', updateProgress);
+            updateProgress();
+            
+            // Event object demo
+            const eventDemoButton = document.getElementById('eventDemoButton');
+            const eventDemoBox = document.getElementById('eventDemoBox');
+            const eventLog = document.getElementById('eventLog');
+            
+            eventDemoButton.addEventListener('click', function(event) {
+                eventLog.innerHTML = `
+                    <div class="log-entry"><strong>Event Type:</strong> ${event.type}</div>
+                    <div class="log-entry"><strong>Target:</strong> ${event.target.tagName} (${event.target.id || event.target.className})</div>
+                    <div class="log-entry"><strong>Current Target:</strong> ${event.currentTarget.tagName}</div>
+                    <div class="log-entry"><strong>Mouse Coordinates:</strong> X=${event.clientX}, Y=${event.clientY}</div>
+                    <div class="log-entry"><strong>Timestamp:</strong> ${event.timeStamp.toFixed(2)}ms</div>
+                    <div class="log-entry"><strong>Bubbles:</strong> ${event.bubbles}</div>
+                `;
+            });
+            
+            eventDemoBox.addEventListener('mouseover', function(event) {
+                eventLog.innerHTML = `
+                    <div class="log-entry"><strong>Event Type:</strong> ${event.type}</div>
+                    <div class="log-entry"><strong>Target:</strong> ${event.target.tagName}</div>
+                    <div class="log-entry"><strong>Mouse Coordinates:</strong> X=${event.clientX}, Y=${event.clientY}</div>
+                    <div class="log-entry"><strong>Related Target:</strong> ${event.relatedTarget ? event.relatedTarget.tagName : 'N/A'}</div>
+                `;
+                eventDemoBox.style.transform = 'scale(1.1)';
+                eventDemoBox.style.backgroundColor = '#6c5ce7';
+            });
+            
+            eventDemoBox.addEventListener('mouseout', function() {
+                eventDemoBox.style.transform = 'scale(1)';
+                eventDemoBox.style.backgroundColor = '';
+            });
+            
+            // Mouse event demo
+            const mouseDemoBox = document.getElementById('mouseDemoBox');
+            const mouseCoords = document.getElementById('mouseCoords');
+            const mouseEventLog = document.getElementById('mouseEventLog');
+            
+            const mouseEvents = ['click', 'dblclick', 'mousedown', 'mouseup', 'mouseover', 'mouseout', 'mousemove', 'contextmenu'];
+            
+            mouseEvents.forEach(eventType => {
+                mouseDemoBox.addEventListener(eventType, function(event) {
+                    // Update coordinates
+                    mouseCoords.textContent = `X: ${event.clientX}, Y: ${event.clientY}`;
+                    
+                    // Log the event
+                    if (eventType === 'mousemove') {
+                        // Don't log every mousemove to avoid spam
+                        if (Math.random() < 0.3) return;
+                    }
+                    
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'log-entry';
+                    logEntry.textContent = `${eventType.toUpperCase()} at (${event.clientX}, ${event.clientY})`;
+                    
+                    mouseEventLog.prepend(logEntry);
+                    
+                    // Limit log entries
+                    if (mouseEventLog.children.length > 10) {
+                        mouseEventLog.removeChild(mouseEventLog.lastChild);
+                    }
+                    
+                    // Prevent context menu on right click
+                    if (eventType === 'contextmenu') {
+                        event.preventDefault();
+                        logEntry.textContent += ' (context menu prevented)';
+                    }
+                });
+            });
+            
+            // Keyboard event demo
+            const keyboardInput = document.getElementById('keyboardInput');
+            const keyboardEventLog = document.getElementById('keyboardEventLog');
+            
+            function logKeyboardEvent(event, type) {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                let modifiers = [];
+                if (event.ctrlKey) modifiers.push('Ctrl');
+                if (event.shiftKey) modifiers.push('Shift');
+                if (event.altKey) modifiers.push('Alt');
+                if (event.metaKey) modifiers.push('Meta');
+                
+                const modText = modifiers.length > 0 ? ` [${modifiers.join('+')}]` : '';
+                
+                logEntry.textContent = `${type.toUpperCase()}: Key="${event.key}" Code="${event.code}"${modText}`;
+                keyboardEventLog.prepend(logEntry);
+                
+                // Limit log entries
+                if (keyboardEventLog.children.length > 8) {
+                    keyboardEventLog.removeChild(keyboardEventLog.lastChild);
+                }
+            }
+            
+            keyboardInput.addEventListener('keydown', function(event) {
+                logKeyboardEvent(event, 'keydown');
+            });
+            
+            keyboardInput.addEventListener('keyup', function(event) {
+                logKeyboardEvent(event, 'keyup');
+            });
+            
+            // Also capture keyboard events on the whole document
+            document.addEventListener('keydown', function(event) {
+                if (event.target !== keyboardInput) {
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'log-entry';
+                    logEntry.textContent = `DOCUMENT keydown: "${event.key}" (not in input)`;
+                    logEntry.style.color = '#aaa';
+                    keyboardEventLog.prepend(logEntry);
+                    
+                    if (keyboardEventLog.children.length > 8) {
+                        keyboardEventLog.removeChild(keyboardEventLog.lastChild);
+                    }
+                }
+            });
+            
+            // Event propagation demo
+            const propagationOuter = document.getElementById('propagationOuter');
+            const propagationInner = document.getElementById('propagationInner');
+            const propagationDeep = document.getElementById('propagationDeep');
+            const propagationLog = document.getElementById('propagationLog');
+            const stopPropagationBtn = document.getElementById('stopPropagationBtn');
+            const propagationStatus = document.getElementById('propagationStatus');
+            
+            let stopPropagation = false;
+            
+            function logPropagation(event, elementName) {
+                if (stopPropagation) {
+                    event.stopPropagation();
+                }
+                
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = `${elementName} clicked (phase: ${event.eventPhase === 1 ? 'CAPTURING' : event.eventPhase === 2 ? 'TARGET' : 'BUBBLING'})`;
+                
+                // Color code by phase
+                if (event.eventPhase === 1) logEntry.style.color = '#1e6f8c';
+                if (event.eventPhase === 2) logEntry.style.color = '#e76f51';
+                if (event.eventPhase === 3) logEntry.style.color = '#2a9d8f';
+                
+                propagationLog.prepend(logEntry);
+                
+                // Limit log entries
+                if (propagationLog.children.length > 8) {
+                    propagationLog.removeChild(propagationLog.lastChild);
+                }
+            }
+            
+            // Add listeners for all phases
+            [propagationOuter, propagationInner, propagationDeep].forEach((el, i) => {
+                const names = ['Outer Div', 'Inner Div', 'Deepest Div'];
+                
+                // Capturing phase (true)
+                el.addEventListener('click', function(event) {
+                    logPropagation(event, `${names[i]} (capturing)`);
+                }, true);
+                
+                // Bubbling phase (false/default)
+                el.addEventListener('click', function(event) {
+                    logPropagation(event, `${names[i]} (bubbling)`);
+                }, false);
+            });
+            
+            stopPropagationBtn.addEventListener('click', function() {
+                stopPropagation = !stopPropagation;
+                propagationStatus.textContent = `Propagation: ${stopPropagation ? 'STOPPED' : 'ON'}`;
+                propagationStatus.style.color = stopPropagation ? 'var(--danger)' : 'var(--primary)';
+                
+                // Clear log
+                propagationLog.innerHTML = '<div class="log-entry">Propagation ' + (stopPropagation ? 'STOPPED' : 'ON') + '. Click on any box...</div>';
+            });
+            
+            // Event delegation demo
+            const todoList = document.getElementById('todoList');
+            const addTodoBtn = document.getElementById('addTodoBtn');
+            const delegationLog = document.getElementById('delegationLog');
+            let todoCounter = 4;
+            
+            // Event delegation: One listener on the parent
+            todoList.addEventListener('click', function(event) {
+                // Check if the clicked element is a todo item
+                if (event.target.classList.contains('todo-item')) {
+                    // Toggle completion style
+                    event.target.style.textDecoration = event.target.style.textDecoration === 'line-through' ? '' : 'line-through';
+                    event.target.style.opacity = event.target.style.opacity === '0.6' ? '1' : '0.6';
+                    
+                    const status = event.target.style.textDecoration ? 'COMPLETED' : 'PENDING';
+                    
+                    // Log the action
+                    const logEntry = document.createElement('div');
+                    logEntry.className = 'log-entry';
+                    logEntry.textContent = `"${event.target.textContent}" marked as ${status} (via delegation)`;
+                    delegationLog.prepend(logEntry);
+                    
+                    // Limit log entries
+                    if (delegationLog.children.length > 6) {
+                        delegationLog.removeChild(delegationLog.lastChild);
+                    }
+                }
+            });
+            
+            addTodoBtn.addEventListener('click', function() {
+                const newTodo = document.createElement('li');
+                newTodo.className = 'todo-item';
+                newTodo.textContent = `New task ${todoCounter++}`;
+                newTodo.style.padding = '10px';
+                newTodo.style.margin = '5px 0';
+                newTodo.style.backgroundColor = '#e8f4f8';
+                newTodo.style.borderRadius = '5px';
+                newTodo.style.cursor = 'pointer';
+                
+                todoList.appendChild(newTodo);
+                
+                // Log the addition
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = `Added: "${newTodo.textContent}" (no new event listener needed!)`;
+                logEntry.style.color = 'var(--success)';
+                delegationLog.prepend(logEntry);
+                
+                if (delegationLog.children.length > 6) {
+                    delegationLog.removeChild(delegationLog.lastChild);
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add click handlers to event items in the grid
+            document.querySelectorAll('.event-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const eventName = this.dataset.event;
+                    alert(`You clicked on the ${eventName} event! This event fires when: ${this.querySelector('p').textContent}`);
+                });
+            });
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

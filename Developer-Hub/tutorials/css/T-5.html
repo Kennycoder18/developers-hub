@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Website Layout Tutorial | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color: #0ea5e9;
+            --accent-color: #10b981;
+            --light-color: #f0f9ff;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --text-light: #f8f9fa;
+            --success-color: #10b981;
+            --info-color: #3b82f6;
+            --warning-color: #e9c46a;
+            --danger-color: #e76f51;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2.5rem 0;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* inserted */
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        /* inserted */
+
+
+        /* Content Section Styles */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Code Example Styles */
+        .code-example {
+            background-color: var(--dark-color);
+            color: #f8f8f2;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-example h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .code-example pre {
+            white-space: pre-wrap;
+        }
+
+        .css-selector {
+            color: #66d9ef;
+        }
+
+        .css-property {
+            color: #a6e22e;
+        }
+
+        .css-value {
+            color: #fd971f;
+        }
+
+        .css-comment {
+            color: #75715e;
+        }
+
+        /* Layout Example Styles */
+        .layout-example {
+            border: 2px dashed var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            background-color: #f0f9ff;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .layout-preview {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .layout-header, .layout-footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .layout-body {
+            display: flex;
+            flex-grow: 1;
+            gap: 10px;
+        }
+
+        .layout-nav {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .layout-content {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .layout-aside {
+            background-color: var(--info-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            width: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .responsive-item {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .responsive-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tips & Notes */
+        .tip-box {
+            background-color: #e7f5ef;
+            border-left: 4px solid var(--success-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .tip-box h4 {
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--warning-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note-box h4 {
+            color: #b0893b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        /* .page-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: 3rem;
+        }
+
+        .page-footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        } */
+
+         /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .layout-body {
+                flex-direction: column;
+            }
+            
+            .layout-nav, .layout-aside {
+                width: 100%;
+                height: 60px;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 1.8rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Utility Classes */
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .head-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- inserted -->
+    <div class="head-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+    <!-- /inserted -->
+
+    <header class="page-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fas fa-layout-group"></i> 
+            </div>
+            <h1>CSS Website Layout Tutorial</h1>
+            <p>Learn how to create responsive website layouts using modern CSS techniques. Master Flexbox, Grid, and traditional layout methods with practical examples.</p>
+            
+            <div class="header-stats">
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span>20 min read</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-code"></i>
+                    <span>15+ Examples</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Interactive Demos</span>
+                </div>
+            </div>
+        </div>    
+    </header>
+
+    <main class="container">
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Introduction to CSS Layout</h2>
+            <p>CSS website layout refers to how elements are arranged and positioned on a web page. Understanding layout techniques is fundamental to creating well-structured, responsive websites that work across different devices and screen sizes.</p>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Key Concept</h4>
+                <p>Modern CSS offers several layout systems: <span class="highlight">Flexbox</span> for one-dimensional layouts, <span class="highlight">CSS Grid</span> for two-dimensional layouts, and traditional methods like <span class="highlight">floats</span> and <span class="highlight">positioning</span>. Each has its use cases and advantages.</p>
+            </div>
+        </section>
+
+        <!-- Basic Layout Structure -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> Basic Website Layout Structure</h2>
+            <p>A typical website layout consists of several key components that work together to create a cohesive user experience:</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Common Layout Components</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Header:</strong> Contains the site logo, navigation, and sometimes search</li>
+                        <li><strong>Navigation:</strong> Menu links to different sections of the site</li>
+                        <li><strong>Main Content:</strong> The primary content area of the page</li>
+                        <li><strong>Sidebar:</strong> Supplementary content, ads, or secondary navigation</li>
+                        <li><strong>Footer:</strong> Copyright information, contact details, and additional links</li>
+                    </ul>
+                    
+                    <div class="note-box" style="margin-top: 1.5rem;">
+                        <h4><i class="fas fa-exclamation-circle"></i> Note</h4>
+                        <p>While this tutorial doesn't include a navigation bar (as requested), most real-world websites will include one for site navigation.</p>
+                    </div>
+                </div>
+                
+                <div class="layout-example">
+                    <h4>Layout Example Preview</h4>
+                    <div class="layout-preview">
+                        <div class="layout-header">Header</div>
+                        <div class="layout-body">
+                            <div class="layout-nav">Navigation</div>
+                            <div class="layout-content">Main Content</div>
+                            <div class="layout-aside">Sidebar</div>
+                        </div>
+                        <div class="layout-footer">Footer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CSS Layout Methods -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> CSS Layout Methods</h2>
+            <p>There are several approaches to creating layouts in CSS. Here are the most commonly used methods:</p>
+            
+            <div class="responsive-grid">
+                <div class="responsive-item">
+                    <h4><i class="fas fa-th-large"></i> CSS Grid Layout</h4>
+                    <p>A two-dimensional layout system that handles both rows and columns. Perfect for complex website layouts.</p>
+                    <div class="code-example" style="margin-top: 1rem; font-size: 0.85rem;">
+                        <pre><code><span class="css-selector">.container</span> {
+  <span class="css-property">display</span>: <span class="css-value">grid</span>;
+  <span class="css-property">grid-template-columns</span>: <span class="css-value">1fr 3fr 1fr</span>;
+  <span class="css-property">gap</span>: <span class="css-value">20px</span>;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-align-justify"></i> Flexbox Layout</h4>
+                    <p>A one-dimensional layout method for arranging items in rows or columns. Ideal for navigation bars and flexible components.</p>
+                    <div class="code-example" style="margin-top: 1rem; font-size: 0.85rem;">
+                        <pre><code><span class="css-selector">.container</span> {
+  <span class="css-property">display</span>: <span class="css-value">flex</span>;
+  <span class="css-property">justify-content</span>: <span class="css-value">space-between</span>;
+  <span class="css-property">align-items</span>: <span class="css-value">center</span>;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-layer-group"></i> Float-Based Layout</h4>
+                    <p>The traditional method using float property. Still useful for wrapping text around images but less common for full layouts.</p>
+                    <div class="code-example" style="margin-top: 1rem; font-size: 0.85rem;">
+                        <pre><code><span class="css-selector">.sidebar</span> {
+  <span class="css-property">float</span>: <span class="css-value">left</span>;
+  <span class="css-property">width</span>: <span class="css-value">25%</span>;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complete Layout Example -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-file-code"></i> Complete Layout Example</h2>
+            <p>Here's a complete CSS Grid implementation of a responsive website layout with a green-blue color scheme:</p>
+            
+            <div class="content-grid">
+                <div class="code-example">
+                    <h4>HTML Structure</h4>
+                    <pre><code>&lt;div class="website-layout"&gt;
+  &lt;header class="header"&gt;Header&lt;/header&gt;
+  &lt;nav class="nav"&gt;Navigation&lt;/nav&gt;
+  &lt;main class="main-content"&gt;Main Content&lt;/main&gt;
+  &lt;aside class="sidebar"&gt;Sidebar&lt;/aside&gt;
+  &lt;footer class="footer"&gt;Footer&lt;/footer&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+                
+                <div class="code-example">
+                    <h4>CSS Styling</h4>
+                    <pre><code><span class="css-selector">.website-layout</span> {
+  <span class="css-property">display</span>: <span class="css-value">grid</span>;
+  <span class="css-property">grid-template-areas</span>: 
+    <span class="css-value">"header header header"</span>
+    <span class="css-value">"nav main sidebar"</span>
+    <span class="css-value">"footer footer footer"</span>;
+  <span class="css-property">grid-template-columns</span>: <span class="css-value">1fr 3fr 1fr</span>;
+  <span class="css-property">grid-template-rows</span>: <span class="css-value">auto 1fr auto</span>;
+  <span class="css-property">min-height</span>: <span class="css-value">100vh</span>;
+  <span class="css-property">gap</span>: <span class="css-value">15px</span>;
+}
+
+<span class="css-selector">.header</span> { <span class="css-property">grid-area</span>: <span class="css-value">header</span>; }
+<span class="css-selector">.nav</span> { <span class="css-property">grid-area</span>: <span class="css-value">nav</span>; }
+<span class="css-selector">.main-content</span> { <span class="css-property">grid-area</span>: <span class="css-value">main</span>; }
+<span class="css-selector">.sidebar</span> { <span class="css-property">grid-area</span>: <span class="css-value">sidebar</span>; }
+<span class="css-selector">.footer</span> { <span class="css-property">grid-area</span>: <span class="css-value">footer</span>; }
+
+<span class="css-comment">/* Responsive Design */</span>
+<span class="css-selector">@media (max-width: 768px)</span> {
+  <span class="css-selector">.website-layout</span> {
+    <span class="css-property">grid-template-areas</span>: 
+      <span class="css-value">"header"</span>
+      <span class="css-value">"nav"</span>
+      <span class="css-value">"main"</span>
+      <span class="css-value">"sidebar"</span>
+      <span class="css-value">"footer"</span>;
+    <span class="css-property">grid-template-columns</span>: <span class="css-value">1fr</span>;
+  }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Responsive Design -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-mobile-alt"></i> Responsive Design Principles</h2>
+            <p>Creating layouts that work well on all devices is essential. Here are key responsive design techniques:</p>
+            
+            <div class="responsive-grid">
+                <div class="responsive-item">
+                    <h4><i class="fas fa-ruler-combined"></i> Fluid Grids</h4>
+                    <p>Use percentage-based widths or flexible units like <span class="highlight">fr</span> (fractional unit) instead of fixed pixels to create fluid layouts that adapt to screen size.</p>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-sliders-h"></i> Flexible Images</h4>
+                    <p>Ensure images scale with their containers using <span class="highlight">max-width: 100%</span> to prevent them from overflowing on smaller screens.</p>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-tablet-alt"></i> Media Queries</h4>
+                    <p>Apply different CSS rules at specific breakpoints to adapt the layout for different screen sizes.</p>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-text-height"></i> Responsive Typography</h4>
+                    <p>Use relative units like <span class="highlight">rem</span> or <span class="highlight">vw</span> for font sizes to ensure text scales appropriately.</p>
+                </div>
+            </div>
+            
+            <div class="code-example" style="margin-top: 1.5rem;">
+                <h4>Media Query Example</h4>
+                <pre><code><span class="css-comment">/* Mobile-first approach */</span>
+<span class="css-selector">.container</span> {
+  <span class="css-property">padding</span>: <span class="css-value">10px</span>;
+  <span class="css-property">width</span>: <span class="css-value">100%</span>;
+}
+
+<span class="css-comment">/* Tablet */</span>
+<span class="css-selector">@media (min-width: 768px)</span> {
+  <span class="css-selector">.container</span> {
+    <span class="css-property">padding</span>: <span class="css-value">20px</span>;
+    <span class="css-property">max-width</span>: <span class="css-value">750px</span>;
+    <span class="css-property">margin</span>: <span class="css-value">0 auto</span>;
+  }
+}
+
+<span class="css-comment">/* Desktop */</span>
+<span class="css-selector">@media (min-width: 1024px)</span> {
+  <span class="css-selector">.container</span> {
+    <span class="css-property">max-width</span>: <span class="css-value">1000px</span>;
+  }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-pencil-alt"></i> Practice Exercise</h2>
+            <p>Try creating this responsive layout using CSS Grid:</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Layout Requirements</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Header spanning full width</li>
+                        <li>Main content area taking 70% of width</li>
+                        <li>Sidebar taking 30% of width</li>
+                        <li>Footer spanning full width</li>
+                        <li>On mobile, stack all elements vertically</li>
+                        <li>Use the green-blue color scheme</li>
+                    </ul>
+                    
+                    <a href="#" class="btn" onclick="showSolution(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>Solution</h4>
+                            <pre><code><span class="css-selector">.layout</span> {
+  <span class="css-property">display</span>: <span class="css-value">grid</span>;
+  <span class="css-property">grid-template-columns</span>: <span class="css-value">70% 30%</span>;
+  <span class="css-property">grid-template-rows</span>: <span class="css-value">auto 1fr auto</span>;
+  <span class="css-property">grid-template-areas</span>:
+    <span class="css-value">"header header"</span>
+    <span class="css-value">"main sidebar"</span>
+    <span class="css-value">"footer footer"</span>;
+}
+
+<span class="css-comment">/* Mobile responsive */</span>
+<span class="css-selector">@media (max-width: 768px)</span> {
+  <span class="css-selector">.layout</span> {
+    <span class="css-property">grid-template-columns</span>: <span class="css-value">1fr</span>;
+    <span class="css-property">grid-template-areas</span>:
+      <span class="css-value">"header"</span>
+      <span class="css-value">"main"</span>
+      <span class="css-value">"sidebar"</span>
+      <span class="css-value">"footer"</span>;
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="layout-example">
+                    <h4>Target Layout</h4>
+                    <div class="layout-preview">
+                        <div class="layout-header" style="background-color: var(--primary-color);">Header</div>
+                        <div class="layout-body">
+                            <div class="layout-content" style="width: 70%; background-color: var(--secondary-color);">Main Content (70%)</div>
+                            <div class="layout-aside" style="width: 30%; background-color: var(--accent-color);">Sidebar (30%)</div>
+                        </div>
+                        <div class="layout-footer" style="background-color: var(--primary-color);">Footer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="footer">
+        <p><i class="fas fa-graduation-cap"></i> CSS Website Layout Tutorial</p>
+        <p>Part of Developers Hub | Master web development concepts</p>
+        <div class="quick-links">
+            <a href="T-4.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: CSS Animations</a>
+            <a href="#" class="quick-link"><i class="fas fa-book"></i> CSS Reference Guide</a>
+            <a href="T-6.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: CSS Responsive Design</a>
+            <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+        </div>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">&copy; 2026 Developers Hub. All rights reserved.</p>
+    
+    </div>
+
+    <script>
+        function showSolution() {
+            const solutionDiv = document.getElementById('solution');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        // Add interactive behavior to layout examples
+        document.addEventListener('DOMContentLoaded', function() {
+            const layoutExamples = document.querySelectorAll('.layout-preview');
+            
+            layoutExamples.forEach(example => {
+                example.addEventListener('click', function() {
+                    this.style.transform = this.style.transform === 'scale(1.02)' ? 'scale(1)' : 'scale(1.02)';
+                });
+            });
+            
+            // Add subtle animation to section headers
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                title.addEventListener('mouseover', function() {
+                    this.style.transform = 'translateX(5px)';
+                });
+                
+                title.addEventListener('mouseout', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

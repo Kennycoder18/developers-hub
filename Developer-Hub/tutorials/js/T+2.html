@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Variables & Data Types Tutorial | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color:#0ea5e9;
+            --accent-color: #10b981;
+            --light-color: #f0f9ff;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --text-light: #f8f9fa;
+            --success-color: #2a9d8f;
+            --info-color: #57c5b6;
+            --warning-color: #e9c46a;
+            --danger-color: #e76f51;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --code-bg: #1e293b;
+            --var-bg: #0d2b3e;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2.5rem 0;
+            text-align: center;
+            /* border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px; */
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            background-size: 300% 300%;
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: -100% -100%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* inserted */
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        /* inserted */
+
+        /* Content Section Styles */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Code Example Styles */
+        .code-example {
+            background-color: var(--code-bg);
+            color: #d6deeb;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .code-example h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .code-example pre {
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .js-keyword {
+            color: #ff7b72;
+            font-weight: bold;
+        }
+
+        .js-string {
+            color: #a5d6ff;
+        }
+
+        .js-number {
+            color: #79c0ff;
+        }
+
+        .js-function {
+            color: #d2a8ff;
+        }
+
+        .js-comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        .js-operator {
+            color: #ffa657;
+        }
+
+        .js-variable {
+            color: #7ee787;
+        }
+
+        .js-boolean {
+            color: #ffa657;
+        }
+
+        .js-null {
+            color: #ff7b72;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Variable Visualizer */
+        .variable-visualizer {
+            background-color: var(--var-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .visualizer-title {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .visualizer-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .visualizer-btn {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .visualizer-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .variable-container {
+            flex-grow: 1;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .variable-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid var(--accent-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .variable-name {
+            color: #7ee787;
+            font-weight: bold;
+        }
+
+        .variable-value {
+            color: #a5d6ff;
+        }
+
+        .variable-type {
+            color: #ffa657;
+            font-size: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+
+        .variable-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .variable-input {
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        .variable-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .variable-run-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .variable-run-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Data Type Cards */
+        .datatype-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .datatype-card {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .datatype-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .datatype-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .datatype-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .datatype-example {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #f5f5f5;
+            padding: 5px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* Scope Visualizer */
+        .scope-visualizer {
+            background: linear-gradient(90deg, #e3f2fd 0%, #f0f9ff 100%);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .scope-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .scope-item {
+            flex: 1;
+            min-width: 200px;
+            background-color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .scope-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .scope-content {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            min-height: 80px;
+            background-color: #f9f9f9;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        /* Type Comparison Table */
+        .type-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .type-comparison th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .type-comparison td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .type-comparison tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .type-comparison tr:hover {
+            background-color: #f0f9ff;
+        }
+
+        .type-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .type-primitive {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .type-reference {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        /* Tips & Notes */
+        .tip-box {
+            background-color: #e7f5ef;
+            border-left: 4px solid var(--success-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .tip-box h4 {
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--warning-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note-box h4 {
+            color: #b0893b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--danger-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning-box h4 {
+            color: var(--danger-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .variable-visualizer {
+                min-height: 250px;
+            }
+            
+            .scope-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .datatype-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .variable-input-area {
+                flex-direction: column;
+            }
+            
+            .type-comparison {
+                font-size: 0.9rem;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 1.8rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .header-icon {
+                font-size: 2.5rem;
+            }
+            
+            .datatype-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Type Indicator */
+        .type-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #7ee787;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .header-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- inserted -->
+    <header class="header-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </header>
+    <!-- /inserted -->
+
+    <!-- Type Indicator -->
+    <div class="type-indicator">
+        <div class="indicator-dot"></div>
+        <span>JavaScript Variables & Types</span>
+    </div>
+
+    <header class="container page-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fab fa-js-square"></i>
+            </div>
+            <h1>JavaScript Variables & Data Types</h1>
+            <p>Master the fundamentals of variables, data types, and type systems in JavaScript. Learn declaration, scoping, coercion, and best practices.</p>
+            
+            <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>30 min read</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span>15+ Examples</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Best Practices</span>
+                    </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> What are Variables in JavaScript?</h2>
+            <p>Variables are containers for storing data values. In JavaScript, you can think of a variable as a labeled box where you can store information to use later in your code.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Why Use Variables?</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Reusability:</strong> Store values once, use them multiple times</li>
+                        <li><strong>Readability:</strong> Give meaningful names to values</li>
+                        <li><strong>Maintainability:</strong> Change value in one place, update everywhere</li>
+                        <li><strong>Dynamic Behavior:</strong> Store different values at different times</li>
+                        <li><strong>Memory Management:</strong> Allocate and manage memory for data</li>
+                    </ul>
+                    
+                    <div class="tip-box" style="margin-top: 1.5rem;">
+                        <h4><i class="fas fa-lightbulb"></i> Variable Naming Rules</h4>
+                        <ul style="margin-left: 1.5rem;">
+                            <li>Names can contain letters, digits, underscores, and dollar signs</li>
+                            <li>Names must begin with a letter, $ or _</li>
+                            <li>Names are case sensitive (myVar ≠ myvar)</li>
+                            <li>Reserved words cannot be used as names</li>
+                            <li>Use camelCase for variable names (e.g., myVariableName)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="variable-visualizer">
+                    <div class="visualizer-header">
+                        <div class="visualizer-title">Variable Playground</div>
+                        <div class="visualizer-controls">
+                            <button class="visualizer-btn" id="clearVariables"><i class="fas fa-trash"></i> Clear</button>
+                            <button class="visualizer-btn" id="addExample"><i class="fas fa-plus"></i> Add Example</button>
+                        </div>
+                    </div>
+                    <div class="variable-container" id="variableContainer">
+                        <div class="variable-item">
+                            <div>
+                                <span class="variable-name">message</span>
+                                <span class="variable-type">string</span>
+                            </div>
+                            <span class="variable-value">"Hello, JavaScript!"</span>
+                        </div>
+                        <div class="variable-item">
+                            <div>
+                                <span class="variable-name">count</span>
+                                <span class="variable-type">number</span>
+                            </div>
+                            <span class="variable-value">42</span>
+                        </div>
+                        <div class="variable-item">
+                            <div>
+                                <span class="variable-name">isActive</span>
+                                <span class="variable-type">boolean</span>
+                            </div>
+                            <span class="variable-value">true</span>
+                        </div>
+                    </div>
+                    <div class="variable-input-area">
+                        <input type="text" class="variable-input" id="variableInput" placeholder="Try: let price = 99.99" value='let userName = "Alice"'>
+                        <button class="variable-run-btn" id="runVariable"><i class="fas fa-play"></i> Create</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Variable Declaration -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> Variable Declaration: var, let, const</h2>
+            <p>JavaScript provides three ways to declare variables, each with different characteristics regarding scope, hoisting, and reassignment.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Declaration Keywords</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// 1. var - The original way (function-scoped)</span>
+<span class="js-keyword">var</span> <span class="js-variable">oldVariable</span> = <span class="js-string">"I'm function-scoped"</span>;
+<span class="js-variable">oldVariable</span> = <span class="js-string">"I can be reassigned"</span>; <span class="js-comment">// Reassignment allowed</span>
+
+<span class="js-comment">// 2. let - Modern variable declaration (block-scoped)</span>
+<span class="js-keyword">let</span> <span class="js-variable">modernVariable</span> = <span class="js-string">"I'm block-scoped"</span>;
+<span class="js-variable">modernVariable</span> = <span class="js-string">"I can also be reassigned"</span>;
+
+<span class="js-comment">// 3. const - Constant declaration (block-scoped)</span>
+<span class="js-keyword">const</span> <span class="js-variable">constantVariable</span> = <span class="js-string">"I cannot be reassigned"</span>;
+<span class="js-comment">// constantVariable = "New value"; // Error! Cannot reassign const</span>
+
+<span class="js-comment">// Declaration without initialization</span>
+<span class="js-keyword">let</span> <span class="js-variable">uninitialized</span>; <span class="js-comment">// undefined</span>
+<span class="js-variable">uninitialized</span> = <span class="js-string">"Now I have a value"</span>;
+
+<span class="js-comment">// Multiple declarations</span>
+<span class="js-keyword">let</span> <span class="js-variable">a</span> = <span class="js-number">1</span>, <span class="js-variable">b</span> = <span class="js-number">2</span>, <span class="js-variable">c</span> = <span class="js-number">3</span>;</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Comparison Table</h3>
+                    <table class="type-comparison">
+                        <thead>
+                            <tr>
+                                <th>Keyword</th>
+                                <th>Scope</th>
+                                <th>Hoisting</th>
+                                <th>Reassignable</th>
+                                <th>Redeclarable</th>
+                                <th>Use When</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="type-tag type-primitive">var</span></td>
+                                <td>Function scope</td>
+                                <td>Yes (undefined)</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td>Legacy code, avoid in modern JS</td>
+                            </tr>
+                            <tr>
+                                <td><span class="type-tag type-primitive">let</span></td>
+                                <td>Block scope</td>
+                                <td>Yes (TDZ*)</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td>Variables that change value</td>
+                            </tr>
+                            <tr>
+                                <td><span class="type-tag type-primitive">const</span></td>
+                                <td>Block scope</td>
+                                <td>Yes (TDZ*)</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td>Values that shouldn't change</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: #666;">* TDZ = Temporal Dead Zone (cannot access before declaration)</p>
+                    
+                    <div class="note-box" style="margin-top: 1rem;">
+                        <h4><i class="fas fa-exclamation-circle"></i> Best Practice</h4>
+                        <p>Use <span class="highlight">const</span> by default, <span class="highlight">let</span> when you need to reassign, and avoid <span class="highlight">var</span> in modern JavaScript. This makes your code more predictable and easier to debug.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Types Deep Dive -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-cubes"></i> JavaScript Data Types</h2>
+            <p>JavaScript has dynamic types: the same variable can be used to hold different data types. There are 7 primitive data types and Objects.</p>
+            
+            <div class="datatype-cards" id="datatypeCards">
+                <!-- Data type cards will be populated by JavaScript -->
+            </div>
+            
+            <div class="content-grid" style="margin-top: 2rem;">
+                <div>
+                    <h3>Primitive vs Reference Types</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// PRIMITIVE TYPES (stored by value)</span>
+<span class="js-keyword">let</span> <span class="js-variable">a</span> = <span class="js-number">10</span>;
+<span class="js-keyword">let</span> <span class="js-variable">b</span> = <span class="js-variable">a</span>;  <span class="js-comment">// b gets a COPY of a's value</span>
+<span class="js-variable">a</span> = <span class="js-number">20</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">a</span>);  <span class="js-comment">// 20</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">b</span>);  <span class="js-comment">// 10 (unchanged!)</span>
+
+<span class="js-comment">// REFERENCE TYPES (stored by reference)</span>
+<span class="js-keyword">let</span> <span class="js-variable">obj1</span> = { <span class="js-variable">value</span>: <span class="js-number">10</span> };
+<span class="js-keyword">let</span> <span class="js-variable">obj2</span> = <span class="js-variable">obj1</span>;  <span class="js-comment">// obj2 gets a REFERENCE to obj1</span>
+<span class="js-variable">obj1</span>.<span class="js-variable">value</span> = <span class="js-number">20</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">obj1</span>.<span class="js-variable">value</span>);  <span class="js-comment">// 20</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">obj2</span>.<span class="js-variable">value</span>);  <span class="js-comment">// 20 (changed too!)</span>
+
+<span class="js-comment">// Arrays are also reference types</span>
+<span class="js-keyword">let</span> <span class="js-variable">arr1</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>];
+<span class="js-keyword">let</span> <span class="js-variable">arr2</span> = <span class="js-variable">arr1</span>;
+<span class="js-variable">arr1</span>.<span class="js-function">push</span>(<span class="js-number">4</span>);
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">arr2</span>);  <span class="js-comment">// [1, 2, 3, 4] (changed too!)</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Type Checking with typeof</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// Using typeof operator</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-string">"Hello"</span>);        <span class="js-comment">// "string"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-number">42</span>);            <span class="js-comment">// "number"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-number">3.14</span>);         <span class="js-comment">// "number"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-keyword">true</span>);         <span class="js-comment">// "boolean"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-keyword">undefined</span>);    <span class="js-comment">// "undefined"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-keyword">null</span>);          <span class="js-comment">// "object" (historical bug!)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> { <span class="js-variable">name</span>: <span class="js-string">"John"</span> });  <span class="js-comment">// "object"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>]);      <span class="js-comment">// "object" (not "array"!)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">typeof</span> <span class="js-keyword">function</span>() {}); <span class="js-comment">// "function"</span>
+
+<span class="js-comment">// Better array checking</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-function">Array</span>.<span class="js-function">isArray</span>([<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>]));  <span class="js-comment">// true</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-function">Array</span>.<span class="js-function">isArray</span>({ <span class="js-variable">length</span>: <span class="js-number">3</span> }));  <span class="js-comment">// false</span>
+
+<span class="js-comment">// Checking for null specifically</span>
+<span class="js-keyword">let</span> <span class="js-variable">value</span> = <span class="js-keyword">null</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">value</span> === <span class="js-keyword">null</span>);  <span class="js-comment">// true (direct comparison)</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> The typeof null Bug</h4>
+                <p>In JavaScript, <span class="highlight">typeof null</span> returns <span class="highlight">"object"</span>. This is a historical bug that remains for backward compatibility. Always use <span class="highlight">value === null</span> to check for null values.</p>
+            </div>
+        </section>
+
+        <!-- Scope and Hoisting -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-layer-group"></i> Scope & Hoisting</h2>
+            <p>Scope determines the accessibility of variables, and hoisting is JavaScript's behavior of moving declarations to the top of their scope.</p>
+            
+            <div class="scope-visualizer">
+                <h3>Scope Types Visualizer</h3>
+                <div class="scope-container">
+                    <div class="scope-item">
+                        <div class="scope-title">Global Scope</div>
+                        <p>Accessible everywhere in the code</p>
+                        <div class="scope-content" id="globalScope">
+                            // Variables declared outside functions
+                        </div>
+                    </div>
+                    <div class="scope-item">
+                        <div class="scope-title">Function Scope</div>
+                        <p>Accessible only within the function</p>
+                        <div class="scope-content" id="functionScope">
+                            // Variables declared with var inside functions
+                        </div>
+                    </div>
+                    <div class="scope-item">
+                        <div class="scope-title">Block Scope</div>
+                        <p>Accessible only within blocks {}</p>
+                        <div class="scope-content" id="blockScope">
+                            // Variables declared with let/const inside blocks
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Scope Examples</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// Global scope</span>
+<span class="js-keyword">const</span> <span class="js-variable">GLOBAL_VAR</span> = <span class="js-string">"I'm accessible everywhere"</span>;
+
+<span class="js-keyword">function</span> <span class="js-function">testFunction</span>() {
+  <span class="js-comment">// Function scope (var)</span>
+  <span class="js-keyword">var</span> <span class="js-variable">functionScoped</span> = <span class="js-string">"I exist throughout the function"</span>;
+  
+  <span class="js-keyword">if</span> (<span class="js-keyword">true</span>) {
+    <span class="js-comment">// Block scope (let/const)</span>
+    <span class="js-keyword">let</span> <span class="js-variable">blockScoped</span> = <span class="js-string">"I exist only in this block"</span>;
+    <span class="js-keyword">var</span> <span class="js-variable">stillFunctionScoped</span> = <span class="js-string">"I'm function-scoped"</span>;
+    
+    <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">blockScoped</span>);  <span class="js-comment">// Works</span>
+    <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">GLOBAL_VAR</span>);  <span class="js-comment">// Works</span>
+  }
+  
+  <span class="js-comment">// console.log(blockScoped); // Error! blockScoped is not defined</span>
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">stillFunctionScoped</span>);  <span class="js-comment">// Works</span>
+}
+
+<span class="js-function">testFunction</span>();
+<span class="js-comment">// console.log(functionScoped); // Error! functionScoped is not defined</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">GLOBAL_VAR</span>);  <span class="js-comment">// Works</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Hoisting Examples</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// HOISTING: JavaScript moves declarations to the top</span>
+
+<span class="js-comment">// Variable hoisting (var)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">hoistedVar</span>);  <span class="js-comment">// undefined (not an error!)</span>
+<span class="js-keyword">var</span> <span class="js-variable">hoistedVar</span> = <span class="js-string">"I'm hoisted"</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">hoistedVar</span>);  <span class="js-comment">// "I'm hoisted"</span>
+
+<span class="js-comment">// Variable hoisting (let/const) - Temporal Dead Zone</span>
+<span class="js-comment">// console.log(hoistedLet); // Error! Cannot access before initialization</span>
+<span class="js-keyword">let</span> <span class="js-variable">hoistedLet</span> = <span class="js-string">"I'm in TDZ before declaration"</span>;
+
+<span class="js-comment">// Function hoisting</span>
+<span class="js-function">sayHello</span>();  <span class="js-comment">// Works! Function declarations are fully hoisted</span>
+
+<span class="js-keyword">function</span> <span class="js-function">sayHello</span>() {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"Hello!"</span>);
+}
+
+<span class="js-comment">// Function expression hoisting (different!)</span>
+<span class="js-comment">// sayGoodbye(); // Error! sayGoodbye is undefined</span>
+
+<span class="js-keyword">var</span> <span class="js-variable">sayGoodbye</span> = <span class="js-keyword">function</span>() {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"Goodbye!"</span>);
+};
+
+<span class="js-function">sayGoodbye</span>();  <span class="js-comment">// Works</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Hoisting Best Practices</h4>
+                <ol style="margin-left: 1.5rem;">
+                    <li>Always declare variables at the top of their scope</li>
+                    <li>Use let/const instead of var to avoid unexpected behavior</li>
+                    <li>Initialize variables when you declare them</li>
+                    <li>Use function declarations (not expressions) if you need hoisting</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Type Conversion & Coercion -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-exchange-alt"></i> Type Conversion & Coercion</h2>
+            <p>JavaScript can convert values from one type to another, either explicitly (type conversion) or implicitly (type coercion).</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Explicit Type Conversion</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// String to Number</span>
+<span class="js-keyword">let</span> <span class="js-variable">str</span> = <span class="js-string">"123"</span>;
+<span class="js-keyword">let</span> <span class="js-variable">num1</span> = <span class="js-function">Number</span>(<span class="js-variable">str</span>);        <span class="js-comment">// 123</span>
+<span class="js-keyword">let</span> <span class="js-variable">num2</span> = <span class="js-function">parseInt</span>(<span class="js-variable">str</span>);     <span class="js-comment">// 123</span>
+<span class="js-keyword">let</span> <span class="js-variable">num3</span> = <span class="js-function">parseFloat</span>(<span class="js-string">"3.14"</span>); <span class="js-comment">// 3.14</span>
+<span class="js-keyword">let</span> <span class="js-variable">num4</span> = +<span class="js-variable">str</span>;               <span class="js-comment">// 123 (unary plus)</span>
+
+<span class="js-comment">// Number to String</span>
+<span class="js-keyword">let</span> <span class="js-variable">number</span> = <span class="js-number">456</span>;
+<span class="js-keyword">let</span> <span class="js-variable">str1</span> = <span class="js-function">String</span>(<span class="js-variable">number</span>);     <span class="js-comment">// "456"</span>
+<span class="js-keyword">let</span> <span class="js-variable">str2</span> = <span class="js-variable">number</span>.<span class="js-function">toString</span>();  <span class="js-comment">// "456"</span>
+<span class="js-keyword">let</span> <span class="js-variable">str3</span> = <span class="js-variable">number</span> + <span class="js-string">""</span>;         <span class="js-comment">// "456" (concatenation with string)</span>
+
+<span class="js-comment">// Boolean Conversion</span>
+<span class="js-keyword">let</span> <span class="js-variable">bool1</span> = <span class="js-function">Boolean</span>(<span class="js-number">1</span>);         <span class="js-comment">// true</span>
+<span class="js-keyword">let</span> <span class="js-variable">bool2</span> = <span class="js-function">Boolean</span>(<span class="js-number">0</span>);         <span class="js-comment">// false</span>
+<span class="js-keyword">let</span> <span class="js-variable">bool3</span> = <span class="js-function">Boolean</span>(<span class="js-string">"Hello"</span>);   <span class="js-comment">// true</span>
+<span class="js-keyword">let</span> <span class="js-variable">bool4</span> = <span class="js-function">Boolean</span>(<span class="js-string">""</span>);        <span class="js-comment">// false</span>
+<span class="js-keyword">let</span> <span class="js-variable">bool5</span> = !!<span class="js-string">"text"</span>;          <span class="js-comment">// true (double NOT operator)</span>
+
+<span class="js-comment">// Falsy values: false, 0, "", null, undefined, NaN</span>
+<span class="js-comment">// Truthy values: Everything else</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Implicit Type Coercion</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// String concatenation with +</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"5"</span> + <span class="js-number">3</span>);        <span class="js-comment">// "53" (number coerced to string)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"Total: "</span> + <span class="js-number">100</span>); <span class="js-comment">// "Total: 100"</span>
+
+<span class="js-comment">// Numeric operations with - * /</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"10"</span> - <span class="js-number">5</span>);        <span class="js-comment">// 5 (string coerced to number)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"10"</span> * <span class="js-string">"2"</span>);       <span class="js-comment">// 20</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">"10"</span> / <span class="js-string">"2"</span>);       <span class="js-comment">// 5</span>
+
+<span class="js-comment">// Loose equality (==) performs type coercion</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-number">5</span> == <span class="js-string">"5"</span>);        <span class="js-comment">// true (string "5" coerced to number 5)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">true</span> == <span class="js-number">1</span>);       <span class="js-comment">// true (boolean true coerced to number 1)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">false</span> == <span class="js-number">0</span>);      <span class="js-comment">// true (boolean false coerced to number 0)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">null</span> == <span class="js-keyword">undefined</span>); <span class="js-comment">// true (special case)</span>
+
+<span class="js-comment">// Strict equality (===) does NOT perform type coercion</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-number">5</span> === <span class="js-string">"5"</span>);       <span class="js-comment">// false (different types)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">true</span> === <span class="js-number">1</span>);      <span class="js-comment">// false</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">null</span> === <span class="js-keyword">undefined</span>); <span class="js-comment">// false</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Avoid Implicit Coercion</h4>
+                <p>Implicit type coercion can lead to unexpected bugs. Always use <span class="highlight">===</span> and <span class="highlight">!==</span> for comparisons, and explicitly convert types when needed.</p>
+                <div class="code-example" style="margin-top: 10px; font-size: 0.85rem;">
+                    <pre><code><span class="js-comment">// Unexpected results with implicit coercion</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>([] == ![]);        <span class="js-comment">// true (confusing!)</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">null</span> > <span class="js-number">0</span>);         <span class="js-comment">// false</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">null</span> == <span class="js-number">0</span>);        <span class="js-comment">// false</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">null</span> >= <span class="js-number">0</span>);        <span class="js-comment">// true (even more confusing!)</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-pencil-alt"></i> Practice Exercise</h2>
+            <p>Test your understanding of variables and data types with these exercises:</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Exercise 1: Variable Declaration</h3>
+                    <p>Declare variables for the following scenarios:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>A user's name that won't change</li>
+                        <li>A counter that will be incremented</li>
+                        <li>A price that might be reassigned during a sale</li>
+                        <li>A flag indicating if a user is logged in</li>
+                        <li>A value that might not be initialized yet</li>
+                    </ol>
+                    
+                    <a href="#" class="btn" onclick="showSolution1(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution1" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>Exercise 1 Solution</h4>
+                            <pre><code><span class="js-comment">// 1. Constant value (use const)</span>
+<span class="js-keyword">const</span> <span class="js-variable">userName</span> = <span class="js-string">"JohnDoe"</span>;
+
+<span class="js-comment">// 2. Counter that changes (use let)</span>
+<span class="js-keyword">let</span> <span class="js-variable">counter</span> = <span class="js-number">0</span>;
+<span class="js-variable">counter</span><span class="js-operator">++</span>;  <span class="js-comment">// Increment</span>
+
+<span class="js-comment">// 3. Price that might change (use let)</span>
+<span class="js-keyword">let</span> <span class="js-variable">price</span> = <span class="js-number">99.99</span>;
+<span class="js-variable">price</span> = <span class="js-number">79.99</span>;  <span class="js-comment">// Sale price</span>
+
+<span class="js-comment">// 4. Boolean flag (use const if won't change, else let)</span>
+<span class="js-keyword">const</span> <span class="js-variable">isLoggedIn</span> = <span class="js-keyword">true</span>;  <span class="js-comment">// or let if it changes</span>
+
+<span class="js-comment">// 5. Uninitialized value (use let)</span>
+<span class="js-keyword">let</span> <span class="js-variable">userData</span>;  <span class="js-comment">// undefined initially</span>
+<span class="js-variable">userData</span> = { <span class="js-variable">id</span>: <span class="js-number">1</span>, <span class="js-variable">name</span>: <span class="js-string">"Alice"</span> };</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 2rem;">Exercise 2: Type Conversion</h3>
+                    <p>Convert these values as specified:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Convert string "123" to a number</li>
+                        <li>Convert number 456 to a string</li>
+                        <li>Check if string "hello" is truthy</li>
+                        <li>Convert boolean true to number</li>
+                        <li>Check type of null</li>
+                    </ol>
+                    
+                    <a href="#" class="btn" onclick="showSolution2(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution2" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>Exercise 2 Solution</h4>
+                            <pre><code><span class="js-comment">// 1. String to number</span>
+<span class="js-keyword">let</span> <span class="js-variable">num</span> = <span class="js-function">Number</span>(<span class="js-string">"123"</span>);  <span class="js-comment">// or parseInt("123") or +"123"</span>
+
+<span class="js-comment">// 2. Number to string</span>
+<span class="js-keyword">let</span> <span class="js-variable">str</span> = <span class="js-function">String</span>(<span class="js-number">456</span>);    <span class="js-comment">// or (456).toString() or 456 + ""</span>
+
+<span class="js-comment">// 3. Check if truthy</span>
+<span class="js-keyword">let</span> <span class="js-variable">isTruthy</span> = <span class="js-function">Boolean</span>(<span class="js-string">"hello"</span>);  <span class="js-comment">// or !! "hello"</span>
+
+<span class="js-comment">// 4. Boolean to number</span>
+<span class="js-keyword">let</span> <span class="js-variable">boolAsNum</span> = <span class="js-function">Number</span>(<span class="js-keyword">true</span>);  <span class="js-comment">// 1</span>
+
+<span class="js-comment">// 5. Type of null</span>
+<span class="js-keyword">let</span> <span class="js-variable">typeOfNull</span> = <span class="js-keyword">typeof</span> <span class="js-keyword">null</span>;  <span class="js-comment">// "object" (historical bug)</span>
+<span class="js-keyword">let</span> <span class="js-variable">isNull</span> = <span class="js-keyword">null</span> === <span class="js-keyword">null</span>;    <span class="js-comment">// true (correct way to check)</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="variable-visualizer">
+                    <div class="visualizer-header">
+                        <div class="visualizer-title">Type Conversion Playground</div>
+                        <div class="visualizer-controls">
+                            <button class="visualizer-btn" id="testConversion"><i class="fas fa-vial"></i> Test Conversion</button>
+                        </div>
+                    </div>
+                    <div class="variable-container" id="conversionOutput">
+                        <div style="color: #8b949e;">// Conversion examples will appear here</div>
+                        <div style="color: #8b949e; margin-top: 10px;">Try these:</div>
+                        <div style="color: #a5d6ff; font-family: 'Consolas'; font-size: 0.85rem; margin-top: 5px;">
+                            Number("42")<br>
+                            String(123)<br>
+                            Boolean(0)<br>
+                            typeof null<br>
+                            5 + "5"<br>
+                            5 == "5"<br>
+                            5 === "5"
+                        </div>
+                    </div>
+                    <div class="variable-input-area">
+                        <input type="text" class="variable-input" id="conversionInput" placeholder="Enter expression to evaluate" value='Number("42")'>
+                        <button class="variable-run-btn" id="runConversion"><i class="fas fa-play"></i> Evaluate</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-graduation-cap"></i> JavaScript Variables & Data Types Tutorial</p>
+        <p>Part of Developers Hub | Master web development concepts</p>
+        <div class="quick-links">
+            <a href="T+1.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: JS Syntax</a>
+            <a href="#" class="quick-link"><i class="fas fa-book"></i> JS Reference Guide</a>
+            <a href="T+3.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: JS Objects & Arrays</a>
+            <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+        </div>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">&copy; 2023 Developers Hub. All rights reserved.</p>
+        
+    </footer>
+
+    <script>
+        // Initialize data type cards
+        function initDataTypeCards() {
+            const datatypes = [
+                { 
+                    name: "String", 
+                    description: "Text data, enclosed in quotes",
+                    example: '"Hello" or \'World\'',
+                    icon: "fas fa-quote-right",
+                    keyword: "string"
+                },
+                { 
+                    name: "Number", 
+                    description: "Numeric values, integers or floats",
+                    example: "42, 3.14, -5, 1e6",
+                    icon: "fas fa-hashtag",
+                    keyword: "number"
+                },
+                { 
+                    name: "Boolean", 
+                    description: "Logical true/false values",
+                    example: "true or false",
+                    icon: "fas fa-check-circle",
+                    keyword: "boolean"
+                },
+                { 
+                    name: "Undefined", 
+                    description: "Variable declared but not assigned",
+                    example: "undefined",
+                    icon: "fas fa-question-circle",
+                    keyword: "undefined"
+                },
+                { 
+                    name: "Null", 
+                    description: "Intentional absence of value",
+                    example: "null",
+                    icon: "fas fa-ban",
+                    keyword: "object"
+                },
+                { 
+                    name: "Symbol", 
+                    description: "Unique and immutable primitive",
+                    example: "Symbol('id')",
+                    icon: "fas fa-atom",
+                    keyword: "symbol"
+                },
+                { 
+                    name: "BigInt", 
+                    description: "Arbitrary precision integers",
+                    example: "12345678901234567890n",
+                    icon: "fas fa-infinity",
+                    keyword: "bigint"
+                },
+                { 
+                    name: "Object", 
+                    description: "Collection of key-value pairs",
+                    example: "{key: 'value'}",
+                    icon: "fas fa-cube",
+                    keyword: "object"
+                }
+            ];
+            
+            const container = document.getElementById('datatypeCards');
+            datatypes.forEach(dt => {
+                const card = document.createElement('div');
+                card.className = 'datatype-card';
+                card.innerHTML = `
+                    <div class="datatype-icon"><i class="${dt.icon}"></i></div>
+                    <h4>${dt.name}</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #555;">${dt.description}</p>
+                    <div class="datatype-example">${dt.example}</div>
+                    <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #777;">
+                        <span class="tag">typeof</span> ${dt.keyword}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // Variable visualizer functionality
+        const variableContainer = document.getElementById('variableContainer');
+        const variableInput = document.getElementById('variableInput');
+        const runVariableBtn = document.getElementById('runVariable');
+        const clearVariablesBtn = document.getElementById('clearVariables');
+        const addExampleBtn = document.getElementById('addExample');
+        
+        // Store variables in memory for the visualizer
+        let variableStore = {
+            message: { value: "Hello, JavaScript!", type: "string" },
+            count: { value: 42, type: "number" },
+            isActive: { value: true, type: "boolean" }
+        };
+        
+        // Update variable visualizer display
+        function updateVariableDisplay() {
+            variableContainer.innerHTML = '';
+            
+            for (const [name, data] of Object.entries(variableStore)) {
+                const variableItem = document.createElement('div');
+                variableItem.className = 'variable-item';
+                variableItem.innerHTML = `
+                    <div>
+                        <span class="variable-name">${name}</span>
+                        <span class="variable-type">${data.type}</span>
+                    </div>
+                    <span class="variable-value">${JSON.stringify(data.value)}</span>
+                `;
+                variableContainer.appendChild(variableItem);
+            }
+            
+            if (Object.keys(variableStore).length === 0) {
+                variableContainer.innerHTML = '<div style="color: #8b949e; text-align: center; padding: 20px;">No variables defined</div>';
+            }
+        }
+        
+        // Parse and execute variable declaration
+        function executeVariableDeclaration(code) {
+            try {
+                // Simple parsing for demonstration
+                const trimmed = code.trim();
+                
+                // Check if it's a declaration
+                if (trimmed.startsWith('let ') || trimmed.startsWith('const ') || trimmed.startsWith('var ')) {
+                    // Extract variable name and value
+                    const parts = trimmed.split('=');
+                    if (parts.length !== 2) {
+                        throw new Error('Invalid declaration format. Use: let name = value');
+                    }
+                    
+                    const declaration = parts[0].trim();
+                    const valueStr = parts[1].trim();
+                    
+                    // Get variable name
+                    const name = declaration.split(' ')[1].trim();
+                    
+                    // Evaluate the value
+                    let value;
+                    try {
+                        value = eval(valueStr);
+                    } catch (e) {
+                        // If eval fails, treat as string
+                        value = valueStr.replace(/^["']|["']$/g, '');
+                    }
+                    
+                    // Determine type
+                    let type = typeof value;
+                    if (value === null) type = 'null';
+                    if (Array.isArray(value)) type = 'array';
+                    
+                    // Store variable
+                    variableStore[name] = { value, type };
+                    
+                    updateVariableDisplay();
+                    return `Variable '${name}' created with value ${JSON.stringify(value)} (${type})`;
+                } else {
+                    throw new Error('Please start with let, const, or var');
+                }
+            } catch (error) {
+                return `Error: ${error.message}`;
+            }
+        }
+        
+        // Run variable declaration
+        runVariableBtn.addEventListener('click', () => {
+            const code = variableInput.value.trim();
+            if (code) {
+                const result = executeVariableDeclaration(code);
+                addToConversionOutput(`> ${code}\n${result}`, true);
+                variableInput.value = '';
+            }
+        });
+        
+        // Clear variables
+        clearVariablesBtn.addEventListener('click', () => {
+            variableStore = {};
+            updateVariableDisplay();
+            addToConversionOutput('All variables cleared', false);
+        });
+        
+        // Add example variable
+        addExampleBtn.addEventListener('click', () => {
+            const examples = [
+                'let price = 99.99',
+                'const user = {name: "Alice", age: 30}',
+                'let scores = [95, 87, 92]',
+                'const isAdmin = false',
+                'let unknownValue = null'
+            ];
+            
+            const randomExample = examples[Math.floor(Math.random() * examples.length)];
+            variableInput.value = randomExample;
+            const result = executeVariableDeclaration(randomExample);
+            addToConversionOutput(`> ${randomExample}\n${result}`, true);
+        });
+        
+        // Type conversion functionality
+        const conversionOutput = document.getElementById('conversionOutput');
+        const conversionInput = document.getElementById('conversionInput');
+        const runConversionBtn = document.getElementById('runConversion');
+        const testConversionBtn = document.getElementById('testConversion');
+        
+        // Add output to conversion area
+        function addToConversionOutput(text, isCode = false) {
+            const line = document.createElement('div');
+            line.style.marginBottom = '5px';
+            line.style.padding = '5px';
+            line.style.borderRadius = '3px';
+            line.style.backgroundColor = isCode ? 'rgba(255,255,255,0.05)' : 'transparent';
+            line.style.color = isCode ? '#d6deeb' : '#7ee787';
+            line.style.fontFamily = "'Consolas', monospace";
+            line.style.fontSize = '0.9rem';
+            line.style.whiteSpace = 'pre-wrap';
+            line.textContent = text;
+            
+            conversionOutput.appendChild(line);
+            conversionOutput.scrollTop = conversionOutput.scrollHeight;
+        }
+        
+        // Clear conversion output
+        function clearConversionOutput() {
+            conversionOutput.innerHTML = '<div style="color: #8b949e;">// Conversion examples will appear here</div>';
+        }
+        
+        // Evaluate conversion expression
+        runConversionBtn.addEventListener('click', () => {
+            const expression = conversionInput.value.trim();
+            if (expression) {
+                try {
+                    const result = eval(expression);
+                    const type = typeof result;
+                    addToConversionOutput(`> ${expression}\n${JSON.stringify(result)} (${type})`, true);
+                } catch (error) {
+                    addToConversionOutput(`> ${expression}\nError: ${error.message}`, true);
+                }
+                conversionInput.value = '';
+            }
+        });
+        
+        // Test conversion examples
+        testConversionBtn.addEventListener('click', () => {
+            clearConversionOutput();
+            
+            const tests = [
+                { expr: 'Number("42")', desc: 'String to number conversion' },
+                { expr: 'String(123)', desc: 'Number to string conversion' },
+                { expr: 'Boolean(0)', desc: 'Falsy value to boolean' },
+                { expr: 'Boolean("hello")', desc: 'Truthy value to boolean' },
+                { expr: 'typeof null', desc: 'Typeof null (historical bug)' },
+                { expr: '5 + "5"', desc: 'Implicit coercion with +' },
+                { expr: '5 == "5"', desc: 'Loose equality (coercion)' },
+                { expr: '5 === "5"', desc: 'Strict equality (no coercion)' }
+            ];
+            
+            tests.forEach(test => {
+                try {
+                    const result = eval(test.expr);
+                    const type = typeof result;
+                    addToConversionOutput(`> ${test.expr}\n${JSON.stringify(result)} (${type})\n// ${test.desc}\n`, true);
+                } catch (error) {
+                    addToConversionOutput(`> ${test.expr}\nError: ${error.message}`, true);
+                }
+            });
+        });
+        
+        // Initialize scope examples
+        function initScopeExamples() {
+            // Global scope
+            window.globalExample = "I'm a global variable";
+            document.getElementById('globalScope').textContent = 'globalExample = "I\'m a global variable"';
+            
+            // Function scope example
+            document.getElementById('functionScope').textContent = 'function test() {\n  var functionVar = "I exist in function";\n}';
+            
+            // Block scope example
+            document.getElementById('blockScope').textContent = 'if (true) {\n  let blockVar = "I exist in block";\n  const BLOCK_CONST = "Me too";\n}';
+        }
+        
+        // Show/hide solutions
+        function showSolution1() {
+            const solutionDiv = document.getElementById('solution1');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        function showSolution2() {
+            const solutionDiv = document.getElementById('solution2');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        // Copy code functionality
+        function copyCode(button) {
+            const codeElement = button.parentElement.querySelector('pre');
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                }, 2000);
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initDataTypeCards();
+            initScopeExamples();
+            updateVariableDisplay();
+            
+            // Set initial examples
+            variableInput.value = 'let userName = "Alice"';
+            conversionInput.value = 'Number("42")';
+            
+            // Allow Enter key in inputs
+            variableInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') runVariableBtn.click();
+            });
+            
+            conversionInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') runConversionBtn.click();
+            });
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

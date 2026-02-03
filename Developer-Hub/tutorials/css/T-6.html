@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Responsive Design Tutorial | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color: #0ea5e9;
+            --accent-color: #10b981;
+            --light-color: #f0f9ff;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --text-light: #f8f9fa;
+            --success-color: #10b981;
+            --info-color: #3b82f6;
+            --warning-color: #e9c46a;
+            --danger-color: #e76f51;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2.5rem 0;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            background-size: 300% 300%;
+            animation: shine 8s infinite;
+        }
+
+        /* inserted */
+        header {
+            background: linear-gradient(135deg, var(--teal), var(--ocean));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.25);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(94, 234, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* inserted */
+
+        @keyframes shine {
+            0% { background-position: -100% -100%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* Content Section Styles */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Code Example Styles */
+        .code-example {
+            background-color: var(--dark-color);
+            color: #f8f8f2;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .code-example h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .code-example pre {
+            white-space: pre-wrap;
+        }
+
+        .css-selector {
+            color: #66d9ef;
+        }
+
+        .css-property {
+            color: #a6e22e;
+        }
+
+        .css-value {
+            color: #fd971f;
+        }
+
+        .css-comment {
+            color: #75715e;
+        }
+
+        .media-query {
+            color: #f92672;
+        }
+
+        /* Responsive Demo Styles */
+        .responsive-demo {
+            border: 2px dashed var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            background-color: #f0f9ff;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #d1e7ff;
+        }
+
+        .device-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .device-btn {
+            padding: 5px 15px;
+            background-color: #e3f2fd;
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .device-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .device-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .demo-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: auto;
+        }
+
+        .demo-box {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.5s ease;
+        }
+
+        .demo-box:nth-child(2) {
+            background-color: var(--accent-color);
+        }
+
+        .demo-box:nth-child(3) {
+            background-color: var(--primary-color);
+        }
+
+        /* Responsive Design Grid */
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .responsive-item {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+        }
+
+        .responsive-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .responsive-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Tips & Notes */
+        .tip-box {
+            background-color: #e7f5ef;
+            border-left: 4px solid var(--success-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .tip-box h4 {
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--warning-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note-box h4 {
+            color: #b0893b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Breakpoint Visualizer */
+        .breakpoint-visualizer {
+            background: linear-gradient(90deg, #e3f2fd 0%, #f0f9ff 100%);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .breakpoint-scale {
+            height: 40px;
+            background-color: white;
+            border-radius: 20px;
+            position: relative;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .breakpoint-marker {
+            position: absolute;
+            height: 60px;
+            width: 3px;
+            top: -10px;
+            transform: translateX(-50%);
+        }
+
+        .breakpoint-label {
+            position: absolute;
+            top: 40px;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .breakpoint-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .breakpoint-item {
+            flex: 1;
+            min-width: 150px;
+            background-color: white;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        /* .page-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2rem 0;
+            text-align: center;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: 3rem;
+        }
+
+        .page-footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        } */
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .footer-logo {
+            font-weight: 800;
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .responsive-demo {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .breakpoint-info {
+                flex-direction: column;
+            }
+            
+            .device-selector {
+                flex-wrap: wrap;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 1.8rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .header-icon {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Utility Classes */
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Interactive Viewport Indicator */
+        .viewport-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .viewport-size {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .head-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- inserted -->
+    <div class="head-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+    <!-- /inserted -->
+
+
+    <header class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h1>CSS Responsive Design Tutorial</h1>
+                <p>Master the art of creating websites that adapt beautifully to all devices and screen sizes. Learn media queries, fluid grids, flexible images, and modern responsive techniques.</p>
+
+                <div class="header-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span>60 min read</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-code"></i>
+                            <span>30+ Examples</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Interactive Demos</span>
+                        </div>
+                    </div>
+            </div>
+        </div>    
+    </header>
+
+    <main class="container">
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> What is Responsive Web Design?</h2>
+            <p>Responsive Web Design (RWD) is an approach to web design that makes web pages render well on a variety of devices and window or screen sizes. It ensures usability and satisfaction for all users regardless of the device they use.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Core Principles</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Fluid Grids:</strong> Layouts that use relative units like percentages rather than fixed units like pixels</li>
+                        <li><strong>Flexible Images:</strong> Images that resize within their containing elements</li>
+                        <li><strong>Media Queries:</strong> CSS techniques that apply different styles based on device characteristics</li>
+                        <li><strong>Mobile-First:</strong> Designing for mobile devices first, then enhancing for larger screens</li>
+                    </ul>
+                </div>
+                
+                <div class="responsive-demo">
+                    <div class="demo-header">
+                        <h4>Responsive Layout Demo</h4>
+                        <div class="device-selector">
+                            <button class="device-btn active" data-device="mobile">Mobile</button>
+                            <button class="device-btn" data-device="tablet">Tablet</button>
+                            <button class="device-btn" data-device="desktop">Desktop</button>
+                        </div>
+                    </div>
+                    <div class="demo-container" id="demoContainer">
+                        <div class="demo-box">Header</div>
+                        <div class="demo-box">Main Content</div>
+                        <div class="demo-box">Sidebar</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Mobile-First Approach</h4>
+                <p>Start designing for the smallest screen first, then use <span class="highlight">min-width</span> media queries to add enhancements for larger screens. This ensures a solid foundation that works on all devices.</p>
+            </div>
+        </section>
+
+        <!-- Viewport Meta Tag -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-code"></i> The Viewport Meta Tag</h2>
+            <p>The viewport meta tag is essential for responsive design. It controls the layout on mobile browsers and ensures proper scaling.</p>
+            
+            <div class="content-grid">
+                <div class="code-example">
+                    <h4>Essential Viewport Meta Tag</h4>
+                    <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+                    <p style="margin-top: 1rem; color: #ccc;">This tag tells the browser to set the width of the viewport to the device width and set the initial zoom level to 1.</p>
+                </div>
+                
+                <div>
+                    <h3>Viewport Properties</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>width=device-width:</strong> Sets width of the viewport to the device width</li>
+                        <li><strong>initial-scale=1.0:</strong> Sets the initial zoom level</li>
+                        <li><strong>maximum-scale=1.0:</strong> Prevents users from zooming in (use cautiously)</li>
+                        <li><strong>user-scalable=no:</strong> Prevents zooming (not recommended for accessibility)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="note-box">
+                <h4><i class="fas fa-exclamation-circle"></i> Important</h4>
+                <p>Always include the viewport meta tag in the <span class="highlight">&lt;head&gt;</span> of your HTML documents. Without it, mobile devices will render pages at desktop screen widths, requiring users to zoom in and out.</p>
+            </div>
+        </section>
+
+        <!-- Media Queries Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-filter"></i> Media Queries</h2>
+            <p>Media queries are the cornerstone of responsive design. They allow you to apply CSS rules based on device characteristics like width, height, orientation, and resolution.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Media Query Syntax</h3>
+                    <div class="code-example">
+                        <pre><code><span class="css-comment">/* Basic media query structure */</span>
+<span class="media-query">@media</span> <span class="css-value">(max-width: 768px)</span> {
+  <span class="css-selector">.container</span> {
+    <span class="css-property">padding</span>: <span class="css-value">10px</span>;
+  }
+}
+
+<span class="css-comment">/* Multiple conditions */</span>
+<span class="media-query">@media</span> <span class="css-value">(min-width: 768px) and (max-width: 1024px)</span> {
+  <span class="css-selector">.container</span> {
+    <span class="css-property">padding</span>: <span class="css-value">20px</span>;
+  }
+}
+
+<span class="css-comment">/* Orientation-based */</span>
+<span class="media-query">@media</span> <span class="css-value">(orientation: landscape)</span> {
+  <span class="css-selector">.header</span> {
+    <span class="css-property">height</span>: <span class="css-value">60px</span>;
+  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Common Breakpoints</h3>
+                    <div class="breakpoint-visualizer">
+                        <div class="breakpoint-scale" id="breakpointScale">
+                            <!-- Markers will be added by JavaScript -->
+                        </div>
+                        <div class="breakpoint-info">
+                            <div class="breakpoint-item">
+                                <h4><i class="fas fa-mobile-alt"></i> Mobile</h4>
+                                <p><strong>&lt; 576px</strong><br>Smartphones in portrait</p>
+                            </div>
+                            <div class="breakpoint-item">
+                                <h4><i class="fas fa-tablet-alt"></i> Tablet</h4>
+                                <p><strong>576px - 768px</strong><br>Tablets and large phones</p>
+                            </div>
+                            <div class="breakpoint-item">
+                                <h4><i class="fas fa-laptop"></i> Laptop</h4>
+                                <p><strong>768px - 992px</strong><br>Small laptops and tablets landscape</p>
+                            </div>
+                            <div class="breakpoint-item">
+                                <h4><i class="fas fa-desktop"></i> Desktop</h4>
+                                <p><strong>&gt; 992px</strong><br>Desktops and large screens</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fluid Grids and Flexible Images -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-expand-alt"></i> Fluid Grids & Flexible Images</h2>
+            <p>Creating fluid layouts with relative units ensures your design adapts to different screen sizes without breaking.</p>
+            
+            <div class="responsive-grid">
+                <div class="responsive-item">
+                    <h4><i class="fas fa-percentage"></i> Relative Units</h4>
+                    <p>Use <span class="highlight">%</span>, <span class="highlight">vw</span> (viewport width), <span class="highlight">vh</span> (viewport height), <span class="highlight">rem</span>, and <span class="highlight">em</span> instead of fixed pixels for sizing elements.</p>
+                    <div class="code-example" style="margin-top: 10px; font-size: 0.8rem;">
+                        <pre><code><span class="css-selector">.container</span> {
+  <span class="css-property">width</span>: <span class="css-value">90%</span>; <span class="css-comment">/* Relative to parent */</span>
+  <span class="css-property">max-width</span>: <span class="css-value">1200px</span>; <span class="css-comment">/* Prevents becoming too wide */</span>
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-image"></i> Flexible Images</h4>
+                    <p>Make images scale with their container using <span class="highlight">max-width: 100%</span> and <span class="highlight">height: auto</span>.</p>
+                    <div class="code-example" style="margin-top: 10px; font-size: 0.8rem;">
+                        <pre><code><span class="css-selector">img</span> {
+  <span class="css-property">max-width</span>: <span class="css-value">100%</span>;
+  <span class="css-property">height</span>: <span class="css-value">auto</span>;
+  <span class="css-property">display</span>: <span class="css-value">block</span>;
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-grip-horizontal"></i> CSS Grid & Flexbox</h4>
+                    <p>Modern layout systems like CSS Grid and Flexbox are inherently responsive and make creating flexible layouts easier.</p>
+                    <div class="code-example" style="margin-top: 10px; font-size: 0.8rem;">
+                        <pre><code><span class="css-selector">.grid-container</span> {
+  <span class="css-property">display</span>: <span class="css-value">grid</span>;
+  <span class="css-property">grid-template-columns</span>: <span class="css-value">repeat(auto-fit, minmax(250px, 1fr))</span>;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Responsive Typography</h4>
+                <p>Use <span class="highlight">rem</span> units for font sizes (1rem = 16px by default) and consider using <span class="highlight">clamp()</span> function for fluid typography that scales between minimum and maximum values.</p>
+                <div class="code-example" style="margin-top: 10px; font-size: 0.8rem;">
+                    <pre><code><span class="css-selector">h1</span> {
+  <span class="css-property">font-size</span>: <span class="css-value">clamp(1.5rem, 5vw, 3rem)</span>;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complete Responsive Example -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i> Complete Responsive Example</h2>
+            <p>Here's a complete example of a responsive webpage using mobile-first approach:</p>
+            
+            <div class="content-grid">
+                <div class="code-example">
+                    <h4>HTML Structure</h4>
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Responsive Example&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="header"&gt;Header&lt;/header&gt;
+  &lt;main class="main-content"&gt;
+    &lt;article class="article"&gt;Main Article&lt;/article&gt;
+    &lt;aside class="sidebar"&gt;Sidebar&lt;/aside&gt;
+  &lt;/main&gt;
+  &lt;footer class="footer"&gt;Footer&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                
+                <div class="code-example">
+                    <h4>CSS (Mobile-First)</h4>
+                    <pre><code><span class="css-comment">/* Base styles (mobile) */</span>
+<span class="css-selector">*</span> {
+  <span class="css-property">box-sizing</span>: <span class="css-value">border-box</span>;
+}
+
+<span class="css-selector">body</span> {
+  <span class="css-property">margin</span>: <span class="css-value">0</span>;
+  <span class="css-property">padding</span>: <span class="css-value">0</span>;
+  <span class="css-property">font-family</span>: <span class="css-value">sans-serif</span>;
+}
+
+<span class="css-selector">.header, .footer</span> {
+  <span class="css-property">background-color</span>: <span class="css-value">#1a5f7a</span>;
+  <span class="css-property">color</span>: <span class="css-value">white</span>;
+  <span class="css-property">padding</span>: <span class="css-value">1rem</span>;
+  <span class="css-property">text-align</span>: <span class="css-value">center</span>;
+}
+
+<span class="css-selector">.main-content</span> {
+  <span class="css-property">padding</span>: <span class="css-value">1rem</span>;
+}
+
+<span class="css-selector">.article, .sidebar</span> {
+  <span class="css-property">padding</span>: <span class="css-value">1rem</span>;
+  <span class="css-property">margin-bottom</span>: <span class="css-value">1rem</span>;
+}
+
+<span class="css-selector">.article</span> {
+  <span class="css-property">background-color</span>: <span class="css-value">#f0f9ff</span>;
+}
+
+<span class="css-selector">.sidebar</span> {
+  <span class="css-property">background-color</span>: <span class="css-value">#e3f2fd</span>;
+}
+
+<span class="css-comment">/* Tablet */</span>
+<span class="media-query">@media (min-width: 768px)</span> {
+  <span class="css-selector">.main-content</span> {
+    <span class="css-property">display</span>: <span class="css-value">flex</span>;
+    <span class="css-property">gap</span>: <span class="css-value">2rem</span>;
+  }
+  
+  <span class="css-selector">.article</span> {
+    <span class="css-property">flex</span>: <span class="css-value">2</span>;
+  }
+  
+  <span class="css-selector">.sidebar</span> {
+    <span class="css-property">flex</span>: <span class="css-value">1</span>;
+  }
+}
+
+<span class="css-comment">/* Desktop */</span>
+<span class="media-query">@media (min-width: 992px)</span> {
+  <span class="css-selector">.main-content</span> {
+    <span class="css-property">max-width</span>: <span class="css-value">1200px</span>;
+    <span class="css-property">margin</span>: <span class="css-value">0 auto</span>;
+  }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testing & Tools -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-tools"></i> Testing & Tools</h2>
+            <p>Testing your responsive design is crucial. Here are essential tools and techniques:</p>
+            
+            <div class="responsive-grid">
+                <div class="responsive-item">
+                    <h4><i class="fas fa-window-maximize"></i> Browser DevTools</h4>
+                    <p>All modern browsers have responsive design modes in their developer tools. Use them to simulate different screen sizes and devices.</p>
+                    <p><strong>Shortcut:</strong> F12 → Toggle device toolbar (Ctrl+Shift+M)</p>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-mobile"></i> Real Device Testing</h4>
+                    <p>Always test on actual devices when possible. Emulators can't perfectly replicate touch interactions, performance, and rendering differences.</p>
+                </div>
+                
+                <div class="responsive-item">
+                    <h4><i class="fas fa-check-circle"></i> Responsive Design Checkers</h4>
+                    <p>Use online tools like Google's Mobile-Friendly Test, Responsive Design Checker, or BrowserStack to test across multiple devices and browsers.</p>
+                </div>
+            </div>
+            
+            <div class="note-box">
+                <h4><i class="fas fa-exclamation-circle"></i> Testing Checklist</h4>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Test on multiple screen sizes (mobile, tablet, desktop)</li>
+                    <li>Check both portrait and landscape orientations</li>
+                    <li>Test touch interactions on mobile devices</li>
+                    <li>Verify images and media load correctly at all sizes</li>
+                    <li>Check typography readability on small screens</li>
+                    <li>Test navigation and interactive elements</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-pencil-alt"></i> Practice Exercise</h2>
+            <p>Create a responsive card component that changes layout based on screen size:</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Requirements</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Mobile: 1 column, full width cards</li>
+                        <li>Tablet: 2 columns, cards side by side</li>
+                        <li>Desktop: 4 columns, cards in a grid</li>
+                        <li>Use CSS Grid for the layout</li>
+                        <li>Images should be responsive</li>
+                        <li>Include appropriate spacing between cards</li>
+                    </ul>
+                    
+                    <a href="#" class="btn" onclick="showSolution(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>CSS Solution</h4>
+                            <pre><code><span class="css-selector">.card-container</span> {
+  <span class="css-property">display</span>: <span class="css-value">grid</span>;
+  <span class="css-property">gap</span>: <span class="css-value">1rem</span>;
+  <span class="css-property">padding</span>: <span class="css-value">1rem</span>;
+}
+
+<span class="css-comment">/* Mobile (default) */</span>
+<span class="css-selector">.card</span> {
+  <span class="css-property">background</span>: <span class="css-value">white</span>;
+  <span class="css-property">border-radius</span>: <span class="css-value">8px</span>;
+  <span class="css-property">overflow</span>: <span class="css-value">hidden</span>;
+  <span class="css-property">box-shadow</span>: <span class="css-value">0 2px 5px rgba(0,0,0,0.1)</span>;
+}
+
+<span class="css-comment">/* Tablet */</span>
+<span class="media-query">@media (min-width: 768px)</span> {
+  <span class="css-selector">.card-container</span> {
+    <span class="css-property">grid-template-columns</span>: <span class="css-value">repeat(2, 1fr)</span>;
+  }
+}
+
+<span class="css-comment">/* Desktop */</span>
+<span class="media-query">@media (min-width: 992px)</span> {
+  <span class="css-selector">.card-container</span> {
+    <span class="css-property">grid-template-columns</span>: <span class="css-value">repeat(4, 1fr)</span>;
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="responsive-demo">
+                    <div class="demo-header">
+                        <h4>Card Layout Preview</h4>
+                        <div class="device-selector">
+                            <button class="device-btn" data-layout="mobile">1 Column</button>
+                            <button class="device-btn" data-layout="tablet">2 Columns</button>
+                            <button class="device-btn active" data-layout="desktop">4 Columns</button>
+                        </div>
+                    </div>
+                    <div class="demo-container" id="cardDemo">
+                        <!-- Cards will be added by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p><i class="fas fa-graduation-cap"></i> CSS Responsive Design Tutorial</p>
+            <p>Part of Developers Hub | Master web development concepts</p>
+            <div class="quick-links">
+                <a href="T-5.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: website-layout</a>
+                <a href="#" class="quick-link"><i class="fas fa-book"></i> CSS Reference</a>
+                <a href="#" class="quick-link"><i class="fas fa-video"></i> Video Tutorials</a>
+                <a href="#" class="quick-link"><i class="fas fa-tasks"></i> Practice Exercises</a>
+                <a href="../js/T+1.html" class="quick-link"><i class="fas fa-css"></i>Learn JavaScript</a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">&copy; 2023 Developers Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Viewport size indicator
+        function updateViewportSize() {
+            const viewportSize = document.getElementById('viewportSize');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            viewportSize.textContent = `${width}px × ${height}px`;
+        }
+        
+        // Initial update
+        updateViewportSize();
+        
+        // Update on resize
+        window.addEventListener('resize', updateViewportSize);
+        
+        // Device selector functionality
+        const deviceButtons = document.querySelectorAll('.device-btn');
+        deviceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons in this group
+                const parent = this.closest('.device-selector');
+                parent.querySelectorAll('.device-btn').forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get the demo container
+                const demoContainer = this.closest('.responsive-demo').querySelector('.demo-container');
+                
+                // Handle layout demo
+                if (this.dataset.device) {
+                    const device = this.dataset.device;
+                    
+                    // Reset demo container
+                    demoContainer.innerHTML = `
+                        <div class="demo-box">Header</div>
+                        <div class="demo-box">Main Content</div>
+                        <div class="demo-box">Sidebar</div>
+                    `;
+                    
+                    // Apply device-specific styles
+                    const demoBoxes = demoContainer.querySelectorAll('.demo-box');
+                    
+                    if (device === 'mobile') {
+                        demoContainer.style.flexDirection = 'column';
+                        demoBoxes.forEach(box => {
+                            box.style.width = '100%';
+                            box.style.height = '80px';
+                        });
+                    } else if (device === 'tablet') {
+                        demoContainer.style.flexDirection = 'row';
+                        demoContainer.style.flexWrap = 'wrap';
+                        demoBoxes.forEach((box, index) => {
+                            if (index === 0) {
+                                box.style.width = '100%';
+                                box.style.height = '60px';
+                            } else {
+                                box.style.width = '48%';
+                                box.style.height = '150px';
+                            }
+                        });
+                    } else if (device === 'desktop') {
+                        demoContainer.style.flexDirection = 'row';
+                        demoBoxes.forEach(box => {
+                            box.style.width = '32%';
+                            box.style.height = '200px';
+                        });
+                    }
+                }
+                
+                // Handle card layout demo
+                if (this.dataset.layout) {
+                    const layout = this.dataset.layout;
+                    const cardDemo = document.getElementById('cardDemo');
+                    
+                    // Generate cards
+                    cardDemo.innerHTML = '';
+                    for (let i = 1; i <= 8; i++) {
+                        const card = document.createElement('div');
+                        card.className = 'demo-box';
+                        card.style.height = '120px';
+                        card.style.display = 'flex';
+                        card.style.alignItems = 'center';
+                        card.style.justifyContent = 'center';
+                        card.textContent = `Card ${i}`;
+                        cardDemo.appendChild(card);
+                    }
+                    
+                    // Apply layout
+                    if (layout === 'mobile') {
+                        cardDemo.style.display = 'flex';
+                        cardDemo.style.flexDirection = 'column';
+                        cardDemo.querySelectorAll('.demo-box').forEach(card => {
+                            card.style.width = '100%';
+                        });
+                    } else if (layout === 'tablet') {
+                        cardDemo.style.display = 'grid';
+                        cardDemo.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                        cardDemo.style.gap = '10px';
+                    } else if (layout === 'desktop') {
+                        cardDemo.style.display = 'grid';
+                        cardDemo.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                        cardDemo.style.gap = '10px';
+                    }
+                }
+            });
+        });
+        
+        // Initialize breakpoint visualizer
+        function initBreakpointVisualizer() {
+            const scale = document.getElementById('breakpointScale');
+            const breakpoints = [
+                { width: 0, label: 'Mobile', color: '#1a5f7a' },
+                { width: 25, label: '576px', color: '#159895' },
+                { width: 50, label: '768px', color: '#57c5b6' },
+                { width: 75, label: '992px', color: '#2a9d8f' },
+                { width: 100, label: '1200px+', color: '#002b36' }
+            ];
+            
+            breakpoints.forEach(bp => {
+                const marker = document.createElement('div');
+                marker.className = 'breakpoint-marker';
+                marker.style.left = `${bp.width}%`;
+                marker.style.backgroundColor = bp.color;
+                
+                const label = document.createElement('div');
+                label.className = 'breakpoint-label';
+                label.style.left = `${bp.width}%`;
+                label.textContent = bp.label;
+                label.style.color = bp.color;
+                
+                scale.appendChild(marker);
+                scale.appendChild(label);
+            });
+        }
+        
+        // Show/hide solution
+        function showSolution() {
+            const solutionDiv = document.getElementById('solution');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        // Initialize card demo
+        function initCardDemo() {
+            const cardDemo = document.getElementById('cardDemo');
+            for (let i = 1; i <= 8; i++) {
+                const card = document.createElement('div');
+                card.className = 'demo-box';
+                card.style.height = '120px';
+                card.style.display = 'flex';
+                card.style.alignItems = 'center';
+                card.style.justifyContent = 'center';
+                card.textContent = `Card ${i}`;
+                cardDemo.appendChild(card);
+            }
+            
+            // Set initial layout (4 columns)
+            cardDemo.style.display = 'grid';
+            cardDemo.style.gridTemplateColumns = 'repeat(4, 1fr)';
+            cardDemo.style.gap = '10px';
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initBreakpointVisualizer();
+            initCardDemo();
+            
+            // Trigger click on first device button to initialize demo
+            document.querySelector('.device-btn.active').click();
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

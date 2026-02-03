@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Form Validation Mastery | Developers Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --teal: #0d9488;
+            --teal-light: #5eead4;
+            --teal-dark: #0f766e;
+            --sky-blue: #0ea5e9;
+            --sky-blue-light: #7dd3fc;
+            --sky-blue-dark: #0284c7;
+            --emerald: #10b981;
+            --emerald-light: #6ee7b7;
+            --emerald-dark: #059669;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--teal), var(--sky-blue));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            /* border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px; */
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.25);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(94, 234, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .header-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Section Styles */
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid var(--teal);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--teal), var(--sky-blue));
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            color: var(--teal-dark);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--teal), var(--emerald));
+            border-radius: 2px;
+        }
+        
+        .section-title i {
+            color: var(--emerald);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 10px;
+            border-radius: 12px;
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--sky-blue);
+            height: 100%;
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-title {
+            color: var(--sky-blue-dark);
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: var(--emerald);
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px;
+            border-radius: 10px;
+        }
+        
+        /* Interactive Demo Area */
+        .demo-area {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            border: 2px solid var(--sky-blue-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-area::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, var(--teal-light), transparent);
+            border-radius: 0 0 0 100%;
+            opacity: 0.3;
+        }
+        
+        .demo-title {
+            color: var(--sky-blue-dark);
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .demo-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+        
+        .form-group label .required {
+            color: var(--error);
+            font-size: 1.2rem;
+        }
+        
+        .form-control {
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
+        }
+        
+        .form-control.valid {
+            border-color: var(--emerald);
+            background-color: rgba(16, 185, 129, 0.05);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2310b981'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+        
+        .form-control.invalid {
+            border-color: var(--error);
+            background-color: rgba(239, 68, 68, 0.05);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ef4444'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+        
+        .error-message {
+            color: var(--error);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem;
+            background: rgba(239, 68, 68, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--error);
+        }
+        
+        .success-message {
+            color: var(--success);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 0.5rem;
+            background: rgba(16, 185, 129, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--success);
+        }
+        
+        .form-requirements {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-style: italic;
+        }
+        
+        /* Button Styles */
+        .btn {
+            background: linear-gradient(135deg, var(--teal), var(--emerald));
+            color: white;
+            border: none;
+            padding: 1rem 2.2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--sky-blue), var(--teal-light));
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(14, 165, 233, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--sky-blue-light);
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 68px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, var(--gray-300), var(--gray-400));
+            transition: .4s;
+            border-radius: 34px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input:checked + .toggle-slider {
+            background: linear-gradient(to right, var(--teal), var(--emerald));
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(34px);
+        }
+        
+        /* Code Styles */
+        .code-block {
+            background: linear-gradient(135deg, var(--gray-900) 0%, #1a1a1a 100%);
+            color: var(--gray-100);
+            padding: 1.8rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1.8rem 0;
+            position: relative;
+            border: 1px solid var(--gray-800);
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            color: var(--gray-400);
+            font-size: 0.9rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--gray-800);
+        }
+        
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gray-300);
+            border: 1px solid var(--gray-700);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .copy-btn:hover {
+            background: var(--teal);
+            color: white;
+            border-color: var(--teal);
+        }
+        
+        .code-comment {
+            color: #6b7280;
+        }
+        
+        .code-attr {
+            color: var(--teal-light);
+        }
+        
+        .code-value {
+            color: var(--emerald-light);
+        }
+        
+        .code-tag {
+            color: #f87171;
+        }
+        
+        .code-keyword {
+            color: #60a5fa;
+        }
+        
+        .code-function {
+            color: #c084fc;
+        }
+        
+        /* Validation Types */
+        .validation-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .type-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--teal);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .type-card:nth-child(2) {
+            border-top-color: var(--sky-blue);
+        }
+        
+        .type-card:nth-child(3) {
+            border-top-color: var(--emerald);
+        }
+        
+        .type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .type-title {
+            font-size: 1.4rem;
+            color: var(--gray-800);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .type-icon {
+            background: rgba(13, 148, 136, 0.1);
+            color: var(--teal);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        /* Best Practices */
+        .best-practice-list {
+            list-style-type: none;
+            counter-reset: practice-counter;
+        }
+        
+        .best-practice-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 3.5rem;
+            position: relative;
+            counter-increment: practice-counter;
+        }
+        
+        .best-practice-list li:before {
+            content: counter(practice-counter);
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            background: linear-gradient(135deg, var(--teal), var(--emerald));
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Alert Styles */
+        .alert {
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .alert i {
+            margin-top: 2px;
+            font-size: 1.3rem;
+        }
+        
+        .alert-info {
+            background-color: rgba(14, 165, 233, 0.1);
+            border-left: 5px solid var(--sky-blue);
+            color: var(--gray-800);
+        }
+        
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 5px solid var(--emerald);
+            color: var(--gray-800);
+        }
+        
+        .alert-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 5px solid var(--warning);
+            color: var(--gray-800);
+        }
+        
+        .alert-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 5px solid var(--error);
+            color: var(--gray-800);
+        }
+        
+        /* Table Styles */
+        .attribute-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .attribute-table th {
+            background: linear-gradient(135deg, var(--teal), var(--emerald));
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .attribute-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .attribute-table tr:nth-child(even) {
+            background-color: var(--gray-50);
+        }
+        
+        .attribute-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        @media (min-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Footer */
+        /* inserted */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer p {
+            color: var(--primary-color);
+        }
+
+        .footer-logo {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer p {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+        
+        .footer-logo {
+            font-weight: 800;
+            color: var(--teal);
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 1.8rem;
+            }
+            
+            .demo-area {
+                padding: 1.8rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+        
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--gray-200);
+            z-index: 1000;
+        }
+        
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, var(--teal), var(--emerald));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 0 3px 3px 0;
+        }
+        
+        /* Jump Links */
+        .jump-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .jump-link {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 2px solid var(--teal-light);
+            border-radius: 8px;
+            color: var(--teal);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .jump-link:hover {
+            background: var(--teal);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .header-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- inserted -->
+    <div class="header-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../admin.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </div>
+    <!-- /inserted -->
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1><i class="fas fa-shield-alt"></i>  HTML Form Validation Mastery</h1>
+                <p>Complete guide to implementing client-side form validation with HTML5, JavaScript, and best practices</p>
+                
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>30 min read</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span>15+ Examples</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Best Practices</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Jump Links -->
+        <div class="jump-links">
+            <a href="#introduction" class="jump-link">
+                <i class="fas fa-home"></i> Introduction
+            </a>
+            <a href="#html5-validation" class="jump-link">
+                <i class="fab fa-html5"></i> HTML5
+            </a>
+            <a href="#demo" class="jump-link">
+                <i class="fas fa-play-circle"></i> Demo
+            </a>
+            <a href="#javascript" class="jump-link">
+                <i class="fab fa-js-square"></i> JavaScript
+            </a>
+            <a href="#best-practices" class="jump-link">
+                <i class="fas fa-check-circle"></i> Best Practices
+            </a>
+        </div>
+        
+        <!-- Introduction -->
+        <section class="section" id="introduction">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Introduction to Form Validation</h2>
+            
+            <p>Form validation is the process of ensuring that user input meets specific criteria before it's submitted to a server. It's a critical aspect of web development that improves user experience, data quality, and application security.</p>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-lightbulb"></i>
+                <div>
+                    <strong>Why Form Validation Matters:</strong>
+                    <ul style="margin-top: 0.8rem; margin-left: 1.2rem;">
+                        <li><strong>User Experience:</strong> Provides immediate feedback when errors occur</li>
+                        <li><strong>Data Integrity:</strong> Ensures clean, properly formatted data</li>
+                        <li><strong>Security:</strong> Prevents malicious data submission</li>
+                        <li><strong>Efficiency:</strong> Reduces server load by catching errors early</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>Modern web applications use a combination of <strong>client-side validation</strong> (in the browser) for immediate feedback and <strong>server-side validation</strong> (on the server) for security. This tutorial focuses on client-side validation techniques.</p>
+        </section>
+        
+        <!-- HTML5 Validation -->
+        <section class="section" id="html5-validation">
+            <h2 class="section-title"><i class="fab fa-html5"></i> HTML5 Built-in Validation</h2>
+            
+            <p>HTML5 introduced native form validation attributes that work without JavaScript. These provide basic validation that's supported across all modern browsers.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>HTML Form with Validation Attributes</span>
+                    <button class="copy-btn" onclick="copyCode('html5Code')">
+                        <i class="far fa-copy"></i> Copy Code
+                    </button>
+                </div>
+                <pre id="html5Code"><span class="code-tag">&lt;form</span> <span class="code-attr">id=</span><span class="code-value">"signupForm"</span><span class="code-tag">&gt;</span>
+  <span class="code-comment">&lt;!-- Required field with length constraints --&gt;</span>
+  <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-value">"form-group"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;label</span> <span class="code-attr">for=</span><span class="code-value">"username"</span><span class="code-tag">&gt;</span>Username:<span class="code-tag">&lt;/label&gt;</span>
+    <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-value">"text"</span> <span class="code-attr">id=</span><span class="code-value">"username"</span> 
+           <span class="code-attr">required</span> 
+           <span class="code-attr">minlength=</span><span class="code-value">"3"</span> 
+           <span class="code-attr">maxlength=</span><span class="code-value">"20"</span>
+           <span class="code-attr">placeholder=</span><span class="code-value">"Choose a username"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;/div&gt;</span>
+  
+  <span class="code-comment">&lt;!-- Email validation --&gt;</span>
+  <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-value">"form-group"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;label</span> <span class="code-attr">for=</span><span class="code-value">"email"</span><span class="code-tag">&gt;</span>Email:<span class="code-tag">&lt;/label&gt;</span>
+    <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-value">"email"</span> <span class="code-attr">id=</span><span class="code-value">"email"</span> 
+           <span class="code-attr">required</span>
+           <span class="code-attr">placeholder=</span><span class="code-value">"your.email@example.com"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;/div&gt;</span>
+  
+  <span class="code-comment">&lt;!-- Pattern-based validation --&gt;</span>
+  <span class="code-tag">&lt;div</span> <span class="code-attr">class=</span><span class="code-value">"form-group"</span><span class="code-tag">&gt;</span>
+    <span class="code-tag">&lt;label</span> <span class="code-attr">for=</span><span class="code-value">"phone"</span><span class="code-tag">&gt;</span>Phone:<span class="code-tag">&lt;/label&gt;</span>
+    <span class="code-tag">&lt;input</span> <span class="code-attr">type=</span><span class="code-value">"tel"</span> <span class="code-attr">id=</span><span class="code-value">"phone"</span> 
+           <span class="code-attr">pattern=</span><span class="code-value">"[0-9]{3}-[0-9]{3}-[0-9]{4}"</span>
+           <span class="code-attr">placeholder=</span><span class="code-value">"123-456-7890"</span>
+           <span class="code-attr">title=</span><span class="code-value">"Format: 123-456-7890"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;/div&gt;</span>
+  
+  <span class="code-tag">&lt;button</span> <span class="code-attr">type=</span><span class="code-value">"submit"</span> <span class="code-attr">class=</span><span class="code-value">"btn"</span><span class="code-tag">&gt;</span>Sign Up<span class="code-tag">&lt;/button&gt;</span>
+<span class="code-tag">&lt;/form&gt;</span></pre>
+            </div>
+            
+            <h3 style="color: var(--sky-blue-dark); margin: 1.5rem 0 1rem;">HTML5 Validation Attributes</h3>
+            
+            <table class="attribute-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>required</code></td>
+                        <td>Field must be filled out before form submission</td>
+                        <td><code>&lt;input required&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>type="email"</code></td>
+                        <td>Must be a valid email address format</td>
+                        <td><code>&lt;input type="email"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>type="url"</code></td>
+                        <td>Must be a valid URL format</td>
+                        <td><code>&lt;input type="url"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>minlength</code></td>
+                        <td>Minimum character length requirement</td>
+                        <td><code>&lt;input minlength="3"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>maxlength</code></td>
+                        <td>Maximum character length allowed</td>
+                        <td><code>&lt;input maxlength="50"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>min / max</code></td>
+                        <td>Minimum/maximum value for numeric inputs</td>
+                        <td><code>&lt;input type="number" min="1" max="100"&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>pattern</code></td>
+                        <td>Regular expression pattern for validation</td>
+                        <td><code>&lt;input pattern="[A-Za-z]{3}"&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <strong>Important:</strong> HTML5 validation should <strong>never</strong> be your only line of defense. Always implement server-side validation as client-side validation can be easily bypassed.
+                </div>
+            </div>
+        </section>
+        
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Demo Section -->
+                <section class="section" id="demo">
+                    <h2 class="section-title"><i class="fas fa-play-circle"></i> Interactive Form Demo</h2>
+                    
+                    <p>Try submitting this form with different values to see validation in action. Toggle between HTML5-only and enhanced JavaScript validation.</p>
+                    
+                    <div class="demo-area">
+                        <h3 class="demo-title"><i class="fas fa-edit"></i> User Registration Form</h3>
+                        
+                        <form id="demoForm" class="demo-form" novalidate>
+                            <div class="form-group">
+                                <label for="demoName">
+                                    Full Name <span class="required">*</span>
+                                </label>
+                                <input type="text" id="demoName" class="form-control" 
+                                       required minlength="2" maxlength="50"
+                                       aria-describedby="nameRequirements nameError"
+                                       placeholder="John Smith">
+                                <div class="form-requirements" id="nameRequirements">
+                                    <i class="fas fa-info-circle"></i> 2-50 characters
+                                </div>
+                                <div class="error-message" id="nameError">
+                                    <i class="fas fa-exclamation-circle"></i> Please enter a valid name (2-50 characters).
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demoEmail">
+                                    Email Address <span class="required">*</span>
+                                </label>
+                                <input type="email" id="demoEmail" class="form-control" 
+                                       required
+                                       aria-describedby="emailRequirements emailError"
+                                       placeholder="john@example.com">
+                                <div class="form-requirements" id="emailRequirements">
+                                    <i class="fas fa-info-circle"></i> Must be a valid email address
+                                </div>
+                                <div class="error-message" id="emailError">
+                                    <i class="fas fa-exclamation-circle"></i> Please enter a valid email address.
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="demoPassword">
+                                    Password <span class="required">*</span>
+                                </label>
+                                <input type="password" id="demoPassword" class="form-control" 
+                                       required minlength="8" 
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d).+$"
+                                       aria-describedby="passwordRequirements passwordError passwordSuccess"
+                                       placeholder="Create a strong password">
+                                <div class="form-requirements" id="passwordRequirements">
+                                    <i class="fas fa-info-circle"></i> Minimum 8 characters with at least one letter and one number
+                                </div>
+                                <div class="error-message" id="passwordError">
+                                    <i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters with at least one letter and one number.
+                                </div>
+                                <div class="success-message" id="passwordSuccess">
+                                    <i class="fas fa-check-circle"></i> Password strength: <span id="passwordStrength">Good</span>
+                                </div>
+                            </div>
+                            
+                            <div class="toggle-container">
+                                <div class="toggle-label">
+                                    <i class="fas fa-toggle-on"></i>
+                                    <span>Enhanced JavaScript Validation</span>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="jsValidationToggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="btn-group">
+                                <button type="submit" class="btn">
+                                    <i class="fas fa-paper-plane"></i> Submit Form
+                                </button>
+                                <button type="button" id="resetForm" class="btn btn-secondary">
+                                    <i class="fas fa-redo"></i> Reset Form
+                                </button>
+                                <button type="button" id="fillValid" class="btn btn-secondary">
+                                    <i class="fas fa-magic"></i> Fill Valid Data
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div id="formSuccess" class="alert alert-success" style="display: none; margin-top: 1.5rem;">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Form submitted successfully!</strong> All validation passed. In a real application, this data would now be sent to the server for processing.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Best Practices -->
+                <section class="section" id="best-practices">
+                    <h2 class="section-title"><i class="fas fa-check-circle"></i> Best Practices</h2>
+                    
+                    <p>Follow these guidelines to create user-friendly, accessible, and effective form validation:</p>
+                    
+                    <ul class="best-practice-list">
+                        <li><strong>Provide immediate, clear feedback</strong> - Show validation messages near the relevant field as users type or immediately after leaving a field.</li>
+                        <li><strong>Use appropriate HTML5 input types</strong> - This provides built-in validation and improves mobile experience (keyboard types).</li>
+                        <li><strong>Always implement server-side validation</strong> - Client-side validation can be bypassed, so server validation is essential for security.</li>
+                        <li><strong>Be conservative with required fields</strong> - Only mark fields as required when absolutely necessary.</li>
+                        <li><strong>Write helpful error messages</strong> - Clearly explain what went wrong and how to fix it.</li>
+                        <li><strong>Validate on blur, not on every keystroke</strong> - This provides a better user experience and performance.</li>
+                        <li><strong>Make validation accessible</strong> - Ensure error messages are announced to screen readers and have proper ARIA attributes.</li>
+                    </ul>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i>
+                        <div>
+                            <strong>Accessibility Tip:</strong> Always associate error messages with their corresponding form fields using <code>aria-describedby</code> or <code>aria-labelledby</code> attributes to ensure screen reader users receive validation feedback.
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- JavaScript Validation -->
+                <section class="section" id="javascript">
+                    <h2 class="section-title"><i class="fab fa-js-square"></i> JavaScript Validation</h2>
+                    
+                    <p>JavaScript provides complete control over validation logic, allowing for complex validations, custom error messages, and real-time feedback.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>JavaScript Validation Example</span>
+                            <button class="copy-btn" onclick="copyCode('jsCode')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="jsCode"><span class="code-comment">// Comprehensive form validation with JavaScript</span>
+<span class="code-keyword">function</span> <span class="code-function">validateForm</span>() {
+    <span class="code-keyword">let</span> isValid = <span class="code-keyword">true</span>;
+    
+    <span class="code-comment">// Clear previous errors</span>
+    clearErrors();
+    
+    <span class="code-comment">// Validate name</span>
+    <span class="code-keyword">const</span> name = <span class="code-attr">document</span>.<span class="code-value">getElementById</span>(<span class="code-value">'name'</span>).value.trim();
+    <span class="code-keyword">if</span> (name.length < 2 || name.length > 50) {
+        showError(<span class="code-value">'name'</span>, <span class="code-value">'Name must be between 2-50 characters'</span>);
+        isValid = <span class="code-keyword">false</span>;
+    }
+    
+    <span class="code-comment">// Validate email with regex</span>
+    <span class="code-keyword">const</span> email = <span class="code-attr">document</span>.<span class="code-value">getElementById</span>(<span class="code-value">'email'</span>).value;
+    <span class="code-keyword">const</span> emailRegex = <span class="code-keyword">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>;
+    <span class="code-keyword">if</span> (!emailRegex.test(email)) {
+        showError(<span class="code-value">'email'</span>, <span class="code-value">'Please enter a valid email address'</span>);
+        isValid = <span class="code-keyword">false</span>;
+    }
+    
+    <span class="code-comment">// Password strength check</span>
+    <span class="code-keyword">const</span> password = <span class="code-attr">document</span>.<span class="code-value">getElementById</span>(<span class="code-value">'password'</span>).value;
+    <span class="code-keyword">const</span> passwordStrength = checkPasswordStrength(password);
+    <span class="code-keyword">if</span> (passwordStrength === <span class="code-value">'weak'</span>) {
+        showError(<span class="code-value">'password'</span>, <span class="code-value">'Password is too weak'</span>);
+        isValid = <span class="code-keyword">false</span>;
+    }
+    
+    <span class="code-keyword">return</span> isValid;
+}
+
+<span class="code-comment">// Real-time validation on input</span>
+<span class="code-attr">document</span>.<span class="code-value">getElementById</span>(<span class="code-value">'email'</span>).<span class="code-value">addEventListener</span>(<span class="code-value">'blur'</span>, <span class="code-keyword">function</span>() {
+    <span class="code-keyword">const</span> email = <span class="code-keyword">this</span>.value;
+    <span class="code-keyword">if</span> (email && !<span class="code-function">isValidEmail</span>(email)) {
+        showError(<span class="code-keyword">this</span>.id, <span class="code-value">'Invalid email format'</span>);
+    } <span class="code-keyword">else</span> {
+        clearError(<span class="code-keyword">this</span>.id);
+    }
+});
+
+<span class="code-comment">// Custom validation functions</span>
+<span class="code-keyword">function</span> <span class="code-function">isValidEmail</span>(email) {
+    <span class="code-keyword">const</span> re = <span class="code-keyword">/^[^\s@]+@[^\s@]+\.[^\s@]+$/</span>;
+    <span class="code-keyword">return</span> re.test(email);
+}
+
+<span class="code-keyword">function</span> <span class="code-function">showError</span>(fieldId, message) {
+    <span class="code-keyword">const</span> errorElement = <span class="code-attr">document</span>.<span class="code-value">getElementById</span>(fieldId + <span class="code-value">'Error'</span>);
+    errorElement.textContent = message;
+    errorElement.style.display = <span class="code-value">'block'</span>;
+    <span class="code-attr">document</span>.<span class="code-value">getElementById</span>(fieldId).classList.add(<span class="code-value">'invalid'</span>);
+}</pre>
+                    </div>
+                    
+                    <div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>JavaScript Validation Advantages:</strong>
+                            <ul style="margin-top: 0.5rem; margin-left: 1.2rem;">
+                                <li>Complete control over validation logic and timing</li>
+                                <li>Custom, user-friendly error messages</li>
+                                <li>Complex validations (cross-field, conditional)</li>
+                                <li>Real-time feedback and progressive validation</li>
+                                <li>Better accessibility with ARIA attributes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Validation Types -->
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-list-check"></i> Validation Types</h2>
+                    
+                    <p>Understanding different validation approaches helps you choose the right strategy:</p>
+                    
+                    <div class="validation-types">
+                        <div class="type-card">
+                            <div class="type-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h3 class="type-title">Client-Side</h3>
+                            <p>Performed in the user's browser. Provides immediate feedback but can be bypassed.</p>
+                            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: var(--gray-700);">
+                                <li>HTML5 validation</li>
+                                <li>JavaScript validation</li>
+                                <li>Better user experience</li>
+                                <li>Reduces server load</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="type-card">
+                            <div class="type-icon">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h3 class="type-title">Server-Side</h3>
+                            <p>Performed on the server. Essential for security and data integrity.</p>
+                            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: var(--gray-700);">
+                                <li>Cannot be bypassed</li>
+                                <li>Essential for security</li>
+                                <li>Business logic validation</li>
+                                <li>Database integrity checks</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="type-card">
+                            <div class="type-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <h3 class="type-title">Real-Time</h3>
+                            <p>Validation occurs as users type. Provides the best user experience.</p>
+                            <ul style="margin-top: 1rem; padding-left: 1.2rem; color: var(--gray-700);">
+                                <li>Immediate feedback</li>
+                                <li>Reduces errors</li>
+                                <li>Progressive disclosure</li>
+                                <li>Better completion rates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Common Patterns -->
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-code-branch"></i> Common Validation Patterns</h2>
+                    
+                    <p>Useful regular expression patterns for common validation scenarios:</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Regular Expression Patterns</span>
+                            <button class="copy-btn" onclick="copyCode('regexCode')">
+                                <i class="far fa-copy"></i> Copy Code
+                            </button>
+                        </div>
+                        <pre id="regexCode"><span class="code-comment">// Names (letters, spaces, hyphens, 2-50 characters)</span>
+<span class="code-attr">pattern=</span><span class="code-value">"^[A-Za-z\s\-']{2,50}$"</span>
+
+<span class="code-comment">// Email (basic validation)</span>
+<span class="code-attr">pattern=</span><span class="code-value">"^[^\s@]+@[^\s@]+\.[^\s@]+$"</span>
+
+<span class="code-comment">// US Phone Number</span>
+<span class="code-attr">pattern=</span><span class="code-value">"^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"</span>
+
+<span class="code-comment">// Strong Password (8+ chars, letter, number, special char)</span>
+<span class="code-attr">pattern=</span><span class="code-value">"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"</span>
+
+<span class="code-comment">// URL validation</span>
+<span class="code-attr">pattern=</span><span class="code-value">"https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"</span></pre>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Summary & Next Steps</h2>
+            
+            <div class="alert alert-success">
+                <i class="fas fa-rocket"></i>
+                <div>
+                    <strong>You've learned the essentials of HTML Form Validation!</strong> Here's a quick recap:
+                    <ul style="margin-top: 0.8rem; margin-left: 1.2rem;">
+                        <li>HTML5 provides built-in validation attributes like <code>required</code>, <code>type="email"</code>, and <code>pattern</code></li>
+                        <li>JavaScript allows for complex, custom validation logic</li>
+                        <li>Always implement both client-side and server-side validation</li>
+                        <li>Follow best practices for user experience and accessibility</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p>To continue your learning journey:</p>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                <li>Practice implementing validation in your own projects</li>
+                <li>Learn about server-side validation with your preferred backend language</li>
+                <li>Explore validation libraries like jQuery Validation or Validator.js</li>
+                <li>Test your forms with screen readers to ensure accessibility</li>
+            </ul>
+        </section>
+    </main>
+    
+    <footer class="container">
+        <p class="footer-logo">Developers Hub</p>
+        <p>Complete HTML Form Validation Tutorial &copy; <span id="currentYear"></span></p>
+
+        <div class="quick-links">
+            <a href="#" class="quick-link"><i class="fas fa-book"></i> HTML Reference</a>
+            <a href="T7.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: HTML Semantic Elements</a>
+            <a href="#" class="quick-link"><i class="fas fa-video"></i> Video Tutorials</a>
+            <a href="#" class="quick-link"><i class="fas fa-tasks"></i> Practice Exercises</a>
+            <a href="../css/T-1.html" class="quick-link"><i class="fas fa-css"></i>Learn CSS</a>
+        </div>
+
+        <p style="margin-top: 0.8rem; font-size: 0.95rem; color: var(--gray-600);">
+            For more web development tutorials, resources, and guides, visit our website.
+        </p>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Scroll progress functionality
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for jump links
+        document.querySelectorAll('.jump-link').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Copy code function
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const textArea = document.createElement('textarea');
+            textArea.value = codeElement.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            const copyBtn = event.target.closest('.copy-btn');
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            copyBtn.style.background = 'var(--emerald)';
+            copyBtn.style.color = 'white';
+            copyBtn.style.borderColor = 'var(--emerald)';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = originalText;
+                copyBtn.style.background = '';
+                copyBtn.style.color = '';
+                copyBtn.style.borderColor = '';
+            }, 2000);
+        }
+        
+        // Form validation logic
+        const demoForm = document.getElementById('demoForm');
+        const jsValidationToggle = document.getElementById('jsValidationToggle');
+        const resetFormBtn = document.getElementById('resetForm');
+        const fillValidBtn = document.getElementById('fillValid');
+        const formSuccess = document.getElementById('formSuccess');
+        
+        // Form validation function
+        function validateForm(event) {
+            event.preventDefault();
+            
+            // Hide previous success message
+            formSuccess.style.display = 'none';
+            
+            // Get form elements
+            const nameInput = document.getElementById('demoName');
+            const emailInput = document.getElementById('demoEmail');
+            const passwordInput = document.getElementById('demoPassword');
+            
+            // Get error message elements
+            const nameError = document.getElementById('nameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const passwordSuccess = document.getElementById('passwordSuccess');
+            
+            // Reset all error messages and field styles
+            const errorMessages = [nameError, emailError, passwordError];
+            const inputs = [nameInput, emailInput, passwordInput];
+            
+            errorMessages.forEach(error => error.style.display = 'none');
+            passwordSuccess.style.display = 'none';
+            inputs.forEach(input => {
+                input.classList.remove('valid', 'invalid');
+            });
+            
+            let isValid = true;
+            
+            // Name validation
+            if (!nameInput.checkValidity()) {
+                nameError.style.display = 'flex';
+                nameInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                nameInput.classList.add('valid');
+            }
+            
+            // Email validation
+            if (!emailInput.checkValidity()) {
+                emailError.style.display = 'flex';
+                emailInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                emailInput.classList.add('valid');
+            }
+            
+            // Password validation
+            if (!passwordInput.checkValidity()) {
+                passwordError.style.display = 'flex';
+                passwordInput.classList.add('invalid');
+                isValid = false;
+            } else {
+                // Additional custom password validation if JS toggle is on
+                if (jsValidationToggle.checked) {
+                    const password = passwordInput.value;
+                    const hasLetter = /[A-Za-z]/.test(password);
+                    const hasNumber = /\d/.test(password);
+                    
+                    if (!hasLetter || !hasNumber) {
+                        passwordError.style.display = 'flex';
+                        passwordInput.classList.add('invalid');
+                        isValid = false;
+                    } else {
+                        passwordInput.classList.add('valid');
+                        passwordSuccess.style.display = 'flex';
+                        const strength = checkPasswordStrength(password);
+                        document.getElementById('passwordStrength').textContent = strength;
+                    }
+                } else {
+                    passwordInput.classList.add('valid');
+                }
+            }
+            
+            // If form is valid, show success message
+            if (isValid) {
+                formSuccess.style.display = 'flex';
+                setTimeout(() => {
+                    formSuccess.scrollIntoView({ behavior: 'smooth' });
+                }, 300);
+            }
+            
+            return false;
+        }
+        
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            if (password.length < 8) return 'Weak';
+            
+            let strength = 0;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            if (strength < 2) return 'Weak';
+            if (strength < 4) return 'Good';
+            return 'Strong';
+        }
+        
+        // Real-time validation on blur
+        function setupRealTimeValidation() {
+            const inputs = document.querySelectorAll('.form-control');
+            
+            inputs.forEach(input => {
+                // Validate on blur (when user leaves the field)
+                input.addEventListener('blur', function() {
+                    const errorId = this.id + 'Error';
+                    const errorElement = document.getElementById(errorId);
+                    
+                    // Reset styling
+                    this.classList.remove('valid', 'invalid');
+                    
+                    // Check if field is empty and not required
+                    if (!this.value && !this.hasAttribute('required')) {
+                        return; // Don't validate optional empty fields
+                    }
+                    
+                    // Check validity
+                    if (this.checkValidity()) {
+                        // Additional custom validation for password field
+                        if (this.id === 'demoPassword' && this.value && jsValidationToggle.checked) {
+                            const hasLetter = /[A-Za-z]/.test(this.value);
+                            const hasNumber = /\d/.test(this.value);
+                            
+                            if (!hasLetter || !hasNumber) {
+                                this.classList.add('invalid');
+                                if (errorElement) errorElement.style.display = 'flex';
+                            } else {
+                                this.classList.add('valid');
+                                if (errorElement) errorElement.style.display = 'none';
+                            }
+                        } else {
+                            this.classList.add('valid');
+                            if (errorElement) errorElement.style.display = 'none';
+                        }
+                    } else {
+                        this.classList.add('invalid');
+                        if (errorElement) errorElement.style.display = 'flex';
+                    }
+                });
+                
+                // Remove red border when user starts typing again
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('invalid')) {
+                        this.classList.remove('invalid');
+                        const errorId = this.id + 'Error';
+                        const errorElement = document.getElementById(errorId);
+                        if (errorElement) errorElement.style.display = 'none';
+                    }
+                    
+                    // Password strength indicator
+                    if (this.id === 'demoPassword' && this.value) {
+                        const strength = checkPasswordStrength(this.value);
+                        document.getElementById('passwordStrength').textContent = strength;
+                    }
+                });
+            });
+        }
+        
+        // Reset form function
+        function resetForm() {
+            demoForm.reset();
+            formSuccess.style.display = 'none';
+            
+            // Clear all validation styles and messages
+            const inputs = document.querySelectorAll('.form-control');
+            const errorMessages = document.querySelectorAll('.error-message');
+            const successMessages = document.querySelectorAll('.success-message');
+            
+            inputs.forEach(input => {
+                input.classList.remove('valid', 'invalid');
+            });
+            
+            errorMessages.forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            successMessages.forEach(success => {
+                success.style.display = 'none';
+            });
+        }
+        
+        // Fill with valid data
+        function fillValidData() {
+            document.getElementById('demoName').value = 'Alex Johnson';
+            document.getElementById('demoEmail').value = 'alex.johnson@example.com';
+            document.getElementById('demoPassword').value = 'SecurePass123';
+            
+            // Trigger validation to show valid states
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                input.classList.remove('valid', 'invalid');
+                input.classList.add('valid');
+            });
+            
+            // Show password strength
+            document.getElementById('passwordStrength').textContent = 'Strong';
+            document.getElementById('passwordSuccess').style.display = 'flex';
+            
+            // Hide any error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            formSuccess.style.display = 'none';
+        }
+        
+        // Initialize event listeners
+        demoForm.addEventListener('submit', validateForm);
+        resetFormBtn.addEventListener('click', resetForm);
+        fillValidBtn.addEventListener('click', fillValidData);
+        
+        // Setup real-time validation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setupRealTimeValidation();
+        });
+    </script>
+</body>
+</html>
