@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Code Editor</title>
+    <link rel="icon" href="logos/devhub_favicon_2.png">
+    <link rel="stylesheet" href="editor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/htmlmixed/htmlmixed.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="admin.html"><img src="logos/devhub_logo.png" alt="devhub_logo" width="90px" height="90px"></a>
+                <!-- <i class="fas fa-code"></i> -->
+                <h1><span>Code</span>Editor</h1>
+            </div>
+            <div class="controls">
+                <div class="theme-selector">
+                    <label for="themeSelect"><i class="fas fa-palette"></i></label>
+                    <select id="themeSelect">
+                        <option value="default">Default Theme</option>
+                        <option value="dracula">Dracula</option>
+                        <option value="eclipse">Eclipse</option>
+                        <option value="monokai">Monokai</option>
+                    </select>
+                </div>
+                <button id="newFileBtn" class="btn-dark">
+                    <i class="fas fa-plus"></i> NewFile
+                </button>
+                <button id="runBtn">
+                    <i class="fas fa-play"></i> Run
+                </button>
+                <button id="saveBtn" class="btn-secondary">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
+        </header>
+        
+        <div class="editor-container">     
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-file-code"></i> HTML
+                    </div>
+                    <div class="panel-actions">
+                        <span id="htmlLines">Lines: 15</span>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <textarea id="htmlCode">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Web Page&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+        &lt;p&gt;This is a sample web page created with the WebCodeEditor&lt;/p&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section class="content"&gt;
+            &lt;h2&gt;About This Editor&lt;/h2&gt;
+            &lt;p&gt;This is a fully functional code editor with syntax highlighting and file management.&lt;/p&gt;
+            &lt;button id="demoBtn"&gt;Click Me!&lt;/button&gt;
+            &lt;div id="output"&gt;&lt;/div&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;© 2023 WebCodeEditor. All rights reserved.&lt;/p&gt;
+    &lt;/footer&gt;
+    
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                </div>
+            </div>
+            
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-file-code"></i> CSS
+                    </div>
+                    <div class="panel-actions">
+                        <span id="cssLines">Lines: 10</span>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <textarea id="cssCode">* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+#demoBtn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+
+#demoBtn:hover {
+    background-color: #0b7dda;
+}
+
+footer {
+    text-align: center;
+    color: #666;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}</textarea>
+                </div>
+            </div>
+            
+            <div class="code-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <i class="fas fa-file-code"></i> JavaScript
+                    </div>
+                    <div class="panel-actions">
+                        <span id="jsLines">Lines: 8</span>
+                    </div>
+                </div>
+                <div class="code-area">
+                    <textarea id="jsCode">// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the button and output elements
+    const demoBtn = document.getElementById('demoBtn');
+    const outputDiv = document.getElementById('output');
+    
+    // Add click event listener to the button
+    demoBtn.addEventListener('click', function() {
+        // Create a new paragraph element
+        const message = document.createElement('p');
+        message.textContent = 'Button clicked! Code executed successfully.';
+        message.style.color = '#4CAF50';
+        message.style.marginTop = '15px';
+        message.style.fontWeight = 'bold';
+        
+        // Clear previous output and add the new message
+        outputDiv.innerHTML = '';
+        outputDiv.appendChild(message);
+        
+        // Log to console
+        console.log('Demo button clicked at ' + new Date().toLocaleTimeString());
+    });
+    
+    // Log a message when the script loads
+    console.log('JavaScript loaded successfully');
+});</textarea>
+                </div>
+            </div>
+            
+            <div class="output-panel">
+                <div class="output-header">
+                    <div class="panel-title">
+                        <i class="fas fa-desktop"></i> Output Preview
+                    </div>
+                    <div class="panel-actions">
+                        <span id="outputStatus">Ready</span>
+                    </div>
+                </div>
+                <div class="output-area" id="outputFrame">
+                    <!-- Output will be rendered here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="files-panel">
+            <div class="files-header">
+                <h2><i class="fas fa-folder-open"></i> Saved Files</h2>
+                <button id="viewFilesBtn" class="btn-secondary">
+                    <i class="fas fa-sync-alt"></i> Refresh Files
+                </button>
+            </div>
+            <div class="files-list" id="filesList">
+                <!-- Files will be listed here -->
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy;Developers Hub CodeEditor 2026 | Interactive Code Editor with Syntax Highlighting and File Management</p>
+        </footer>
+    </div>
+    
+    <!-- New File Modal -->
+    <div id="newFileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-plus"></i> Create New File</h3>
+            </div>
+            <form id="newFileForm">
+                <div class="form-group">
+                    <label for="fileName">File Name</label>
+                    <input type="text" id="fileName" placeholder="e.g., my-script.js" required>
+                </div>
+                <div class="form-group">
+                    <label for="fileType">File Type</label>
+                    <select id="fileType" required>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="js">JavaScript</option>
+                        <option value="txt">Plain Text</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fileContent">Initial Content (Optional)</label>
+                    <textarea id="fileContent" rows="5" placeholder="Add your code here..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="cancelBtn" class="btn-dark">Cancel</button>
+                    <button type="submit" class="btn-secondary">Create File</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">File saved successfully!</span>
+    </div>
+    
+    <script src="control/editor-script.js"></script>
+</body>
+</html>

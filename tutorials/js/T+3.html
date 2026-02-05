@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Objects & Arrays Tutorial | Developers Hub</title>
+    <link rel="icon" href="../../logos/devhub_favicon_2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #0d9488;
+            --secondary-color: #0ea5e9;
+            --accent-color: #10b981;
+            --light-color: #f0f9ff;
+            --dark-color: #0f172a;
+            --text-color: #334155;
+            --text-light: #f8f9fa;
+            --success-color: #2a9d8f;
+            --info-color: #57c5b6;
+            --warning-color: #e9c46a;
+            --danger-color: #e76f51;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+            --code-bg: #1e293b;
+            --object-bg: #0d2b3e;
+            --array-bg: #1a365d;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            /* max-width: 1200px; */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-light);
+            padding: 2.5rem 0;
+            text-align: center;
+            /* border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px; */
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            background-size: 300% 300%;
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: -100% -100%; }
+            100% { background-position: 200% 200%; }
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            position: relative;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        /* inserted */
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 600;
+        }
+        /* inserted */
+
+        /* Content Section Styles */
+        .section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Code Example Styles */
+        .code-example {
+            background-color: var(--code-bg);
+            color: #d6deeb;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .code-example h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .code-example pre {
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .js-keyword {
+            color: #ff7b72;
+            font-weight: bold;
+        }
+
+        .js-string {
+            color: #a5d6ff;
+        }
+
+        .js-number {
+            color: #79c0ff;
+        }
+
+        .js-function {
+            color: #d2a8ff;
+        }
+
+        .js-comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        .js-operator {
+            color: #ffa657;
+        }
+
+        .js-variable {
+            color: #7ee787;
+        }
+
+        .js-property {
+            color: #79c0ff;
+        }
+
+        .js-bracket {
+            color: #ffa657;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Interactive Visualizer */
+        .interactive-visualizer {
+            background-color: var(--object-bg);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .visualizer-title {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .visualizer-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .visualizer-btn {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .visualizer-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .visualizer-container {
+            flex-grow: 1;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        .object-display {
+            color: #d6deeb;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .object-key {
+            color: #7ee787;
+        }
+
+        .object-value {
+            color: #a5d6ff;
+        }
+
+        .object-bracket {
+            color: #ffa657;
+        }
+
+        .array-index {
+            color: #79c0ff;
+        }
+
+        .visualizer-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .visualizer-input {
+            flex-grow: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        .visualizer-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .visualizer-run-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .visualizer-run-btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        /* Method Cards */
+        .method-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .method-card {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.2rem;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .method-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-icon {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .method-syntax {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: #555;
+            background-color: #f5f5f5;
+            padding: 5px 8px;
+            border-radius: 3px;
+            display: block;
+            margin: 8px 0;
+        }
+
+        /* Structure Visualizer */
+        .structure-visualizer {
+            background: linear-gradient(90deg, #e3f2fd 0%, #f0f9ff 100%);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .structure-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .structure-item {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            padding: 1.2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .structure-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .structure-content {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            min-height: 120px;
+            background-color: #f9f9f9;
+            padding: 0.8rem;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        /* Method Comparison Table */
+        .method-comparison {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .method-comparison th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .method-comparison td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .method-comparison tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .method-comparison tr:hover {
+            background-color: #f0f9ff;
+        }
+
+        .method-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .tag-object {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .tag-array {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .tag-both {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        /* Tips & Notes */
+        .tip-box {
+            background-color: #e7f5ef;
+            border-left: 4px solid var(--success-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .tip-box h4 {
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-box {
+            background-color: #fff9e6;
+            border-left: 4px solid var(--warning-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note-box h4 {
+            color: #b0893b;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--danger-color);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .warning-box h4 {
+            color: var(--danger-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+         /* inserted */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+            font-size: 0.95rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 40px;
+            background-color: #f8fafc;
+        }
+
+        .footer strong {
+            color: var(--primary-color);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: #0d9488;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-link:hover {
+            background-color: #0d9488;
+            color: white;
+            transform: translateY(-3px);
+        }
+        /* inserted */
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .interactive-visualizer {
+                min-height: 250px;
+            }
+            
+            .structure-container {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .method-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .visualizer-input-area {
+                flex-direction: column;
+            }
+            
+            .method-comparison {
+                font-size: 0.9rem;
+            }
+
+            /* inserted */
+            .quick-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-link {
+                width: 80%;
+                text-align: center;
+            }
+            /* inserted */
+        }
+
+        @media (max-width: 576px) {
+            .page-header {
+                padding: 1.8rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .header-icon {
+                font-size: 2.5rem;
+            }
+            
+            .method-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Utility Classes */
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Data Structure Indicator */
+        .structure-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #7ee787;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+    <style>
+        /* Header Styles */
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --secondary: #00ceff;
+            --accent: #00ffcc;
+            --dark-bg: #0a1929;
+            --dark-card: #112240;
+            --dark-sidebar: #0d1b2a;
+            --dark-header: #0f172a;
+            --dark-text: #a8b2d1;
+            --light-text: #e6f1ff;
+            --border-color: #1e3a5f;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff4444;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --sidebar-width: 260px;
+            --header-height: 70px;
+        }
+
+        .header-top {
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--dark-header);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            /* background: linear-gradient(135deg, var(--primary), var(--secondary)); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--dark-header);
+        }
+
+        /* //inserted */
+        .user-avatar img{
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+        }
+    </style>
+    <style>
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--dark-sidebar);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-header i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            font-weight: 700;
+        }
+
+        .sidebar-header span {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(0, 212, 170, 0.1);
+            color: var(--light-text);
+        }
+
+        .menu-item.active {
+            background-color: rgba(0, 212, 170, 0.15);
+            border-left-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        .menu-item i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .menu-item span {
+            font-weight: 500;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .submenu.active {
+            max-height: 500px;
+        }
+
+        .submenu-item {
+            padding: 12px 20px 12px 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--dark-text);
+        }
+
+        .submenu-item:hover {
+            background-color: rgba(0, 212, 170, 0.08);
+            color: var(--light-text);
+        }
+
+        .submenu-item.active {
+            color: var(--primary);
+            background-color: rgba(0, 212, 170, 0.12);
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: var(--transition);
+        }
+
+        .chevron.rotate {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- inserted -->
+    <header class="header-top">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+                
+        <div class="user-profile">
+            <div class="user-avatar"><a href="../../index.html"><img src="../../logos/devhub_user_logo.jpg" alt="user-logo"></a></div>
+                <div class="user-info">
+                    <div class="user-name">Developer</div>
+                <div class="user-role">Admin User</div>
+            </div>
+        </div>
+                
+        <button class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </button>
+    </header>
+    <!-- /inserted -->
+
+    <!-- Data Structure Indicator -->
+    <div class="structure-indicator">
+        <div class="indicator-dot"></div>
+        <span>JS Objects & Arrays</span>
+    </div>
+
+    <header class="container page-header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i class="fab fa-js-square"></i>
+            </div>
+            <h1>JavaScript Objects & Arrays</h1>
+            <p>Master the two most important data structures in JavaScript. Learn creation, manipulation, iteration, and advanced techniques for objects and arrays.</p>
+            
+            <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span>30 min read</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span>15+ Examples</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Best Practices</span>
+                    </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Introduction Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> Objects vs Arrays: Understanding the Difference</h2>
+            <p>Objects and arrays are both used to store collections of data, but they serve different purposes and have different characteristics.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Objects: Key-Value Collections</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Structure:</strong> Unordered collection of key-value pairs</li>
+                        <li><strong>Access:</strong> By property name (key)</li>
+                        <li><strong>Use when:</strong> You need named properties, represent entities</li>
+                        <li><strong>Example:</strong> User profile, configuration settings</li>
+                        <li><strong>Type:</strong> Reference type (stores memory reference)</li>
+                    </ul>
+                    
+                    <div class="code-example" style="margin-top: 1rem;">
+                        <pre><code><span class="js-comment">// Object example</span>
+<span class="js-keyword">const</span> <span class="js-variable">user</span> = {
+  <span class="js-property">name</span>: <span class="js-string">"John Doe"</span>,
+  <span class="js-property">age</span>: <span class="js-number">30</span>,
+  <span class="js-property">email</span>: <span class="js-string">"john@example.com"</span>,
+  <span class="js-property">isAdmin</span>: <span class="js-keyword">false</span>
+};</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Arrays: Ordered Lists</h3>
+                    <ul style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li><strong>Structure:</strong> Ordered list of values with numeric indices</li>
+                        <li><strong>Access:</strong> By index (position)</li>
+                        <li><strong>Use when:</strong> You need ordered data, lists of items</li>
+                        <li><strong>Example:</strong> Shopping list, scores, todos</li>
+                        <li><strong>Type:</strong> Reference type (special kind of object)</li>
+                    </ul>
+                    
+                    <div class="code-example" style="margin-top: 1rem;">
+                        <pre><code><span class="js-comment">// Array example</span>
+<span class="js-keyword">const</span> <span class="js-variable">fruits</span> = [
+  <span class="js-string">"apple"</span>,
+  <span class="js-string">"banana"</span>,
+  <span class="js-string">"orange"</span>,
+  <span class="js-string">"grape"</span>
+];</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-visualizer">
+                <div class="visualizer-header">
+                    <div class="visualizer-title">Data Structure Playground</div>
+                    <div class="visualizer-controls">
+                        <button class="visualizer-btn" data-mode="object"><i class="fas fa-cube"></i> Object</button>
+                        <button class="visualizer-btn active" data-mode="array"><i class="fas fa-list"></i> Array</button>
+                        <button class="visualizer-btn" id="clearVisualizer"><i class="fas fa-trash"></i> Clear</button>
+                    </div>
+                </div>
+                <div class="visualizer-container" id="visualizerContainer">
+                    <!-- Content will be generated by JavaScript -->
+                </div>
+                <div class="visualizer-input-area">
+                    <input type="text" class="visualizer-input" id="visualizerInput" placeholder="Try: fruits.push('mango') or user.city = 'New York'">
+                    <button class="visualizer-run-btn" id="runVisualizer"><i class="fas fa-play"></i> Execute</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Creating Objects & Arrays -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-plus-circle"></i> Creating Objects & Arrays</h2>
+            <p>There are multiple ways to create objects and arrays in JavaScript, each with its own use cases.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Object Creation Methods</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// 1. Object literal (most common)</span>
+<span class="js-keyword">const</span> <span class="js-variable">person</span> = {
+  <span class="js-property">name</span>: <span class="js-string">"Alice"</span>,
+  <span class="js-property">age</span>: <span class="js-number">25</span>,
+  <span class="js-property">greet</span>: <span class="js-keyword">function</span>() {
+    <span class="js-keyword">return</span> <span class="js-string">"Hello!"</span>;
+  }
+};
+
+<span class="js-comment">// 2. Object constructor</span>
+<span class="js-keyword">const</span> <span class="js-variable">car</span> = <span class="js-keyword">new</span> <span class="js-function">Object</span>();
+<span class="js-variable">car</span>.<span class="js-property">make</span> = <span class="js-string">"Toyota"</span>;
+<span class="js-variable">car</span>.<span class="js-property">model</span> = <span class="js-string">"Camry"</span>;
+<span class="js-variable">car</span>.<span class="js-property">year</span> = <span class="js-number">2020</span>;
+
+<span class="js-comment">// 3. Object.create() - for inheritance</span>
+<span class="js-keyword">const</span> <span class="js-variable">animal</span> = {
+  <span class="js-property">type</span>: <span class="js-string">"mammal"</span>,
+  <span class="js-property">sound</span>: <span class="js-string">"..."</span>,
+  <span class="js-property">makeSound</span>: <span class="js-keyword">function</span>() {
+    <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-keyword">this</span>.<span class="js-property">sound</span>);
+  }
+};
+
+<span class="js-keyword">const</span> <span class="js-variable">dog</span> = <span class="js-function">Object</span>.<span class="js-function">create</span>(<span class="js-variable">animal</span>);
+<span class="js-variable">dog</span>.<span class="js-property">sound</span> = <span class="js-string">"Woof!"</span>;
+
+<span class="js-comment">// 4. Constructor function</span>
+<span class="js-keyword">function</span> <span class="js-function">Book</span>(<span class="js-variable">title</span>, <span class="js-variable">author</span>, <span class="js-variable">year</span>) {
+  <span class="js-keyword">this</span>.<span class="js-property">title</span> = <span class="js-variable">title</span>;
+  <span class="js-keyword">this</span>.<span class="js-property">author</span> = <span class="js-variable">author</span>;
+  <span class="js-keyword">this</span>.<span class="js-property">year</span> = <span class="js-variable">year</span>;
+}
+
+<span class="js-keyword">const</span> <span class="js-variable">book1</span> = <span class="js-keyword">new</span> <span class="js-function">Book</span>(<span class="js-string">"1984"</span>, <span class="js-string">"George Orwell"</span>, <span class="js-number">1949</span>);
+
+<span class="js-comment">// 5. ES6 Class</span>
+<span class="js-keyword">class</span> <span class="js-function">Product</span> {
+  <span class="js-function">constructor</span>(<span class="js-variable">name</span>, <span class="js-variable">price</span>) {
+    <span class="js-keyword">this</span>.<span class="js-property">name</span> = <span class="js-variable">name</span>;
+    <span class="js-keyword">this</span>.<span class="js-property">price</span> = <span class="js-variable">price</span>;
+  }
+  
+  <span class="js-function">getDescription</span>() {
+    <span class="js-keyword">return</span> <span class="js-string">`<span class="js-number">${this.name}</span> - $<span class="js-number">${this.price}</span>`</span>;
+  }
+}
+
+<span class="js-keyword">const</span> <span class="js-variable">product1</span> = <span class="js-keyword">new</span> <span class="js-function">Product</span>(<span class="js-string">"Laptop"</span>, <span class="js-number">999</span>);</code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Array Creation Methods</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// 1. Array literal (most common)</span>
+<span class="js-keyword">const</span> <span class="js-variable">colors</span> = [<span class="js-string">"red"</span>, <span class="js-string">"green"</span>, <span class="js-string">"blue"</span>];
+
+<span class="js-comment">// 2. Array constructor</span>
+<span class="js-keyword">const</span> <span class="js-variable">numbers</span> = <span class="js-keyword">new</span> <span class="js-function">Array</span>(<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>, <span class="js-number">4</span>, <span class="js-number">5</span>);
+
+<span class="js-comment">// 3. Array with length (creates empty slots)</span>
+<span class="js-keyword">const</span> <span class="js-variable">emptyArray</span> = <span class="js-keyword">new</span> <span class="js-function">Array</span>(<span class="js-number">5</span>); <span class="js-comment">// Creates array with 5 empty slots</span>
+
+<span class="js-comment">// 4. Array.from() - from array-like or iterable objects</span>
+<span class="js-keyword">const</span> <span class="js-variable">arrayFromString</span> = <span class="js-function">Array</span>.<span class="js-function">from</span>(<span class="js-string">"hello"</span>); <span class="js-comment">// ["h", "e", "l", "l", "o"]</span>
+<span class="js-keyword">const</span> <span class="js-variable">arrayFromSet</span> = <span class="js-function">Array</span>.<span class="js-function">from</span>(<span class="js-keyword">new</span> <span class="js-function">Set</span>([<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">2</span>, <span class="js-number">3</span>])); <span class="js-comment">// [1, 2, 3]</span>
+
+<span class="js-comment">// 5. Array.of() - creates array from arguments</span>
+<span class="js-keyword">const</span> <span class="js-variable">arrayOfNumbers</span> = <span class="js-function">Array</span>.<span class="js-function">of</span>(<span class="js-number">7</span>); <span class="js-comment">// [7] (not array with 7 empty slots!)</span>
+
+<span class="js-comment">// 6. Using spread operator with existing array</span>
+<span class="js-keyword">const</span> <span class="js-variable">original</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>];
+<span class="js-keyword">const</span> <span class="js-variable">copy</span> = [...<span class="js-variable">original</span>]; <span class="js-comment">// [1, 2, 3] (shallow copy)</span>
+<span class="js-keyword">const</span> <span class="js-variable">extended</span> = [...<span class="js-variable">original</span>, <span class="js-number">4</span>, <span class="js-number">5</span>]; <span class="js-comment">// [1, 2, 3, 4, 5]</span>
+
+<span class="js-comment">// 7. Creating array with fill()</span>
+<span class="js-keyword">const</span> <span class="js-variable">filledArray</span> = <span class="js-keyword">new</span> <span class="js-function">Array</span>(<span class="js-number">3</span>).<span class="js-function">fill</span>(<span class="js-number">0</span>); <span class="js-comment">// [0, 0, 0]</span>
+
+<span class="js-comment">// 8. Array with computed values</span>
+<span class="js-keyword">const</span> <span class="js-variable">squares</span> = <span class="js-function">Array</span>(<span class="js-number">5</span>).<span class="js-function">fill</span>().<span class="js-function">map</span>((_, <span class="js-variable">i</span>) => (<span class="js-variable">i</span> + <span class="js-number">1</span>) ** <span class="js-number">2</span>); <span class="js-comment">// [1, 4, 9, 16, 25]</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box">
+                <h4><i class="fas fa-lightbulb"></i> Best Practices</h4>
+                <ul style="margin-left: 1.5rem;">
+                    <li>Use object literals <span class="highlight">{}</span> for objects</li>
+                    <li>Use array literals <span class="highlight">[]</span> for arrays</li>
+                    <li>Avoid <span class="highlight">new Array()</span> with single number argument (creates empty slots)</li>
+                    <li>Use <span class="highlight">Array.from()</span> or <span class="highlight">Array.of()</span> when appropriate</li>
+                    <li>Use spread operator <span class="highlight">...</span> for copying and merging</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Accessing & Modifying -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-edit"></i> Accessing & Modifying Elements</h2>
+            <p>Learn how to read, update, add, and remove elements from objects and arrays.</p>
+            
+            <div class="structure-visualizer">
+                <h3>Access Methods Comparison</h3>
+                <div class="structure-container">
+                    <div class="structure-item">
+                        <div class="structure-title"><i class="fas fa-cube"></i> Object Access</div>
+                        <div class="structure-content">
+<span class="object-key">const</span> person = {
+  <span class="object-key">name</span>: <span class="object-value">"John"</span>,
+  <span class="object-key">age</span>: <span class="object-value">30</span>
+};
+
+<span class="js-comment">// Dot notation</span>
+person.<span class="object-key">name</span>;  <span class="js-comment">// "John"</span>
+
+<span class="js-comment">// Bracket notation</span>
+person[<span class="js-string">"age"</span>];  <span class="js-comment">// 30</span>
+
+<span class="js-comment">// Dynamic key access</span>
+<span class="object-key">const</span> key = <span class="js-string">"name"</span>;
+person[key];  <span class="js-comment">// "John"</span>
+                        </div>
+                    </div>
+                    <div class="structure-item">
+                        <div class="structure-title"><i class="fas fa-list"></i> Array Access</div>
+                        <div class="structure-content">
+<span class="object-key">const</span> fruits = [
+  <span class="js-string">"apple"</span>,
+  <span class="js-string">"banana"</span>,
+  <span class="js-string">"orange"</span>
+];
+
+<span class="js-comment">// Index access (0-based)</span>
+fruits[<span class="js-number">0</span>];  <span class="js-comment">// "apple"</span>
+fruits[<span class="js-number">1</span>];  <span class="js-comment">// "banana"</span>
+
+<span class="js-comment">// Length property</span>
+fruits.<span class="object-key">length</span>;  <span class="js-comment">// 3</span>
+
+<span class="js-comment">// Last element</span>
+fruits[fruits.<span class="object-key">length</span> - <span class="js-number">1</span>];  <span class="js-comment">// "orange"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Modifying Objects</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-keyword">const</span> <span class="js-variable">user</span> = {
+  <span class="js-property">name</span>: <span class="js-string">"Alice"</span>,
+  <span class="js-property">age</span>: <span class="js-number">25</span>
+};
+
+<span class="js-comment">// Adding properties</span>
+<span class="js-variable">user</span>.<span class="js-property">email</span> = <span class="js-string">"alice@example.com"</span>;  <span class="js-comment">// Dot notation</span>
+<span class="js-variable">user</span>[<span class="js-string">"isAdmin"</span>] = <span class="js-keyword">false</span>;          <span class="js-comment">// Bracket notation</span>
+
+<span class="js-comment">// Updating properties</span>
+<span class="js-variable">user</span>.<span class="js-property">age</span> = <span class="js-number">26</span>;                     <span class="js-comment">// Changed from 25 to 26</span>
+
+<span class="js-comment">// Deleting properties</span>
+<span class="js-keyword">delete</span> <span class="js-variable">user</span>.<span class="js-property">email</span>;                <span class="js-comment">// Removes email property</span>
+
+<span class="js-comment">// Checking if property exists</span>
+<span class="js-string">"name"</span> <span class="js-keyword">in</span> <span class="js-variable">user</span>;                   <span class="js-comment">// true</span>
+<span class="js-variable">user</span>.<span class="js-function">hasOwnProperty</span>(<span class="js-string">"age"</span>);       <span class="js-comment">// true</span>
+<span class="js-variable">user</span>.<span class="js-function">hasOwnProperty</span>(<span class="js-string">"toString"</span>);  <span class="js-comment">// false (inherited)</span>
+
+<span class="js-comment">// Getting all property names</span>
+<span class="js-keyword">const</span> <span class="js-variable">keys</span> = <span class="js-function">Object</span>.<span class="js-function">keys</span>(<span class="js-variable">user</span>);      <span class="js-comment">// ["name", "age", "isAdmin"]</span>
+<span class="js-keyword">const</span> <span class="js-variable">values</span> = <span class="js-function">Object</span>.<span class="js-function">values</span>(<span class="js-variable">user</span>);  <span class="js-comment">// ["Alice", 26, false]</span>
+<span class="js-keyword">const</span> <span class="js-variable">entries</span> = <span class="js-function">Object</span>.<span class="js-function">entries</span>(<span class="js-variable">user</span>); <span class="js-comment">// [["name", "Alice"], ["age", 26], ...]</span>
+
+<span class="js-comment">// Object destructuring (ES6+)</span>
+<span class="js-keyword">const</span> { <span class="js-variable">name</span>, <span class="js-variable">age</span> } = <span class="js-variable">user</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">name</span>);  <span class="js-comment">// "Alice"</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">age</span>);   <span class="js-comment">// 26</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Modifying Arrays</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-keyword">let</span> <span class="js-variable">fruits</span> = [<span class="js-string">"apple"</span>, <span class="js-string">"banana"</span>];
+
+<span class="js-comment">// Adding elements</span>
+<span class="js-variable">fruits</span>.<span class="js-function">push</span>(<span class="js-string">"orange"</span>);        <span class="js-comment">// End: ["apple", "banana", "orange"]</span>
+<span class="js-variable">fruits</span>.<span class="js-function">unshift</span>(<span class="js-string">"kiwi"</span>);      <span class="js-comment">// Start: ["kiwi", "apple", "banana", "orange"]</span>
+<span class="js-variable">fruits</span>[<span class="js-variable">fruits</span>.<span class="js-property">length</span>] = <span class="js-string">"grape"</span>; <span class="js-comment">// End: [... , "grape"]</span>
+
+<span class="js-comment">// Removing elements</span>
+<span class="js-variable">fruits</span>.<span class="js-function">pop</span>();                <span class="js-comment">// End: removes "grape"</span>
+<span class="js-variable">fruits</span>.<span class="js-function">shift</span>();              <span class="js-comment">// Start: removes "kiwi"</span>
+
+<span class="js-comment">// Modifying specific index</span>
+<span class="js-variable">fruits</span>[<span class="js-number">1</span>] = <span class="js-string">"blueberry"</span>;      <span class="js-comment">// Changes index 1 to "blueberry"</span>
+
+<span class="js-comment">// splice() - powerful method for add/remove</span>
+<span class="js-variable">fruits</span>.<span class="js-function">splice</span>(<span class="js-number">1</span>, <span class="js-number">1</span>);           <span class="js-comment">// Remove 1 element at index 1</span>
+<span class="js-variable">fruits</span>.<span class="js-function">splice</span>(<span class="js-number">1</span>, <span class="js-number">0</span>, <span class="js-string">"mango"</span>);  <span class="js-comment">// Add "mango" at index 1 (remove 0)</span>
+<span class="js-variable">fruits</span>.<span class="js-function">splice</span>(<span class="js-number">1</span>, <span class="js-number">1</span>, <span class="js-string">"peach"</span>); <span class="js-comment">// Replace 1 element at index 1 with "peach"</span>
+
+<span class="js-comment">// Finding elements</span>
+<span class="js-keyword">const</span> <span class="js-variable">index</span> = <span class="js-variable">fruits</span>.<span class="js-function">indexOf</span>(<span class="js-string">"apple"</span>);  <span class="js-comment">// Returns index or -1</span>
+<span class="js-keyword">const</span> <span class="js-variable">hasBanana</span> = <span class="js-variable">fruits</span>.<span class="js-function">includes</span>(<span class="js-string">"banana"</span>);  <span class="js-comment">// true/false</span>
+
+<span class="js-comment">// Array destructuring (ES6+)</span>
+<span class="js-keyword">const</span> [<span class="js-variable">first</span>, <span class="js-variable">second</span>, ...<span class="js-variable">rest</span>] = <span class="js-variable">fruits</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">first</span>);   <span class="js-comment">// First element</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">second</span>);  <span class="js-comment">// Second element</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">rest</span>);    <span class="js-comment">// Array of remaining elements</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Methods -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-tools"></i> Essential Methods</h2>
+            <p>JavaScript provides powerful built-in methods for working with objects and arrays.</p>
+            
+            <div class="method-cards" id="methodCards">
+                <!-- Method cards will be populated by JavaScript -->
+            </div>
+            
+            <h3 style="margin-top: 2rem; color: var(--primary-color);">Method Comparison</h3>
+            <table class="method-comparison">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Object/Array</th>
+                        <th>Purpose</th>
+                        <th>Returns</th>
+                        <th>Mutates Original</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>push()</code></td>
+                        <td><span class="method-tag tag-array">Array</span></td>
+                        <td>Add element to end</td>
+                        <td>New length</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>pop()</code></td>
+                        <td><span class="method-tag tag-array">Array</span></td>
+                        <td>Remove from end</td>
+                        <td>Removed element</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td><code>map()</code></td>
+                        <td><span class="method-tag tag-array">Array</span></td>
+                        <td>Transform each element</td>
+                        <td>New array</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><code>filter()</code></td>
+                        <td><span class="method-tag tag-array">Array</span></td>
+                        <td>Select elements by condition</td>
+                        <td>New array</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><code>reduce()</code></td>
+                        <td><span class="method-tag tag-array">Array</span></td>
+                        <td>Accumulate values</td>
+                        <td>Single value</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><code>Object.keys()</code></td>
+                        <td><span class="method-tag tag-object">Object</span></td>
+                        <td>Get property names</td>
+                        <td>Array of keys</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><code>Object.values()</code></td>
+                        <td><span class="method-tag tag-object">Object</span></td>
+                        <td>Get property values</td>
+                        <td>Array of values</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td><code>Object.assign()</code></td>
+                        <td><span class="method-tag tag-object">Object</span></td>
+                        <td>Copy/merge objects</td>
+                        <td>New object</td>
+                        <td>No</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Iteration & Looping -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-sync-alt"></i> Iteration & Looping</h2>
+            <p>There are multiple ways to iterate over objects and arrays in JavaScript.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Array Iteration Methods</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-keyword">const</span> <span class="js-variable">numbers</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>, <span class="js-number">4</span>, <span class="js-number">5</span>];
+
+<span class="js-comment">// 1. forEach() - execute function for each element</span>
+<span class="js-variable">numbers</span>.<span class="js-function">forEach</span>((<span class="js-variable">num</span>, <span class="js-variable">index</span>) => {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">`Index <span class="js-number">${index}</span>: <span class="js-number">${num}</span>`</span>);
+});
+
+<span class="js-comment">// 2. map() - create new array by transforming each element</span>
+<span class="js-keyword">const</span> <span class="js-variable">squared</span> = <span class="js-variable">numbers</span>.<span class="js-function">map</span>(<span class="js-variable">num</span> => <span class="js-variable">num</span> * <span class="js-variable">num</span>);
+<span class="js-comment">// [1, 4, 9, 16, 25]</span>
+
+<span class="js-comment">// 3. filter() - create new array with elements that pass test</span>
+<span class="js-keyword">const</span> <span class="js-variable">evens</span> = <span class="js-variable">numbers</span>.<span class="js-function">filter</span>(<span class="js-variable">num</span> => <span class="js-variable">num</span> % <span class="js-number">2</span> === <span class="js-number">0</span>);
+<span class="js-comment">// [2, 4]</span>
+
+<span class="js-comment">// 4. reduce() - accumulate values to single result</span>
+<span class="js-keyword">const</span> <span class="js-variable">sum</span> = <span class="js-variable">numbers</span>.<span class="js-function">reduce</span>((<span class="js-variable">total</span>, <span class="js-variable">num</span>) => <span class="js-variable">total</span> + <span class="js-variable">num</span>, <span class="js-number">0</span>);
+<span class="js-comment">// 15</span>
+
+<span class="js-comment">// 5. find() - find first element that satisfies condition</span>
+<span class="js-keyword">const</span> <span class="js-variable">firstEven</span> = <span class="js-variable">numbers</span>.<span class="js-function">find</span>(<span class="js-variable">num</span> => <span class="js-variable">num</span> % <span class="js-number">2</span> === <span class="js-number">0</span>);
+<span class="js-comment">// 2</span>
+
+<span class="js-comment">// 6. some() - check if at least one element passes test</span>
+<span class="js-keyword">const</span> <span class="js-variable">hasEven</span> = <span class="js-variable">numbers</span>.<span class="js-function">some</span>(<span class="js-variable">num</span> => <span class="js-variable">num</span> % <span class="js-number">2</span> === <span class="js-number">0</span>);
+<span class="js-comment">// true</span>
+
+<span class="js-comment">// 7. every() - check if all elements pass test</span>
+<span class="js-keyword">const</span> <span class="js-variable">allPositive</span> = <span class="js-variable">numbers</span>.<span class="js-function">every</span>(<span class="js-variable">num</span> => <span class="js-variable">num</span> > <span class="js-number">0</span>);
+<span class="js-comment">// true</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Object Iteration Methods</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-keyword">const</span> <span class="js-variable">person</span> = {
+  <span class="js-property">name</span>: <span class="js-string">"John"</span>,
+  <span class="js-property">age</span>: <span class="js-number">30</span>,
+  <span class="js-property">city</span>: <span class="js-string">"New York"</span>,
+  <span class="js-property">isAdmin</span>: <span class="js-keyword">false</span>
+};
+
+<span class="js-comment">// 1. for...in loop - iterate over property names</span>
+<span class="js-keyword">for</span> (<span class="js-keyword">let</span> <span class="js-variable">key</span> <span class="js-keyword">in</span> <span class="js-variable">person</span>) {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">`<span class="js-number">${key}</span>: <span class="js-number">${person[key]}</span>`</span>);
+}
+
+<span class="js-comment">// 2. Object.keys() + forEach</span>
+<span class="js-function">Object</span>.<span class="js-function">keys</span>(<span class="js-variable">person</span>).<span class="js-function">forEach</span>(<span class="js-variable">key</span> => {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">`<span class="js-number">${key}</span>: <span class="js-number">${person[key]}</span>`</span>);
+});
+
+<span class="js-comment">// 3. Object.values() - iterate over values</span>
+<span class="js-function">Object</span>.<span class="js-function">values</span>(<span class="js-variable">person</span>).<span class="js-function">forEach</span>(<span class="js-variable">value</span> => {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">value</span>);
+});
+
+<span class="js-comment">// 4. Object.entries() - iterate over key-value pairs</span>
+<span class="js-function">Object</span>.<span class="js-function">entries</span>(<span class="js-variable">person</span>).<span class="js-function">forEach</span>(([<span class="js-variable">key</span>, <span class="js-variable">value</span>]) => {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">`<span class="js-number">${key}</span>: <span class="js-number">${value}</span>`</span>);
+});
+
+<span class="js-comment">// 5. Convert object to array for array methods</span>
+<span class="js-keyword">const</span> <span class="js-variable">personArray</span> = <span class="js-function">Object</span>.<span class="js-function">entries</span>(<span class="js-variable">person</span>)
+  .<span class="js-function">map</span>(([<span class="js-variable">key</span>, <span class="js-variable">value</span>]) => <span class="js-string">`<span class="js-number">${key}</span>=<span class="js-number">${value}</span>`</span>);
+
+<span class="js-comment">// ["name=John", "age=30", "city=New York", "isAdmin=false"]</span>
+
+<span class="js-comment">// 6. Using for...of with Object.entries()</span>
+<span class="js-keyword">for</span> (<span class="js-keyword">let</span> [<span class="js-variable">key</span>, <span class="js-variable">value</span>] <span class="js-keyword">of</span> <span class="js-function">Object</span>.<span class="js-function">entries</span>(<span class="js-variable">person</span>)) {
+  <span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-string">`<span class="js-number">${key}</span>: <span class="js-number">${value}</span>`</span>);
+}
+
+<span class="js-comment">// 7. Filter object properties</span>
+<span class="js-keyword">const</span> <span class="js-variable">filteredPerson</span> = <span class="js-function">Object</span>.<span class="js-function">fromEntries</span>(
+  <span class="js-function">Object</span>.<span class="js-function">entries</span>(<span class="js-variable">person</span>)
+    .<span class="js-function">filter</span>(([<span class="js-variable">key</span>, <span class="js-variable">value</span>]) => <span class="js-keyword">typeof</span> <span class="js-variable">value</span> !== <span class="js-string">"boolean"</span>)
+);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Concepts -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-rocket"></i> Advanced Concepts</h2>
+            <p>Learn about reference vs value, copying, and other advanced topics.</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Reference vs Value</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// PRIMITIVE TYPES - Copied by value</span>
+<span class="js-keyword">let</span> <span class="js-variable">a</span> = <span class="js-number">10</span>;
+<span class="js-keyword">let</span> <span class="js-variable">b</span> = <span class="js-variable">a</span>;  <span class="js-comment">// b gets a COPY of a's value</span>
+<span class="js-variable">a</span> = <span class="js-number">20</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">a</span>);  <span class="js-comment">// 20</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">b</span>);  <span class="js-comment">// 10 (unchanged!)</span>
+
+<span class="js-comment">// OBJECTS & ARRAYS - Copied by reference</span>
+<span class="js-keyword">let</span> <span class="js-variable">obj1</span> = { <span class="js-property">value</span>: <span class="js-number">10</span> };
+<span class="js-keyword">let</span> <span class="js-variable">obj2</span> = <span class="js-variable">obj1</span>;  <span class="js-comment">// obj2 gets a REFERENCE to obj1</span>
+<span class="js-variable">obj1</span>.<span class="js-property">value</span> = <span class="js-number">20</span>;
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">obj1</span>.<span class="js-property">value</span>);  <span class="js-comment">// 20</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">obj2</span>.<span class="js-property">value</span>);  <span class="js-comment">// 20 (changed too!)</span>
+
+<span class="js-comment">// ARRAYS - Also reference types</span>
+<span class="js-keyword">let</span> <span class="js-variable">arr1</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>];
+<span class="js-keyword">let</span> <span class="js-variable">arr2</span> = <span class="js-variable">arr1</span>;
+<span class="js-variable">arr1</span>.<span class="js-function">push</span>(<span class="js-number">4</span>);
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">arr2</span>);  <span class="js-comment">// [1, 2, 3, 4] (changed too!)</span>
+
+<span class="js-comment">// Checking equality</span>
+<span class="js-keyword">const</span> <span class="js-variable">arr3</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>];
+<span class="js-keyword">const</span> <span class="js-variable">arr4</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, <span class="js-number">3</span>];
+
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">arr3</span> === <span class="js-variable">arr4</span>);  <span class="js-comment">// false! Different references</span>
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">arr3</span> == <span class="js-variable">arr4</span>);   <span class="js-comment">// false! Different references</span>
+
+<span class="js-comment">// Same for objects</span>
+<span class="js-keyword">const</span> <span class="js-variable">obj3</span> = { <span class="js-property">x</span>: <span class="js-number">1</span> };
+<span class="js-keyword">const</span> <span class="js-variable">obj4</span> = { <span class="js-property">x</span>: <span class="js-number">1</span> };
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">obj3</span> === <span class="js-variable">obj4</span>);  <span class="js-comment">// false! Different references</span></code></pre>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3>Copying Objects & Arrays</h3>
+                    <div class="code-example">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code><span class="js-comment">// SHALLOW COPY - Copies first level only</span>
+
+<span class="js-comment">// Arrays - Shallow copy methods</span>
+<span class="js-keyword">const</span> <span class="js-variable">originalArray</span> = [<span class="js-number">1</span>, <span class="js-number">2</span>, [<span class="js-number">3</span>, <span class="js-number">4</span>]];
+
+<span class="js-comment">// 1. Spread operator (ES6+)</span>
+<span class="js-keyword">const</span> <span class="js-variable">copy1</span> = [...<span class="js-variable">originalArray</span>];
+
+<span class="js-comment">// 2. slice()</span>
+<span class="js-keyword">const</span> <span class="js-variable">copy2</span> = <span class="js-variable">originalArray</span>.<span class="js-function">slice</span>();
+
+<span class="js-comment">// 3. Array.from()</span>
+<span class="js-keyword">const</span> <span class="js-variable">copy3</span> = <span class="js-function">Array</span>.<span class="js-function">from</span>(<span class="js-variable">originalArray</span>);
+
+<span class="js-comment">// Objects - Shallow copy methods</span>
+<span class="js-keyword">const</span> <span class="js-variable">originalObj</span> = { <span class="js-property">a</span>: <span class="js-number">1</span>, <span class="js-property">b</span>: { <span class="js-property">c</span>: <span class="js-number">2</span> } };
+
+<span class="js-comment">// 1. Spread operator (ES6+)</span>
+<span class="js-keyword">const</span> <span class="js-variable">objCopy1</span> = { ...<span class="js-variable">originalObj</span> };
+
+<span class="js-comment">// 2. Object.assign()</span>
+<span class="js-keyword">const</span> <span class="js-variable">objCopy2</span> = <span class="js-function">Object</span>.<span class="js-function">assign</span>({}, <span class="js-variable">originalObj</span>);
+
+<span class="js-comment">// DEEP COPY - Copies all nested levels</span>
+
+<span class="js-comment">// 1. JSON methods (limitations: no functions, dates, undefined, etc.)</span>
+<span class="js-keyword">const</span> <span class="js-variable">deepCopy1</span> = <span class="js-function">JSON</span>.<span class="js-function">parse</span>(<span class="js-function">JSON</span>.<span class="js-function">stringify</span>(<span class="js-variable">originalObj</span>));
+
+<span class="js-comment">// 2. Custom recursive function</span>
+<span class="js-keyword">function</span> <span class="js-function">deepCopy</span>(<span class="js-variable">obj</span>) {
+  <span class="js-keyword">if</span> (<span class="js-keyword">typeof</span> <span class="js-variable">obj</span> !== <span class="js-string">"object"</span> || <span class="js-variable">obj</span> === <span class="js-keyword">null</span>) {
+    <span class="js-keyword">return</span> <span class="js-variable">obj</span>;
+  }
+  
+  <span class="js-keyword">const</span> <span class="js-variable">copy</span> = <span class="js-function">Array</span>.<span class="js-function">isArray</span>(<span class="js-variable">obj</span>) ? [] : {};
+  
+  <span class="js-keyword">for</span> (<span class="js-keyword">let</span> <span class="js-variable">key</span> <span class="js-keyword">in</span> <span class="js-variable">obj</span>) {
+    <span class="js-keyword">if</span> (<span class="js-variable">obj</span>.<span class="js-function">hasOwnProperty</span>(<span class="js-variable">key</span>)) {
+      <span class="js-variable">copy</span>[<span class="js-variable">key</span>] = <span class="js-function">deepCopy</span>(<span class="js-variable">obj</span>[<span class="js-variable">key</span>]);
+    }
+  }
+  
+  <span class="js-keyword">return</span> <span class="js-variable">copy</span>;
+}
+
+<span class="js-comment">// 3. Using structuredClone() (modern browsers)</span>
+<span class="js-comment">// const deepCopy3 = structuredClone(originalObj);</span></code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <h4><i class="fas fa-exclamation-triangle"></i> Shallow vs Deep Copy Warning</h4>
+                <p>Shallow copies only copy the first level. Nested objects/arrays are still shared references. Use deep copy methods when you need complete independence.</p>
+                <div class="code-example" style="margin-top: 10px; font-size: 0.85rem;">
+                    <pre><code><span class="js-comment">// Shallow copy problem</span>
+<span class="js-keyword">const</span> <span class="js-variable">original</span> = { <span class="js-property">a</span>: <span class="js-number">1</span>, <span class="js-property">nested</span>: { <span class="js-property">b</span>: <span class="js-number">2</span> } };
+<span class="js-keyword">const</span> <span class="js-variable">shallowCopy</span> = { ...<span class="js-variable">original</span> };
+
+<span class="js-variable">shallowCopy</span>.<span class="js-property">a</span> = <span class="js-number">99</span>;           <span class="js-comment">// OK: Only changes copy</span>
+<span class="js-variable">shallowCopy</span>.<span class="js-property">nested</span>.<span class="js-property">b</span> = <span class="js-number">99</span>; <span class="js-comment">// PROBLEM: Changes BOTH original and copy!</span>
+
+<span class="js-function">console</span>.<span class="js-function">log</span>(<span class="js-variable">original</span>.<span class="js-property">nested</span>.<span class="js-property">b</span>);  <span class="js-comment">// 99 (unexpected!)</span></code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Exercise -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-pencil-alt"></i> Practice Exercises</h2>
+            <p>Test your understanding of objects and arrays with these exercises:</p>
+            
+            <div class="content-grid">
+                <div>
+                    <h3>Exercise 1: User Management System</h3>
+                    <p>Create a user management system with the following functionality:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Array to store user objects</li>
+                        <li>Function to add a new user (name, email, age)</li>
+                        <li>Function to find user by email</li>
+                        <li>Function to get all users over a certain age</li>
+                        <li>Function to update user email</li>
+                        <li>Function to delete user by email</li>
+                    </ol>
+                    
+                    <a href="#" class="btn" onclick="showSolution1(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution1" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>Exercise 1 Solution</h4>
+                            <pre><code><span class="js-comment">// User Management System</span>
+<span class="js-keyword">let</span> <span class="js-variable">users</span> = [
+  { <span class="js-property">name</span>: <span class="js-string">"Alice"</span>, <span class="js-property">email</span>: <span class="js-string">"alice@example.com"</span>, <span class="js-property">age</span>: <span class="js-number">25</span> },
+  { <span class="js-property">name</span>: <span class="js-string">"Bob"</span>, <span class="js-property">email</span>: <span class="js-string">"bob@example.com"</span>, <span class="js-property">age</span>: <span class="js-number">30</span> }
+];
+
+<span class="js-comment">// Add new user</span>
+<span class="js-keyword">function</span> <span class="js-function">addUser</span>(<span class="js-variable">name</span>, <span class="js-variable">email</span>, <span class="js-variable">age</span>) {
+  <span class="js-variable">users</span>.<span class="js-function">push</span>({ <span class="js-variable">name</span>, <span class="js-variable">email</span>, <span class="js-variable">age</span> });
+  <span class="js-keyword">return</span> <span class="js-string">`User <span class="js-number">${name}</span> added successfully`</span>;
+}
+
+<span class="js-comment">// Find user by email</span>
+<span class="js-keyword">function</span> <span class="js-function">findUserByEmail</span>(<span class="js-variable">email</span>) {
+  <span class="js-keyword">return</span> <span class="js-variable">users</span>.<span class="js-function">find</span>(<span class="js-variable">user</span> => <span class="js-variable">user</span>.<span class="js-property">email</span> === <span class="js-variable">email</span>);
+}
+
+<span class="js-comment">// Get users over certain age</span>
+<span class="js-keyword">function</span> <span class="js-function">getUsersOverAge</span>(<span class="js-variable">minAge</span>) {
+  <span class="js-keyword">return</span> <span class="js-variable">users</span>.<span class="js-function">filter</span>(<span class="js-variable">user</span> => <span class="js-variable">user</span>.<span class="js-property">age</span> > <span class="js-variable">minAge</span>);
+}
+
+<span class="js-comment">// Update user email</span>
+<span class="js-keyword">function</span> <span class="js-function">updateUserEmail</span>(<span class="js-variable">oldEmail</span>, <span class="js-variable">newEmail</span>) {
+  <span class="js-keyword">const</span> <span class="js-variable">user</span> = <span class="js-function">findUserByEmail</span>(<span class="js-variable">oldEmail</span>);
+  <span class="js-keyword">if</span> (<span class="js-variable">user</span>) {
+    <span class="js-variable">user</span>.<span class="js-property">email</span> = <span class="js-variable">newEmail</span>;
+    <span class="js-keyword">return</span> <span class="js-string">`Email updated for <span class="js-number">${user.name}</span>`</span>;
+  }
+  <span class="js-keyword">return</span> <span class="js-string">"User not found"</span>;
+}
+
+<span class="js-comment">// Delete user by email</span>
+<span class="js-keyword">function</span> <span class="js-function">deleteUserByEmail</span>(<span class="js-variable">email</span>) {
+  <span class="js-keyword">const</span> <span class="js-variable">initialLength</span> = <span class="js-variable">users</span>.<span class="js-property">length</span>;
+  <span class="js-variable">users</span> = <span class="js-variable">users</span>.<span class="js-function">filter</span>(<span class="js-variable">user</span> => <span class="js-variable">user</span>.<span class="js-property">email</span> !== <span class="js-variable">email</span>);
+  
+  <span class="js-keyword">if</span> (<span class="js-variable">users</span>.<span class="js-property">length</span> < <span class="js-variable">initialLength</span>) {
+    <span class="js-keyword">return</span> <span class="js-string">"User deleted successfully"</span>;
+  }
+  <span class="js-keyword">return</span> <span class="js-string">"User not found"</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 2rem;">Exercise 2: Product Catalog</h3>
+                    <p>Create a product catalog system:</p>
+                    <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                        <li>Array of product objects (id, name, price, category)</li>
+                        <li>Function to get products by category</li>
+                        <li>Function to get total value of inventory</li>
+                        <li>Function to find most expensive product</li>
+                        <li>Function to apply discount to a category</li>
+                    </ol>
+                    
+                    <a href="#" class="btn" onclick="showSolution2(); return false;"><i class="fas fa-lightbulb"></i> Show Solution</a>
+                    
+                    <div id="solution2" style="display: none; margin-top: 1.5rem;">
+                        <div class="code-example">
+                            <h4>Exercise 2 Solution</h4>
+                            <pre><code><span class="js-comment">// Product Catalog System</span>
+<span class="js-keyword">let</span> <span class="js-variable">products</span> = [
+  { <span class="js-property">id</span>: <span class="js-number">1</span>, <span class="js-property">name</span>: <span class="js-string">"Laptop"</span>, <span class="js-property">price</span>: <span class="js-number">999</span>, <span class="js-property">category</span>: <span class="js-string">"electronics"</span> },
+  { <span class="js-property">id</span>: <span class="js-number">2</span>, <span class="js-property">name</span>: <span class="js-string">"T-shirt"</span>, <span class="js-property">price</span>: <span class="js-number">19</span>, <span class="js-property">category</span>: <span class="js-string">"clothing"</span> },
+  { <span class="js-property">id</span>: <span class="js-number">3</span>, <span class="js-property">name</span>: <span class="js-string">"Smartphone"</span>, <span class="js-property">price</span>: <span class="js-number">699</span>, <span class="js-property">category</span>: <span class="js-string">"electronics"</span> }
+];
+
+<span class="js-comment">// Get products by category</span>
+<span class="js-keyword">function</span> <span class="js-function">getProductsByCategory</span>(<span class="js-variable">category</span>) {
+  <span class="js-keyword">return</span> <span class="js-variable">products</span>.<span class="js-function">filter</span>(<span class="js-variable">product</span> => <span class="js-variable">product</span>.<span class="js-property">category</span> === <span class="js-variable">category</span>);
+}
+
+<span class="js-comment">// Get total inventory value</span>
+<span class="js-keyword">function</span> <span class="js-function">getTotalInventoryValue</span>() {
+  <span class="js-keyword">return</span> <span class="js-variable">products</span>
+    .<span class="js-function">reduce</span>((<span class="js-variable">total</span>, <span class="js-variable">product</span>) => <span class="js-variable">total</span> + <span class="js-variable">product</span>.<span class="js-property">price</span>, <span class="js-number">0</span>);
+}
+
+<span class="js-comment">// Find most expensive product</span>
+<span class="js-keyword">function</span> <span class="js-function">getMostExpensiveProduct</span>() {
+  <span class="js-keyword">return</span> <span class="js-variable">products</span>
+    .<span class="js-function">reduce</span>((<span class="js-variable">max</span>, <span class="js-variable">product</span>) => 
+      <span class="js-variable">product</span>.<span class="js-property">price</span> > <span class="js-variable">max</span>.<span class="js-property">price</span> ? <span class="js-variable">product</span> : <span class="js-variable">max</span>, 
+      <span class="js-variable">products</span>[<span class="js-number">0</span>]
+    );
+}
+
+<span class="js-comment">// Apply discount to category</span>
+<span class="js-keyword">function</span> <span class="js-function">applyCategoryDiscount</span>(<span class="js-variable">category</span>, <span class="js-variable">discountPercent</span>) {
+  <span class="js-keyword">const</span> <span class="js-variable">discountedProducts</span> = <span class="js-variable">products</span>.<span class="js-function">map</span>(<span class="js-variable">product</span> => {
+    <span class="js-keyword">if</span> (<span class="js-variable">product</span>.<span class="js-property">category</span> === <span class="js-variable">category</span>) {
+      <span class="js-keyword">return</span> {
+        ...<span class="js-variable">product</span>,
+        <span class="js-property">price</span>: <span class="js-variable">product</span>.<span class="js-property">price</span> * (<span class="js-number">1</span> - <span class="js-variable">discountPercent</span> / <span class="js-number">100</span>)
+      };
+    }
+    <span class="js-keyword">return</span> <span class="js-variable">product</span>;
+  });
+  
+  <span class="js-keyword">return</span> <span class="js-variable">discountedProducts</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-visualizer" style="background-color: var(--array-bg);">
+                    <div class="visualizer-header">
+                        <div class="visualizer-title">Exercise Playground</div>
+                        <div class="visualizer-controls">
+                            <button class="visualizer-btn" id="testExercise1"><i class="fas fa-vial"></i> Test Ex1</button>
+                            <button class="visualizer-btn" id="testExercise2"><i class="fas fa-vial"></i> Test Ex2</button>
+                        </div>
+                    </div>
+                    <div class="visualizer-container" id="exerciseOutput">
+                        <div style="color: #8b949e;">// Exercise output will appear here</div>
+                        <div style="color: #8b949e; margin-top: 10px;">Try testing the exercises:</div>
+                        <div style="color: #a5d6ff; font-family: 'Consolas'; font-size: 0.85rem; margin-top: 5px;">
+                            // For Exercise 1:<br>
+                            addUser("Charlie", "charlie@test.com", 28)<br>
+                            findUserByEmail("alice@example.com")<br>
+                            getUsersOverAge(25)<br><br>
+                            
+                            // For Exercise 2:<br>
+                            getProductsByCategory("electronics")<br>
+                            getTotalInventoryValue()<br>
+                            getMostExpensiveProduct()<br>
+                            applyCategoryDiscount("electronics", 10)
+                        </div>
+                    </div>
+                    <div class="visualizer-input-area">
+                        <input type="text" class="visualizer-input" id="exerciseInput" placeholder="Enter code to test exercises">
+                        <button class="visualizer-run-btn" id="runExercise"><i class="fas fa-play"></i> Execute</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+            <p><i class="fas fa-graduation-cap"></i> JavaScript Objects & Arrays Tutorial</p>
+            <p>Part of Developers Hub | Master web development concepts</p>
+            <div class="quick-links">
+                <a href="T+2.html" class="quick-link"><i class="fas fa-arrow-left"></i> Previous: JS Variables & Data Types</a>
+                <a href="#" class="quick-link"><i class="fas fa-book"></i> JS Reference Guide</a>
+                <a href="T+4.html" class="quick-link"><i class="fas fa-arrow-right"></i> Next: JS Functions</a>
+                <a href="#" class="quick-link"><i class="fas fa-download"></i> Download Cheatsheet</a>
+            </div>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.8;">&copy; 2023 Developers Hub. All rights reserved.</p>
+</footer>
+
+    <script>
+        // Initialize method cards
+        function initMethodCards() {
+            const methods = [
+                { 
+                    name: "Array.push()", 
+                    description: "Adds element(s) to end of array",
+                    syntax: "arr.push(item1, item2, ...)",
+                    icon: "fas fa-plus-circle",
+                    type: "array",
+                    returns: "New length"
+                },
+                { 
+                    name: "Array.pop()", 
+                    description: "Removes last element from array",
+                    syntax: "arr.pop()",
+                    icon: "fas fa-minus-circle",
+                    type: "array",
+                    returns: "Removed element"
+                },
+                { 
+                    name: "Array.map()", 
+                    description: "Creates new array by transforming each element",
+                    syntax: "arr.map(callback)",
+                    icon: "fas fa-exchange-alt",
+                    type: "array",
+                    returns: "New array"
+                },
+                { 
+                    name: "Array.filter()", 
+                    description: "Creates new array with elements that pass test",
+                    syntax: "arr.filter(callback)",
+                    icon: "fas fa-filter",
+                    type: "array",
+                    returns: "New array"
+                },
+                { 
+                    name: "Array.reduce()", 
+                    description: "Reduces array to single value",
+                    syntax: "arr.reduce(callback, initialValue)",
+                    icon: "fas fa-compress-arrows-alt",
+                    type: "array",
+                    returns: "Accumulated value"
+                },
+                { 
+                    name: "Object.keys()", 
+                    description: "Returns array of object's property names",
+                    syntax: "Object.keys(obj)",
+                    icon: "fas fa-key",
+                    type: "object",
+                    returns: "Array of keys"
+                },
+                { 
+                    name: "Object.values()", 
+                    description: "Returns array of object's property values",
+                    syntax: "Object.values(obj)",
+                    icon: "fas fa-list-ol",
+                    type: "object",
+                    returns: "Array of values"
+                },
+                { 
+                    name: "Object.assign()", 
+                    description: "Copies properties from source to target object",
+                    syntax: "Object.assign(target, ...sources)",
+                    icon: "fas fa-copy",
+                    type: "object",
+                    returns: "Target object"
+                }
+            ];
+            
+            const container = document.getElementById('methodCards');
+            methods.forEach(method => {
+                const card = document.createElement('div');
+                card.className = 'method-card';
+                card.innerHTML = `
+                    <div class="method-icon"><i class="${method.icon}"></i></div>
+                    <h4>${method.name}</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem; color: #555;">${method.description}</p>
+                    <div class="method-syntax">${method.syntax}</div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.8rem;">
+                        <span class="tag" style="background-color: ${method.type === 'array' ? 'var(--secondary-color)' : 'var(--primary-color)'}">
+                            ${method.type}
+                        </span>
+                        <span style="color: #777;">Returns: ${method.returns}</span>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        // Interactive visualizer functionality
+        const visualizerContainer = document.getElementById('visualizerContainer');
+        const visualizerInput = document.getElementById('visualizerInput');
+        const runVisualizerBtn = document.getElementById('runVisualizer');
+        const clearVisualizerBtn = document.getElementById('clearVisualizer');
+        const modeButtons = document.querySelectorAll('[data-mode]');
+        
+        // Data for the visualizer
+        let currentMode = 'array';
+        let currentData = {
+            array: ["apple", "banana", "orange"],
+            object: {
+                name: "John Doe",
+                age: 30,
+                email: "john@example.com",
+                isAdmin: false
+            }
+        };
+        
+        // Format object for display
+        function formatObject(obj, indent = 0) {
+            const spaces = '  '.repeat(indent);
+            let result = '{\n';
+            
+            for (const [key, value] of Object.entries(obj)) {
+                const formattedValue = typeof value === 'string' ? `"${value}"` : value;
+                result += `${spaces}  <span class="object-key">${key}</span>: <span class="object-value">${formattedValue}</span>,\n`;
+            }
+            
+            result += `${spaces}}`;
+            return result;
+        }
+        
+        // Format array for display
+        function formatArray(arr) {
+            let result = '[\n';
+            
+            arr.forEach((item, index) => {
+                const formattedItem = typeof item === 'string' ? `"${item}"` : item;
+                result += `  <span class="array-index">${index}</span>: <span class="object-value">${formattedItem}</span>,\n`;
+            });
+            
+            result += ']';
+            return result;
+        }
+        
+        // Update visualizer display
+        function updateVisualizerDisplay() {
+            if (currentMode === 'object') {
+                visualizerContainer.innerHTML = `<div class="object-display">${formatObject(currentData.object)}</div>`;
+                visualizerInput.placeholder = "Try: person.city = 'New York' or delete person.age";
+            } else {
+                visualizerContainer.innerHTML = `<div class="object-display">${formatArray(currentData.array)}</div>`;
+                visualizerInput.placeholder = "Try: fruits.push('mango') or fruits.pop()";
+            }
+        }
+        
+        // Execute code in visualizer
+        function executeVisualizerCode(code) {
+            try {
+                // Create a safe execution context
+                if (currentMode === 'object') {
+                    // For object mode
+                    if (code.includes('=')) {
+                        // Assignment
+                        eval(`currentData.object.${code}`);
+                    } else if (code.startsWith('delete ')) {
+                        // Deletion
+                        const prop = code.replace('delete ', '').trim();
+                        eval(`delete currentData.object.${prop}`);
+                    } else {
+                        // Expression
+                        const result = eval(`currentData.object.${code}`);
+                        return `Result: ${JSON.stringify(result)}`;
+                    }
+                } else {
+                    // For array mode
+                    const result = eval(`currentData.array.${code}`);
+                    if (result !== undefined) {
+                        return `Result: ${JSON.stringify(result)}`;
+                    }
+                }
+                
+                updateVisualizerDisplay();
+                return 'Operation executed successfully';
+            } catch (error) {
+                return `Error: ${error.message}`;
+            }
+        }
+        
+        // Mode switching
+        modeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all mode buttons
+                modeButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                // Update current mode
+                currentMode = button.dataset.mode;
+                // Update display
+                updateVisualizerDisplay();
+                // Clear input
+                visualizerInput.value = '';
+            });
+        });
+        
+        // Run visualizer code
+        runVisualizerBtn.addEventListener('click', () => {
+            const code = visualizerInput.value.trim();
+            if (code) {
+                const result = executeVisualizerCode(code);
+                addToExerciseOutput(`> ${code}\n${result}`, true);
+                visualizerInput.value = '';
+            }
+        });
+        
+        // Clear visualizer
+        clearVisualizerBtn.addEventListener('click', () => {
+            if (currentMode === 'object') {
+                currentData.object = { name: "New Object", value: 0 };
+            } else {
+                currentData.array = ["item1", "item2", "item3"];
+            }
+            updateVisualizerDisplay();
+            addToExerciseOutput('Visualizer cleared and reset', false);
+        });
+        
+        // Exercise functionality
+        const exerciseOutput = document.getElementById('exerciseOutput');
+        const exerciseInput = document.getElementById('exerciseInput');
+        const runExerciseBtn = document.getElementById('runExercise');
+        const testExercise1Btn = document.getElementById('testExercise1');
+        const testExercise2Btn = document.getElementById('testExercise2');
+        
+        // Add output to exercise area
+        function addToExerciseOutput(text, isCode = false) {
+            const line = document.createElement('div');
+            line.style.marginBottom = '5px';
+            line.style.padding = '5px';
+            line.style.borderRadius = '3px';
+            line.style.backgroundColor = isCode ? 'rgba(255,255,255,0.05)' : 'transparent';
+            line.style.color = isCode ? '#d6deeb' : '#7ee787';
+            line.style.fontFamily = "'Consolas', monospace";
+            line.style.fontSize = '0.9rem';
+            line.style.whiteSpace = 'pre-wrap';
+            line.textContent = text;
+            
+            exerciseOutput.appendChild(line);
+            exerciseOutput.scrollTop = exerciseOutput.scrollHeight;
+        }
+        
+        // Clear exercise output
+        function clearExerciseOutput() {
+            exerciseOutput.innerHTML = '<div style="color: #8b949e;">// Exercise output will appear here</div>';
+        }
+        
+        // Test Exercise 1
+        testExercise1Btn.addEventListener('click', () => {
+            clearExerciseOutput();
+            
+            // Define Exercise 1 functions
+            const exercise1Code = `
+                // User Management System
+                let users = [
+                  { name: "Alice", email: "alice@example.com", age: 25 },
+                  { name: "Bob", email: "bob@example.com", age: 30 }
+                ];
+                
+                function addUser(name, email, age) {
+                  users.push({ name, email, age });
+                  return \`User \${name} added successfully\`;
+                }
+                
+                function findUserByEmail(email) {
+                  return users.find(user => user.email === email);
+                }
+                
+                function getUsersOverAge(minAge) {
+                  return users.filter(user => user.age > minAge);
+                }
+                
+                function updateUserEmail(oldEmail, newEmail) {
+                  const user = findUserByEmail(oldEmail);
+                  if (user) {
+                    user.email = newEmail;
+                    return \`Email updated for \${user.name}\`;
+                  }
+                  return "User not found";
+                }
+                
+                function deleteUserByEmail(email) {
+                  const initialLength = users.length;
+                  users = users.filter(user => user.email !== email);
+                  
+                  if (users.length < initialLength) {
+                    return "User deleted successfully";
+                  }
+                  return "User not found";
+                }
+                
+                // Test the functions
+                let results = [];
+                results.push(addUser("Charlie", "charlie@test.com", 28));
+                results.push("Find Alice: " + JSON.stringify(findUserByEmail("alice@example.com")));
+                results.push("Users over 25: " + JSON.stringify(getUsersOverAge(25)));
+                results.push(updateUserEmail("bob@example.com", "bob.new@test.com"));
+                results.push(deleteUserByEmail("alice@example.com"));
+                results.push("Remaining users: " + JSON.stringify(users));
+                results.join('\\n');
+            `;
+            
+            try {
+                const result = eval(exercise1Code);
+                addToExerciseOutput(`> Testing Exercise 1\n${result}`, true);
+            } catch (error) {
+                addToExerciseOutput(`> Testing Exercise 1\nError: ${error.message}`, true);
+            }
+        });
+        
+        // Test Exercise 2
+        testExercise2Btn.addEventListener('click', () => {
+            clearExerciseOutput();
+            
+            // Define Exercise 2 functions
+            const exercise2Code = `
+                // Product Catalog System
+                let products = [
+                  { id: 1, name: "Laptop", price: 999, category: "electronics" },
+                  { id: 2, name: "T-shirt", price: 19, category: "clothing" },
+                  { id: 3, name: "Smartphone", price: 699, category: "electronics" }
+                ];
+                
+                function getProductsByCategory(category) {
+                  return products.filter(product => product.category === category);
+                }
+                
+                function getTotalInventoryValue() {
+                  return products
+                    .reduce((total, product) => total + product.price, 0);
+                }
+                
+                function getMostExpensiveProduct() {
+                  return products
+                    .reduce((max, product) => 
+                      product.price > max.price ? product : max, 
+                      products[0]
+                    );
+                }
+                
+                function applyCategoryDiscount(category, discountPercent) {
+                  const discountedProducts = products.map(product => {
+                    if (product.category === category) {
+                      return {
+                        ...product,
+                        price: product.price * (1 - discountPercent / 100)
+                      };
+                    }
+                    return product;
+                  });
+                  
+                  return discountedProducts;
+                }
+                
+                // Test the functions
+                let results = [];
+                results.push("Electronics: " + JSON.stringify(getProductsByCategory("electronics")));
+                results.push("Total value: $" + getTotalInventoryValue());
+                results.push("Most expensive: " + JSON.stringify(getMostExpensiveProduct()));
+                results.push("After 10% discount on electronics: " + 
+                  JSON.stringify(applyCategoryDiscount("electronics", 10)));
+                results.join('\\n');
+            `;
+            
+            try {
+                const result = eval(exercise2Code);
+                addToExerciseOutput(`> Testing Exercise 2\n${result}`, true);
+            } catch (error) {
+                addToExerciseOutput(`> Testing Exercise 2\nError: ${error.message}`, true);
+            }
+        });
+        
+        // Run custom exercise code
+        runExerciseBtn.addEventListener('click', () => {
+            const code = exerciseInput.value.trim();
+            if (code) {
+                try {
+                    // First, define the exercise functions
+                    eval(`
+                        // Include both exercise functions for testing
+                        ${getExercise1Code()}
+                        ${getExercise2Code()}
+                    `);
+                    
+                    // Then execute the user's code
+                    const result = eval(code);
+                    addToExerciseOutput(`> ${code}\n${JSON.stringify(result)}`, true);
+                } catch (error) {
+                    addToExerciseOutput(`> ${code}\nError: ${error.message}`, true);
+                }
+                exerciseInput.value = '';
+            }
+        });
+        
+        // Helper function to get Exercise 1 code
+        function getExercise1Code() {
+            return `
+                // User Management System (Exercise 1)
+                let users = [
+                  { name: "Alice", email: "alice@example.com", age: 25 },
+                  { name: "Bob", email: "bob@example.com", age: 30 }
+                ];
+                
+                function addUser(name, email, age) {
+                  users.push({ name, email, age });
+                  return \`User \${name} added successfully\`;
+                }
+                
+                function findUserByEmail(email) {
+                  return users.find(user => user.email === email);
+                }
+                
+                function getUsersOverAge(minAge) {
+                  return users.filter(user => user.age > minAge);
+                }
+                
+                function updateUserEmail(oldEmail, newEmail) {
+                  const user = findUserByEmail(oldEmail);
+                  if (user) {
+                    user.email = newEmail;
+                    return \`Email updated for \${user.name}\`;
+                  }
+                  return "User not found";
+                }
+                
+                function deleteUserByEmail(email) {
+                  const initialLength = users.length;
+                  users = users.filter(user => user.email !== email);
+                  
+                  if (users.length < initialLength) {
+                    return "User deleted successfully";
+                  }
+                  return "User not found";
+                }
+            `;
+        }
+        
+        // Helper function to get Exercise 2 code
+        function getExercise2Code() {
+            return `
+                // Product Catalog System (Exercise 2)
+                let products = [
+                  { id: 1, name: "Laptop", price: 999, category: "electronics" },
+                  { id: 2, name: "T-shirt", price: 19, category: "clothing" },
+                  { id: 3, name: "Smartphone", price: 699, category: "electronics" }
+                ];
+                
+                function getProductsByCategory(category) {
+                  return products.filter(product => product.category === category);
+                }
+                
+                function getTotalInventoryValue() {
+                  return products
+                    .reduce((total, product) => total + product.price, 0);
+                }
+                
+                function getMostExpensiveProduct() {
+                  return products
+                    .reduce((max, product) => 
+                      product.price > max.price ? product : max, 
+                      products[0]
+                    );
+                }
+                
+                function applyCategoryDiscount(category, discountPercent) {
+                  const discountedProducts = products.map(product => {
+                    if (product.category === category) {
+                      return {
+                        ...product,
+                        price: product.price * (1 - discountPercent / 100)
+                      };
+                    }
+                    return product;
+                  });
+                  
+                  return discountedProducts;
+                }
+            `;
+        }
+        
+        // Show/hide solutions
+        function showSolution1() {
+            const solutionDiv = document.getElementById('solution1');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        function showSolution2() {
+            const solutionDiv = document.getElementById('solution2');
+            if (solutionDiv.style.display === 'none' || solutionDiv.style.display === '') {
+                solutionDiv.style.display = 'block';
+            } else {
+                solutionDiv.style.display = 'none';
+            }
+        }
+        
+        // Copy code functionality
+        function copyCode(button) {
+            const codeElement = button.parentElement.querySelector('pre');
+            const codeText = codeElement.textContent;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.backgroundColor = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '';
+                }, 2000);
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initMethodCards();
+            updateVisualizerDisplay();
+            
+            // Set initial examples
+            visualizerInput.value = currentMode === 'array' ? 'push("grape")' : 'city = "New York"';
+            exerciseInput.value = 'getTotalInventoryValue()';
+            
+            // Allow Enter key in inputs
+            visualizerInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') runVisualizerBtn.click();
+            });
+            
+            exerciseInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') runExerciseBtn.click();
+            });
+        });
+    </script>
+    <!-- inserted -->
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+    <!-- /inserted -->
+</body>
+</html>

@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers-Hub Admin | User Dashboard</title>
+    <link rel="icon" href="logos/devhub_favicon_2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="..css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <!-- <i class="fas fa-code"></i> -->
+                <img src="logos/devhub_logo.png" alt="devhub_logo" width="80px" height="80px">
+                <h1>Dev<span>Hub</span></h1>
+            </div>
+            
+            <div class="sidebar-menu">
+                <a class="menu-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <div class="menu-item has-submenu" data-page="tutorials">
+                    <i class="fas fa-book-open"></i>
+                    <span>Tutorials</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="submenu" id="tutorials-submenu">
+                    <div class="submenu-item" data-content="html-tutorial"><a href="tutorials/html/T1.html">HTML Tutorial</a></div>
+                    <div class="submenu-item" data-content="css-tutorial"><a href="tutorials/css/T-1.html">CSS Tutorial</a></div>
+                    <div class="submenu-item" data-content="javascript-tutorial"><a href="tutorials/js/T+1.html">JavaScript Tutorial</a></div>
+                </div>
+                
+                <div class="menu-item has-submenu" data-page="references">
+                    <i class="fas fa-book"></i>
+                    <span>References</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="submenu" id="references-submenu">
+                    <div class="submenu-item" data-content="html-reference">HTML Reference</div>
+                    <div class="submenu-item" data-content="css-reference">CSS Reference</div>
+                    <div class="submenu-item" data-content="javascript-reference">JavaScript Reference</div>
+                </div>
+                
+                <div class="menu-item has-submenu" data-page="exercises">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Exercises</span>
+                    <i class="fas fa-chevron-down chevron"></i>
+                </div>
+                <div class="submenu" id="exercises-submenu">
+                    <div class="submenu-item" data-content="html-exercises">HTML Exercises</div>
+                    <div class="submenu-item" data-content="css-exercises">CSS Exercises</div>
+                    <div class="submenu-item" data-content="javascript-exercises">JavaScript Exercises</div>
+                </div>
+                
+                <a class="menu-item" data-page="code-editor">
+                    <i class="fas fa-code"></i>
+                    <span>Code Editor</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="user-profile">
+                    <!-- <div class="user-avatar">JD</div> -->
+                    <div class="user-avatar"><img src="logos/devhub_user_logo.jpg" alt="user-logo"></div>
+                    <div class="user-info">
+                        <div class="user-name">John Developer</div>
+                        <div class="user-role">Admin User</div>
+                    </div>
+                </div>
+                
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </header>
+            
+            <!-- Dashboard Page -->
+            <section class="content-page active" id="dashboard">
+                <h1 class="page-title">Dashboard Overview</h1>
+                
+                <div class="dashboard-grid">
+                    <!-- User Progress Card -->
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-chart-line"></i> Learning Progress</h3>
+                        <p>Overall Completion: <strong>72%</strong></p>
+                        <div class="progress-container">
+                            <div class="progress-text">
+                                <span>HTML</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            
+                            <div class="progress-text">
+                                <span>CSS</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                            
+                            <div class="progress-text">
+                                <span>JavaScript</span>
+                                <span>50%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- HTML Courses -->
+                    <div class="dashboard-card">
+                        <h3><i class="fab fa-html5"></i> HTML Courses</h3>
+                        <p>Master the structure of web pages</p>
+                        <ul class="course-list">
+                            <li>HTML Syntax & Elements <span class="status completed">Completed</span></li>
+                            <li>HTML Attributes & Headings <span class="status completed">Completed</span></li>
+                            <li>HTML Lists & Paragraphs <span class="status completed">Completed</span></li>
+                            <li>HTML Forms & Tables <span class="status in-progress">In Progress</span></li>
+                            <li>HTML Images & Links <span class="status not-started">Not Started</span></li>
+                            <li>HTML Semantic Elements <span class="status not-started">Not Started</span></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- CSS Courses -->
+                    <div class="dashboard-card">
+                        <h3><i class="fab fa-css3-alt"></i> CSS Courses</h3>
+                        <p>Style and design beautiful websites</p>
+                        <ul class="course-list">
+                            <li>CSS Syntax & Selectors <span class="status completed">Completed</span></li>
+                            <li>CSS Margin & Padding <span class="status completed">Completed</span></li>
+                            <li>CSS Colors & Backgrounds <span class="status completed">Completed</span></li>
+                            <li>CSS Positioning & Size <span class="status completed">Completed</span></li>
+                            <li>CSS Flexbox & Grid <span class="status in-progress">In Progress</span></li>
+                            <li>CSS Responsive Design <span class="status not-started">Not Started</span></li>
+                            <li>CSS Website Layout <span class="status not-started">Not Started</span></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- JavaScript Courses -->
+                    <div class="dashboard-card">
+                        <h3><i class="fab fa-js"></i> JavaScript Courses</h3>
+                        <p>Add interactivity to your websites</p>
+                        <ul class="course-list">
+                            <li>JS Syntax & Variables <span class="status completed">Completed</span></li>
+                            <li>JS Functions & Events <span class="status in-progress">In Progress</span></li>
+                            <li>JS Datatypes <span class="status in-progress">In Progress</span></li>
+                            <li>JS Objects & Arrays <span class="status not-started">Not Started</span></li>
+                            <li>JS Operators <span class="status not-started">Not Started</span></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Tools & Tips -->
+                    <div class="dashboard-card">
+                        <h3><i class="fas fa-tools"></i> Tools & Tips</h3>
+                        <p>Essential developer resources</p>
+                        <ul class="course-list">
+                            <li>VS Code Mastery</li>
+                            <li>Git & GitHub Workflow</li>
+                            <li>Chrome DevTools</li>
+                            <li>Debugging Techniques</li>
+                            <li>Performance Optimization</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Upcoming Courses -->
+                    <div class="dashboard-card upcoming-courses">
+                        <h3><i class="fas fa-calendar-alt"></i> Upcoming Courses</h3>
+                        <p>New courses launching soon</p>
+                        <ul class="course-list">
+                            <li>React.js Fundamentals <span>June 2026</span></li>
+                            <li>Node.js Backend Development <span>July 2026</span></li>
+                            <li>TypeScript Essentials <span>August 2026</span></li>
+                            <li>Web Security Best Practices <span>September 2026</span></li>
+                            <li>Advanced CSS Techniques <span>October 2026</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Tutorials Page -->
+            <section class="content-page" id="tutorials">
+                <h1 class="page-title">Tutorials</h1>
+                
+                <!-- HTML Tutorial -->
+                <div class="content-container active" id="html-tutorial">
+                    <div class="content-header">
+                        <h2 class="content-title">HTML Tutorial</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Syntax</h3>
+                        <p>HTML (HyperText Markup Language) is the standard markup language for documents designed to be displayed in a web browser.</p>
+                        <div class="code-example">
+                            <h4>Basic HTML Document Structure</h4>
+                            <pre><code>&lt;!<span class="keyword">DOCTYPE</span> html&gt;
+&lt;<span class="tag">html</span>&gt;
+&lt;<span class="tag">head</span>&gt;
+    &lt;<span class="tag">title</span>&gt;Page Title&lt;/<span class="tag">title</span>&gt;
+&lt;/<span class="tag">head</span>&gt;
+&lt;<span class="tag">body</span>&gt;
+    &lt;<span class="tag">h1</span>&gt;My First Heading&lt;/<span class="tag">h1</span>&gt;
+    &lt;<span class="tag">p</span>&gt;My first paragraph.&lt;/<span class="tag">p</span>&gt;
+&lt;/<span class="tag">body</span>&gt;
+&lt;/<span class="tag">html</span>&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Elements & Attributes</h3>
+                        <p>HTML elements are the building blocks of HTML pages. Elements can have attributes that provide additional information.</p>
+                        <div class="code-example">
+                            <h4>Element with Attributes</h4>
+                            <pre><code>&lt;<span class="tag">a</span> <span class="attribute">href</span>=<span class="value">"https://www.example.com"</span> <span class="attribute">target</span>=<span class="value">"_blank"</span>&gt;
+    Visit Example.com
+&lt;/<span class="tag">a</span>&gt;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Headings & Paragraphs</h3>
+                        <p>Headings are defined with the &lt;h1&gt; to &lt;h6&gt; tags. Paragraphs are defined with the &lt;p&gt; tag.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Styles & Formatting</h3>
+                        <p>HTML provides several elements for text formatting: &lt;b&gt;, &lt;i&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;mark&gt;, etc.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Comments</h3>
+                        <p>Comments are not displayed in the browser, but they can help document your HTML source code.</p>
+                        <div class="code-example">
+                            <pre><code><span class="comment">&lt;!-- This is a comment --&gt;</span>
+&lt;<span class="tag">p</span>&gt;This is a paragraph.&lt;/<span class="tag">p</span>&gt;
+<span class="comment">&lt;!-- Remember to add more content here --&gt;</span></code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Colors</h3>
+                        <p>Colors can be specified using color names, HEX values, RGB, RGBA, HSL, or HSLA values.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Links</h3>
+                        <p>Links are defined with the &lt;a&gt; tag. The href attribute specifies the URL of the page the link goes to.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Tables</h3>
+                        <p>HTML tables are defined with the &lt;table&gt; tag. A table is divided into rows (&lt;tr&gt;), and each row is divided into data cells (&lt;td&gt;).</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Lists</h3>
+                        <p>HTML lists can be unordered (&lt;ul&gt;), ordered (&lt;ol&gt;), or description lists (&lt;dl&gt;).</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Classes & ID</h3>
+                        <p>The class attribute can be used on any HTML element. The id attribute specifies a unique id for an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Iframes</h3>
+                        <p>An iframe is used to display a web page within a web page.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML File Paths</h3>
+                        <p>File paths describe the location of a file in a website's folder structure.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Head Element</h3>
+                        <p>The &lt;head&gt; element contains meta information about the HTML document.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Layout Elements</h3>
+                        <p>HTML5 introduced semantic elements that define different parts of a web page.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Responsive Design</h3>
+                        <p>Responsive web design makes your web page look good on all devices.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Charset & URL Encode</h3>
+                        <p>The charset attribute specifies the character encoding for the HTML document.</p>
+                    </div>
+                </div>
+                
+                <!-- CSS Tutorial -->
+                <div class="content-container" id="css-tutorial">
+                    <div class="content-header">
+                        <h2 class="content-title">CSS Tutorial</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Syntax</h3>
+                        <p>A CSS rule consists of a selector and a declaration block.</p>
+                        <div class="code-example">
+                            <h4>CSS Syntax Example</h4>
+                            <pre><code><span class="selector">p</span> {
+    <span class="property">color</span>: <span class="value">red</span>;
+    <span class="property">text-align</span>: <span class="value">center</span>;
+}</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Selectors</h3>
+                        <p>CSS selectors are used to "find" (or select) HTML elements you want to style.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Colors</h3>
+                        <p>Colors in CSS can be specified by color names, HEX values, RGB, RGBA, HSL, or HSLA values.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Backgrounds</h3>
+                        <p>CSS background properties are used to define background effects for elements.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Borders, Margins & Padding</h3>
+                        <p>The CSS box model describes the rectangular boxes generated for elements.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Height/Width & Box Model</h3>
+                        <p>The height and width properties are used to set the height and width of an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Text & Fonts</h3>
+                        <p>CSS has many properties for formatting text and fonts.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Icons, Links & Lists</h3>
+                        <p>CSS can style icons, links, and lists to create beautiful navigation and content.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Tables & Display</h3>
+                        <p>The display property specifies the display behavior of an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Position & Overflow</h3>
+                        <p>The position property specifies the type of positioning method used for an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Float & Align</h3>
+                        <p>The float property is used for positioning and formatting content.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Pseudo-classes & Pseudo-elements</h3>
+                        <p>Pseudo-classes are used to define a special state of an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Opacity & Navigation Bar</h3>
+                        <p>The opacity property specifies the opacity/transparency of an element.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Image Gallery & Forms</h3>
+                        <p>CSS can create beautiful image galleries and styled forms.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Animations & Website Layouts</h3>
+                        <p>CSS animations allow animation of most HTML elements without JavaScript.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Units</h3>
+                        <p>CSS has several different units for expressing length, such as px, em, rem, %, vw, vh, etc.</p>
+                    </div>
+                </div>
+                
+                <!-- JavaScript Tutorial -->
+                <div class="content-container" id="javascript-tutorial">
+                    <div class="content-header">
+                        <h2 class="content-title">JavaScript Tutorial</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Syntax</h3>
+                        <p>JavaScript syntax is the set of rules that define a correctly structured JavaScript program.</p>
+                        <div class="code-example">
+                            <h4>Basic JavaScript Syntax</h4>
+                            <pre><code><span class="comment">// This is a comment</span>
+<span class="keyword">let</span> message = <span class="string">"Hello, World!"</span>;
+<span class="function">console</span>.<span class="function">log</span>(message);</code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Comments</h3>
+                        <p>JavaScript comments can be used to explain JavaScript code and make it more readable.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Variables</h3>
+                        <p>Variables are containers for storing data values. JavaScript uses var, let, and const to declare variables.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Operators</h3>
+                        <p>Operators are used to assign values, compare values, perform arithmetic operations, and more.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Data Types</h3>
+                        <p>JavaScript has 8 data types: String, Number, BigInt, Boolean, Undefined, Null, Symbol, and Object.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Functions</h3>
+                        <p>A JavaScript function is a block of code designed to perform a particular task.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Events</h3>
+                        <p>HTML events are "things" that happen to HTML elements, like when a user clicks a button.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Objects</h3>
+                        <p>Objects are variables too, but they can contain many values written as name:value pairs.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Strings & Numbers</h3>
+                        <p>JavaScript strings are for storing and manipulating text. JavaScript has only one type of number.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Methods</h3>
+                        <p>Methods are actions that can be performed on objects, like string methods or array methods.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Arrays</h3>
+                        <p>JavaScript arrays are used to store multiple values in a single variable.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Arithmetic & Math</h3>
+                        <p>JavaScript arithmetic operators perform arithmetic on numbers. The Math object provides mathematical functions.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Random & Booleans</h3>
+                        <p>The Math.random() method returns a random number between 0 and 1. Booleans can only have two values: true or false.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Comparisons</h3>
+                        <p>Comparison operators are used in logical statements to determine equality or difference between variables or values.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Loops: For & While</h3>
+                        <p>Loops can execute a block of code a number of times, or while a condition is true.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Conditions</h3>
+                        <p>Conditional statements are used to perform different actions based on different conditions.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- References Page -->
+            <section class="content-page" id="references">
+                <h1 class="page-title">References</h1>
+                
+                <!-- HTML Reference -->
+                <div class="content-container active" id="html-reference">
+                    <div class="content-header">
+                        <h2 class="content-title">HTML Reference</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Tag List</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tag</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>&lt;html&gt;</td>
+                                        <td>Defines the root of an HTML document</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;head&gt;</td>
+                                        <td>Contains metadata/information for the document</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;title&gt;</td>
+                                        <td>Defines a title for the document</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;body&gt;</td>
+                                        <td>Defines the document's body</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;h1&gt; to &lt;h6&gt;</td>
+                                        <td>Defines HTML headings</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;p&gt;</td>
+                                        <td>Defines a paragraph</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;a&gt;</td>
+                                        <td>Defines a hyperlink</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;img&gt;</td>
+                                        <td>Defines an image</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</td>
+                                        <td>Defines unordered/ordered lists and list items</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&lt;table&gt;, &lt;tr&gt;, &lt;td&gt;</td>
+                                        <td>Defines a table, table row, and table data</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Attributes</h3>
+                        <p>Common HTML attributes include: id, class, style, src, href, alt, title, width, height, etc.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Events</h3>
+                        <p>Common events: onclick, onmouseover, onload, onchange, onsubmit, etc.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Colors</h3>
+                        <p>Color names, HEX values, RGB, RGBA, HSL, HSLA values.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Audio/Video</h3>
+                        <p>&lt;audio&gt; and &lt;video&gt; tags for embedding media content.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML Canvas & Doctypes</h3>
+                        <p>&lt;canvas&gt; tag for drawing graphics. &lt;!DOCTYPE&gt; declaration defines document type.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>URL Encoding</h3>
+                        <p>URL encoding converts characters into a format that can be transmitted over the Internet.</p>
+                    </div>
+                </div>
+                
+                <!-- CSS Reference -->
+                <div class="content-container" id="css-reference">
+                    <div class="content-header">
+                        <h2 class="content-title">CSS Reference</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Selectors</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Selector</th>
+                                        <th>Example</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Element selector</td>
+                                        <td>p</td>
+                                        <td>Selects all &lt;p&gt; elements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ID selector</td>
+                                        <td>#header</td>
+                                        <td>Selects the element with id="header"</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Class selector</td>
+                                        <td>.intro</td>
+                                        <td>Selects all elements with class="intro"</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Universal selector</td>
+                                        <td>*</td>
+                                        <td>Selects all elements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Attribute selector</td>
+                                        <td>a[target]</td>
+                                        <td>Selects all &lt;a&gt; elements with a target attribute</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Functions</h3>
+                        <p>Common functions: rgb(), rgba(), hsl(), hsla(), calc(), var(), url(), linear-gradient(), etc.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Units</h3>
+                        <p>Absolute: px, pt, cm, mm, in. Relative: %, em, rem, vw, vh, vmin, vmax.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>CSS Colors</h3>
+                        <p>Color names, HEX, RGB, RGBA, HSL, HSLA, currentColor, transparent.</p>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>Web Safe Fonts</h3>
+                        <p>Arial, Helvetica, Times New Roman, Times, Courier New, Courier, Verdana, Georgia, etc.</p>
+                    </div>
+                </div>
+                
+                <!-- JavaScript Reference -->
+                <div class="content-container" id="javascript-reference">
+                    <div class="content-header">
+                        <h2 class="content-title">JavaScript Reference</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>JavaScript Objects</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Object</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>String</td>
+                                        <td>Represents and manipulates a sequence of characters</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Number</td>
+                                        <td>Represents numeric values</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Array</td>
+                                        <td>Represents a collection of elements</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date</td>
+                                        <td>Represents dates and times</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Math</td>
+                                        <td>Provides mathematical functions and constants</td>
+                                    </tr>
+                                    <tr>
+                                        <td>JSON</td>
+                                        <td>Parses and stringifies JSON data</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Promise</td>
+                                        <td>Represents the eventual completion of an async operation</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <h3>HTML DOM Objects</h3>
+                        <p>Document, Element, Event, NodeList, HTMLCollection, etc.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Exercises Page -->
+            <section class="content-page" id="exercises">
+                <h1 class="page-title">Practice Exercises</h1>
+                
+                <!-- HTML Exercises -->
+                <div class="exercise-container active" id="html-exercises">
+                    <div class="exercise-header">
+                        <h2 class="content-title">HTML Exercises</h2>
+                        <div class="exercise-progress">
+                            <div class="progress-circle" style="--progress: 30%">
+                                <div class="progress-text-circle">3/10</div>
+                            </div>
+                            <div>
+                                <div class="user-name">Progress</div>
+                                <div class="user-role">3 exercises completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-item active">
+                        <h4>Exercise 1: Create an HTML Heading</h4>
+                        <p>Create an &lt;h1&gt; element with the text "Welcome to DevHub"</p>
+                        <div class="exercise-editor">
+                            <textarea id="html-exercise-1" class="code-exercise" rows="5" placeholder="Write your HTML code here...">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Exercise 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <!-- Write your code here -->
+    
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-run" onclick="runExercise('html-exercise-1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                            <button class="exercise-btn btn-check" onclick="checkExercise('html-exercise-1', 'html', 1)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('html', 1)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                        <div id="result-html-1" class="result-box"></div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h4>Exercise 2: Create a Paragraph</h4>
+                        <p>Create a &lt;p&gt; element with the text "This is my first HTML exercise."</p>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-check" onclick="checkExercise('html-exercise-2', 'html', 2)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('html', 2)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h4>Exercise 3: Create a Link</h4>
+                        <p>Create an &lt;a&gt; element that links to "https://www.devhub.com" with the text "Visit DevHub"</p>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-check" onclick="checkExercise('html-exercise-3', 'html', 3)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('html', 3)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CSS Exercises -->
+                <div class="exercise-container" id="css-exercises">
+                    <div class="exercise-header">
+                        <h2 class="content-title">CSS Exercises</h2>
+                        <div class="exercise-progress">
+                            <div class="progress-circle" style="--progress: 10%">
+                                <div class="progress-text-circle">1/10</div>
+                            </div>
+                            <div>
+                                <div class="user-name">Progress</div>
+                                <div class="user-role">1 exercise completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-item active">
+                        <h4>Exercise 1: Change Text Color</h4>
+                        <p>Make all paragraphs have red text color.</p>
+                        <div class="exercise-editor">
+                            <textarea id="css-exercise-1" class="code-exercise" rows="5" placeholder="Write your CSS code here...">p {
+    /* Write your code here */
+}</textarea>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-check" onclick="checkExercise('css-exercise-1', 'css', 1)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('css', 1)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                        <div id="result-css-1" class="result-box"></div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h4>Exercise 2: Set Background Color</h4>
+                        <p>Set the background color of the page to lightblue.</p>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-check" onclick="checkExercise('css-exercise-2', 'css', 2)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('css', 2)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JavaScript Exercises -->
+                <div class="exercise-container" id="javascript-exercises">
+                    <div class="exercise-header">
+                        <h2 class="content-title">JavaScript Exercises</h2>
+                        <div class="exercise-progress">
+                            <div class="progress-circle" style="--progress: 5%">
+                                <div class="progress-text-circle">1/20</div>
+                            </div>
+                            <div>
+                                <div class="user-name">Progress</div>
+                                <div class="user-role">1 exercise completed</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="exercise-item active">
+                        <h4>Exercise 1: Declare a Variable</h4>
+                        <p>Declare a variable named "message" and assign it the value "Hello, JavaScript!"</p>
+                        <div class="exercise-editor">
+                            <textarea id="js-exercise-1" class="code-exercise" rows="5" placeholder="Write your JavaScript code here...">// Write your code here</textarea>
+                        </div>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-run" onclick="runExercise('js-exercise-1')">
+                                <i class="fas fa-play"></i> Run Code
+                            </button>
+                            <button class="exercise-btn btn-check" onclick="checkExercise('js-exercise-1', 'javascript', 1)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('javascript', 1)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                        <div id="result-js-1" class="result-box"></div>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <h4>Exercise 2: Create a Function</h4>
+                        <p>Create a function named "greet" that returns "Hello, World!"</p>
+                        <div class="exercise-actions">
+                            <button class="exercise-btn btn-check" onclick="checkExercise('js-exercise-2', 'javascript', 2)">
+                                <i class="fas fa-check"></i> Check Answer
+                            </button>
+                            <button class="exercise-btn btn-solution" onclick="showSolution('javascript', 2)">
+                                <i class="fas fa-eye"></i> Show Solution
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Code Editor Page -->
+            <section class="content-page" id="code-editor">
+                <h1 class="page-title">Live Code Editor</h1>
+                
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <div>
+                            <h3 style="color: var(--light-text); margin-bottom: 5px;">DevHub Code Editor</h3>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">Write, test, and save your HTML, CSS, and JavaScript code</p>
+                        </div>
+                        <div class="editor-tools">
+                            <input type="text" id="fileName" class="file-name-input" placeholder="file-name.html" value="my-code.html">
+                            <select id="languageSelect" style="background-color: rgba(255,255,255,0.05); color: var(--light-text); border: 1px solid var(--border-color); padding: 8px 15px; border-radius: 6px;">
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="javascript">JavaScript</option>
+                            </select>
+                            <button class="editor-btn" id="runEditorBtn">
+                                <i class="fas fa-play"></i> Run
+                            </button>
+                            <button class="editor-btn editor-btn-outline" id="saveBtn">
+                                <i class="fas fa-save"></i> Save
+                            </button>
+                            <button class="editor-btn editor-btn-outline" id="clearBtn">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-area">
+                        <textarea id="codeEditor" placeholder="Write your code here...">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My Code&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a1929;
+            color: #e6f1ff;
+            padding: 40px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #112240;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #00d4aa;
+            text-align: center;
+        }
+        .btn {
+            background-color: #00d4aa;
+            color: #0a1929;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background-color: #00b894;
+            transform: translateY(-2px);
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;Welcome to DevHub Code Editor&lt;/h1&gt;
+        &lt;p&gt;This is a live code editor with syntax highlighting. Try modifying the code and click "Run" to see the changes!&lt;/p&gt;
+        &lt;button class="btn" onclick="showMessage()"&gt;Click Me&lt;/button&gt;
+        &lt;p id="output"&gt;&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;script&gt;
+        function showMessage() {
+            document.getElementById('output').innerHTML = 'Hello from DevHub Code Editor!';
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                        
+                        <div class="output-container">
+                            <div class="output-header">Output</div>
+                            <iframe id="outputFrame"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const navItems = document.querySelectorAll('.menu-item');
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        const contentPages = document.querySelectorAll('.content-page');
+        const contentContainers = document.querySelectorAll('.content-container');
+        const exerciseContainers = document.querySelectorAll('.exercise-container');
+        const hasSubmenuItems = document.querySelectorAll('.has-submenu');
+        
+        // Code Editor Elements
+        const codeEditor = document.getElementById('codeEditor');
+        const outputFrame = document.getElementById('outputFrame');
+        const runEditorBtn = document.getElementById('runEditorBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const languageSelect = document.getElementById('languageSelect');
+        const fileNameInput = document.getElementById('fileName');
+        
+        // Toggle Sidebar on Mobile
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Handle Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Check if item has submenu
+                if (this.classList.contains('has-submenu')) {
+                    const submenu = this.nextElementSibling;
+                    const chevron = this.querySelector('.chevron');
+                    
+                    submenu.classList.toggle('active');
+                    chevron.classList.toggle('rotate');
+                    return;
+                }
+                
+                // Get page to show
+                const pageId = this.getAttribute('data-page');
+                if (!pageId) return;
+                
+                // Update active states
+                navItems.forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected page
+                contentPages.forEach(page => page.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+                
+                // Handle submenu content display
+                if (pageId === 'tutorials' || pageId === 'references') {
+                    // Show first content container by default
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    const firstContainer = document.querySelector(`#${pageId} .content-container`);
+                    if (firstContainer) firstContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                } else if (pageId === 'exercises') {
+                    // Show first exercise container by default
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    const firstExerciseContainer = document.querySelector('#exercises .exercise-container');
+                    if (firstExerciseContainer) firstExerciseContainer.classList.add('active');
+                    
+                    // Activate first submenu item
+                    const submenu = document.getElementById(`${pageId}-submenu`);
+                    if (submenu) {
+                        submenuItems.forEach(item => item.classList.remove('active'));
+                        const firstSubmenuItem = submenu.querySelector('.submenu-item');
+                        if (firstSubmenuItem) firstSubmenuItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Handle Submenu Item Click
+        submenuItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active states
+                const parentSubmenu = this.parentElement;
+                parentSubmenu.querySelectorAll('.submenu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Get content to show
+                const contentId = this.getAttribute('data-content');
+                
+                // Show corresponding content
+                if (contentId.includes('tutorial') || contentId.includes('reference')) {
+                    contentContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                } else if (contentId.includes('exercises')) {
+                    exerciseContainers.forEach(container => container.classList.remove('active'));
+                    document.getElementById(contentId).classList.add('active');
+                }
+                
+                // Close sidebar on mobile after selection
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        
+        // Code Editor Functionality
+        runEditorBtn.addEventListener('click', runEditorCode);
+        saveBtn.addEventListener('click', saveEditorCode);
+        clearBtn.addEventListener('click', clearEditorCode);
+        
+        function runEditorCode() {
+            const code = codeEditor.value;
+            
+            // Create a complete HTML document with the code
+            const htmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Code Output</title>
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            padding: 20px; 
+                            margin: 0;
+                            background-color: #f5f5f5;
+                        }
+                        * {
+                            box-sizing: border-box;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${code}
+                </body>
+                </html>
+            `;
+            
+            // Write the HTML to the iframe
+            const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlDoc);
+            iframeDoc.close();
+        }
+        
+        function saveEditorCode() {
+            const code = codeEditor.value;
+            const fileName = fileNameInput.value || 'code.html';
+            const language = languageSelect.value;
+            
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            
+            showNotification('Code saved successfully!');
+        }
+        
+        function clearEditorCode() {
+            if (confirm('Are you sure you want to clear the editor?')) {
+                codeEditor.value = '';
+                const iframeDoc = outputFrame.contentDocument || outputFrame.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write('');
+                iframeDoc.close();
+                
+                showNotification('Editor cleared!');
+            }
+        }
+        
+        // Exercise Functions
+        function runExercise(textareaId) {
+            const code = document.getElementById(textareaId).value;
+            const tempWindow = window.open();
+            tempWindow.document.write(code);
+            tempWindow.document.close();
+        }
+        
+        function checkExercise(textareaId, language, exerciseNum) {
+            const code = document.getElementById(textareaId).value;
+            const resultBox = document.getElementById(`result-${language}-${exerciseNum}`);
+            
+            // Define correct answers for exercises
+            const solutions = {
+                'html': {
+                    1: /<h1>.*Welcome to DevHub.*<\/h1>/i,
+                    2: /<p>.*This is my first HTML exercise.*<\/p>/i,
+                    3: /<a.*href=.*https:\/\/www\.devhub\.com.*>.*Visit DevHub.*<\/a>/i
+                },
+                'css': {
+                    1: /color:\s*red/i,
+                    2: /background-color:\s*lightblue/i
+                },
+                'javascript': {
+                    1: /(let|var|const)\s+message\s*=\s*["']Hello, JavaScript!["']/i,
+                    2: /function\s+greet\s*\(\s*\)\s*\{[\s\S]*return\s+["']Hello, World!["'][\s\S]*\}/i
+                }
+            };
+            
+            // Check if code matches solution
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution && solution.test(code)) {
+                resultBox.className = 'result-box success';
+                resultBox.innerHTML = '<i class="fas fa-check-circle"></i> Correct! Well done!';
+                
+                // Update progress
+                updateExerciseProgress(language, exerciseNum);
+            } else {
+                resultBox.className = 'result-box error';
+                resultBox.innerHTML = '<i class="fas fa-times-circle"></i> Incorrect. Try again!';
+            }
+            
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function showSolution(language, exerciseNum) {
+            const solutions = {
+                'html': {
+                    1: '<h1>Welcome to DevHub</h1>',
+                    2: '<p>This is my first HTML exercise.</p>',
+                    3: '<a href="https://www.devhub.com">Visit DevHub</a>'
+                },
+                'css': {
+                    1: 'color: red;',
+                    2: 'background-color: lightblue;'
+                },
+                'javascript': {
+                    1: 'let message = "Hello, JavaScript!";',
+                    2: 'function greet() {\n    return "Hello, World!";\n}'
+                }
+            };
+            
+            const solution = solutions[language]?.[exerciseNum];
+            if (solution) {
+                alert(`Solution for ${language.toUpperCase()} Exercise ${exerciseNum}:\n\n${solution}`);
+            }
+        }
+        
+        function updateExerciseProgress(language, exerciseNum) {
+            // In a real app, you would save this to localStorage or a backend
+            console.log(`Exercise ${exerciseNum} completed for ${language}`);
+        }
+        
+        // Notification function
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(to right, var(--primary), var(--secondary));
+                color: var(--dark-header);
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: var(--shadow);
+                z-index: 10000;
+                animation: slideInRight 0.3s, fadeOut 0.3s 2.7s;
+                font-weight: 500;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        // Logout functionality
+        document.querySelector('.logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                showNotification('Logged out successfully!');
+                // In a real app, you would redirect to login page
+                // window.location.href = 'index.html';
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Run code editor on load
+            setTimeout(runEditorCode, 500);
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', (event) => {
+                if (window.innerWidth <= 992 && 
+                    !sidebar.contains(event.target) && 
+                    !menuToggle.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Syntax highlighting for code editor
+            codeEditor.addEventListener('input', function() {
+                // Basic syntax highlighting would be implemented here
+                // In a real app, you would use a library like Prism.js or Highlight.js
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

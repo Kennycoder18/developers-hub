@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developers-Hub Home | Modern Developers Hub</title>
+    <link rel="icon" href="logos/devhub_favicon_2.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="default.css">
+</head>
+<body>
+    <!-- Starry Background -->
+    <div id="stars-container"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <!-- <i class="fas fa-code"></i> -->
+             <img src="logos/devhub_logo.png" alt="devhub_logo" width="90px" height="85px">
+            <!-- <span>DevHub</span> -->
+        </a>
+
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="auth-buttons">
+            <button class="btn btn-signin" id="openSignin">
+                    <i class="fas fa-sign-in-alt"></i> Sign In</a>
+            </button>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Home</a>
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to <span>Developers Hub</span> - The Ultimate Developers Community</h1>
+            <p>Join wth developers countrywide to collaborate, learn, and build amazing projects together. Access tutorials, references, exercises, and a powerful code editor.</p>
+            
+            <div class="hero-buttons">
+                <button class="btn btn-signin" id="heroSignin">
+                    <i class="fas fa-rocket"></i> Get Started
+                </button>
+                <button class="btn btn-outline" id="exploreBtn">
+                    <i class="fas fa-compass"></i> Explore Features
+                </button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-text">Active Developers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-text">Tutorials & Guides</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-text">Community Support</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Developer coding on laptop">
+            
+            <div class="floating-elements">
+                <div class="floating-element">
+                    <i class="fas fa-code" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <p style="margin-top: 5px; font-size: 0.8rem;">Live Editor</p>
+                </div>
+                <div class="floating-element">
+                    <i class="fas fa-users" style="color: var(--secondary); font-size: 1.5rem;"></i>
+                    <p style="margin-top: 5px; font-size: 0.8rem;">Community</p>
+                </div>
+                <div class="floating-element">
+                    <i class="fas fa-graduation-cap" style="color: var(--accent); font-size: 1.5rem;"></i>
+                    <p style="margin-top: 5px; font-size: 0.8rem;">Learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose Developers Hub?</h2>
+        <p class="section-subtitle">Our platform provides everything a modern developer needs to grow, learn, and succeed in the tech industry.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3 class="feature-title">Interactive Code Editor</h3>
+                <p>Write, test, and debug code in our powerful browser-based editor with real-time preview and multiple language support.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="feature-title">Comprehensive Tutorials</h3>
+                <p>Learn from hundreds of tutorials covering HTML, CSS, JavaScript, and all coding concepts.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <h3 class="feature-title">Practice Exercises</h3>
+                <p>Sharpen your skills with interactive coding exercises and challenges that adapt to your skill level.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Community Collaboration</h3>
+                <p>Connect with developers countrywide, share projects, get feedback, and collaborate on open-source initiatives.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h3 class="feature-title">Progress Dashboard</h3>
+                <p>Track your learning journey with detailed analytics, achievements, and personalized recommendations.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3 class="feature-title">Mobile Friendly</h3>
+                <p>Access all features on any device with our fully responsive design optimized for desktop and mobile.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <h2 class="section-title">Developer Community in Action</h2>
+        <p class="section-subtitle">See how developers are using DevHub to learn, collaborate, and build amazing projects together.</p>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Team collaboration">
+                <div class="gallery-overlay">
+                    <h4>Team Collaboration</h4>
+                    <p>Developers working together on projects</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Coding session">
+                <div class="gallery-overlay">
+                    <h4>Live Coding Sessions</h4>
+                    <p>Real-time coding and debugging</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Learning workshop">
+                <div class="gallery-overlay">
+                    <h4>Learning Workshops</h4>
+                    <p>Interactive tutorials and guides</p>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Project showcase">
+                <div class="gallery-overlay">
+                    <h4>Project Showcase</h4>
+                    <p>Showcasing amazing developer projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="about">
+        <div class="cta-content">
+            <h2>Ready to Start Your Developer Journey?</h2>
+            <p>Join thousands of developers who are already improving their skills, building projects, and advancing their careers with DevHub. Sign up today and get access to all our premium features for free!</p>
+            <button class="btn btn-signin" id="ctaSignin" style="background: white; color: var(--primary-dark); font-weight: 700;">
+                <i class="fas fa-user-plus"></i> Create Free Account
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="logos/devhub_logo.png" alt="devhub_logo" width="80px" height="80px">
+                    Developers Hub
+                </div>
+                <p class="footer-description">
+                    The ultimate platform for developers to learn, collaborate, and grow together. Join our community and take your coding skills to the next level.
+                </p>
+                <div class="social-links">
+                    <a href="https://chat.whatsapp.com/CFyJAR4RLiFAQcbM8XVqFE" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://github.com/kennycoder18" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-discord"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-column footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column footer-links">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="https://chat.whatsapp.com/CFyJAR4RLiFAQcbM8XVqFE">Community Forum</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column footer-links">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Code of Conduct</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Developers Hub. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--primary);"></i> for developers worldwide.</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 id="modalTitle">Sign In to DevHub</h2>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-signin" style="flex: 1;">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                    <button type="button" class="btn btn-outline" id="switchToSignup" style="flex: 1;">
+                        <i class="fas fa-user-plus"></i> Sign Up
+                    </button>
+                </div>
+            </form>
+            
+            <div class="modal-switch" id="signupSwitch">
+                <p>Don't have an account? <a href="#" id="switchToSignupLink">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="control/default-script.js"></script>
+</body>
+</html>
